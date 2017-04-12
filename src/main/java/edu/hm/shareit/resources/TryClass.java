@@ -2,10 +2,8 @@ package edu.hm.shareit.resources;
 
 import org.json.JSONObject;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.io.IOException;
@@ -22,26 +20,31 @@ public class TryClass {
 
 
     @POST
+    @Consumes("application/json")
     @Produces("application/json")
-    public Response doSomthing(){
+    public Response doSomthing(Book book){
 
-        System.out.println("wrkt");
+        System.out.println("Post");
+        System.out.println(" post Data titel :" + book.title + "     Autor " + book.author + "     isbn " + book.isbn);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("detail","it_worked");
-
-        return Response.status(501).entity(jsonObject).build();
+        return Response.status(200).entity(jsonObject.toString()).build();
     }
 
 
     @GET
     @Produces("application/json")
     public Response doElse(){
-        System.out.printf("GETTTT");
+        System.out.println("GET");
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("detail","it_worked");
+       // jsonObject.put("detail","it_worked");
+        jsonObject.put("title","spanendes_Buch");
+        jsonObject.put("author","ich");
+        jsonObject.put("isbn",123);
 
-        return Response.status(501).entity(jsonObject).build();
+
+        return Response.status(200).entity(jsonObject.toString()).build();
     }
 
 
