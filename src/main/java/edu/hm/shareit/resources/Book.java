@@ -2,6 +2,7 @@ package edu.hm.shareit.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.json.JSONObject;
 
 /**
  * *****************************************************************
@@ -29,10 +30,17 @@ public class Book {
      * @param t titel
      */
     @JsonCreator
-    public Book(@JsonProperty("author") String a,@JsonProperty("isbn") String i,@JsonProperty("title") String t ){
+    public Book(@JsonProperty("title") String t,@JsonProperty("author") String a,@JsonProperty("isbn") String i ){
         author = a;
         isbn = i;
         title =t;
+    }
+
+    JSONObject toJSON(){
+        return new JSONObject()
+        .put("author",author)
+                .put("isbn",isbn)
+                .put("title",title);
     }
 
 }
