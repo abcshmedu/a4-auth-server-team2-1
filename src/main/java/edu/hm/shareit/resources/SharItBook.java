@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -21,8 +22,8 @@ import java.util.Set;
  * **
  * *****************************************************************
  */
-public class Book {
-    static Set<Book> bookList = new HashSet<>();
+public class SharItBook {
+    static Set<SharItBook> bookList = new HashSet<>();
     String author;
     String isbn;
     String title;
@@ -34,13 +35,13 @@ public class Book {
      * @param t titel
      */
     @JsonCreator
-    public Book(@JsonProperty("title") String t,@JsonProperty("author") String a,@JsonProperty("isbn") String i ){
+    public SharItBook(@JsonProperty("title") String t, @JsonProperty("author") String a, @JsonProperty("isbn") String i ){
         author = a;
         isbn = i;
         title =t;
     }
 
-    JSONObject toJSON(){
+    public JSONObject  toJSON(){
         return new JSONObject()
         .put("author",author)
                 .put("isbn",isbn)
@@ -51,7 +52,7 @@ public class Book {
      * fügt ein buch zu liste der eingetragenen bücher hinzu
      * @param that book to add
      */
-    static public void addBook(Book that ){
+    static public void addBook(SharItBook that ){
         bookList.add(that);
     }
 
@@ -59,7 +60,7 @@ public class Book {
      * löscht ein buch aus der Liste der vorhandenen Bücker
      * @param that delete book
      */
-    static public void deleteBook(Book that){
+    static public void deleteBook(SharItBook that){
         bookList.remove(that);
     }
 
@@ -68,8 +69,19 @@ public class Book {
      * @param that  add book
      * @return  exist?
      */
-    static public  boolean exist(Book that){
-        return bookList.contains(that);
+    static public  boolean exist(SharItBook that){
+        boolean exist = false;
+        Iterator<SharItBook> it = SharItBook.getAllBooks();
+        while(it.hasNext()){
+            SharItBook n = it.next();
+           // System.out.println("is " +that +" eq to " + n);
+            if(n.equals(that)) {
+                System.out.println("is Eq");
+                exist = true;
+                break;
+            }
+        }
+        return exist;
     }
 
     /**
@@ -78,14 +90,32 @@ public class Book {
      * @param that  buch
      * @return isVaild
      */
-    static boolean isValid(Book that){
+     static public boolean isValid(SharItBook that){
         boolean anyNull = that.author != null && that.title != null && that.isbn != null;
         boolean anyEmpty = that.author != "" && that.title != "" && that.isbn != "";
         return anyEmpty && anyNull;
     }
 
-    static Iterator<Book> getAllBooks(){
+    static Iterator<SharItBook> getAllBooks(){
         return bookList.iterator();
     }
+
+    @Override
+    public String toString(){
+        return "Book[ titel: " + title + " autor: " +author + "  isbn:" + isbn +" ]";
+    }
+
+    public boolean equals (Object t){
+        if (this==t) {
+            return true;
+        }
+        if(t == null )
+             return false;
+        if(! (t instanceof SharItBook))
+            return false;
+
+        SharItBook that = (SharItBook)t ;
+        return isbn.equals(that.isbn) && title.equals(that.title)&& that.author.equals(author);
+     }
 
 }

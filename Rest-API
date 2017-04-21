@@ -4,3 +4,9 @@
           "ISBN"    :  number,
       }
 }
+
+POST:
+Legt ein neues Buch an
+
+Get:
+lieft information zu allen büchern
