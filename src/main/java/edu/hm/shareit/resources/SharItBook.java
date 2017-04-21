@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.json.JSONObject;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * *****************************************************************
  * Hochschule Muenchen Fakultaet 07 (Informatik)		**
@@ -18,7 +22,7 @@ import org.json.JSONObject;
  * *****************************************************************
  */
 public class Book {
-
+    static Set<Book> bookList = new HashSet<>();
     String author;
     String isbn;
     String title;
@@ -41,6 +45,47 @@ public class Book {
         .put("author",author)
                 .put("isbn",isbn)
                 .put("title",title);
+    }
+
+    /**
+     * fügt ein buch zu liste der eingetragenen bücher hinzu
+     * @param that book to add
+     */
+    static public void addBook(Book that ){
+        bookList.add(that);
+    }
+
+    /**
+     * löscht ein buch aus der Liste der vorhandenen Bücker
+     * @param that delete book
+     */
+    static public void deleteBook(Book that){
+        bookList.remove(that);
+    }
+
+    /**
+     * überprüft ob es dieses buch bereits gibt
+     * @param that  add book
+     * @return  exist?
+     */
+    static public  boolean exist(Book that){
+        return bookList.contains(that);
+    }
+
+    /**
+     * überprüft, ob ein bucheintrag gültig ist.
+     * dafür müssen alle alle inträge != null sein
+     * @param that  buch
+     * @return isVaild
+     */
+    static boolean isValid(Book that){
+        boolean anyNull = that.author != null && that.title != null && that.isbn != null;
+        boolean anyEmpty = that.author != "" && that.title != "" && that.isbn != "";
+        return anyEmpty && anyNull;
+    }
+
+    static Iterator<Book> getAllBooks(){
+        return bookList.iterator();
     }
 
 }
