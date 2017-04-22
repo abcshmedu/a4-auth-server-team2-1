@@ -22,6 +22,7 @@ import java.util.Set;
  * **
  * *****************************************************************
  */
+//TODO Book Klasse an die beschreibung anpassen
 public class SharItBook {
     static Set<SharItBook> bookList = new HashSet<>();
     String author;
