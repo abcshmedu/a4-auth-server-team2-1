@@ -23,7 +23,7 @@ import java.util.Set;
  * *****************************************************************
  */
 //TODO Book Klasse an die beschreibung anpassen
-public class SharItBook {
+public class SharItBook extends Medium{
     static Set<SharItBook> bookList = new HashSet<>();
 
     private String author;
@@ -38,6 +38,7 @@ public class SharItBook {
      */
     @JsonCreator
     public SharItBook(@JsonProperty("title") String t, @JsonProperty("author") String a, @JsonProperty("isbn") String i ){
+        super(t);
         author = a;
         isbn = i;
         title =t;
