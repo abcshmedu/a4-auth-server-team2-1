@@ -1,8 +1,9 @@
-import edu.hm.shareit.resources.SharIt;
-import edu.hm.shareit.resources.SharItBook;
-import org.junit.Assert;
-import org.junit.Test;
+package edu.hm.shareit.resources;
 
+
+import edu.hm.shareit.resources.SharItBook;
+import org.junit.Test;
+import org.junit.Assert;
 /**
  * *****************************************************************
  * Hochschule Muenchen Fakultaet 07 (Informatik)		**
@@ -16,7 +17,7 @@ import org.junit.Test;
  * **
  * *****************************************************************
  */
-public class BookTest {
+public class SharItBookTest {
 
     @Test public void BookExist(){
         SharItBook b = new SharItBook("a","a","a");
@@ -43,5 +44,31 @@ public class BookTest {
         Assert.assertTrue(!SharItBook.isValid(nv1));
         Assert.assertTrue(!SharItBook.isValid(nv3));
         Assert.assertTrue(!SharItBook.isValid(nv4));
+    }
+
+    @Test public void toJson(){
+        SharItBook b = new SharItBook("a","b","c");
+        Assert.assertEquals("{\"author\":\"b\",\"isbn\":\"c\",\"title\":\"a\"}",b.toJSON().toString());
+    }
+
+    @Test public void geter(){
+        SharItBook b = new SharItBook("a","b","c");
+        Assert.assertEquals(b.getTitle(),"a");
+        Assert.assertEquals(b.getIsbn(),"c");
+        Assert.assertEquals(b.getAuthor(),"b");
+    }
+
+    @Test public void ToSting(){
+        SharItBook b = new SharItBook("a","b","c");
+        Assert.assertEquals("Book[ titel: a autor: b  isbn:c ]",b.toString());
+    }
+
+    @Test public void delBook(){
+        SharItBook b = new SharItBook("a","b","c");
+        SharItBook.deleteBook(b);
+        SharItBook.addBook(b);
+        Assert.assertTrue(SharItBook.exist(b));
+        SharItBook.deleteBook(b);
+        Assert.assertFalse(SharItBook.exist(b));
     }
 }

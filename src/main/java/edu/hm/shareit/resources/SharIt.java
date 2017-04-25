@@ -1,5 +1,6 @@
 package edu.hm.shareit.resources;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ws.rs.*;
@@ -19,27 +20,27 @@ public class SharIt {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response doSomthing(SharItBook that){
+    public Response HttpPost(SharItBook that){
         int returnCode = 200;
         JSONObject jsonObject = new JSONObject();
         // System.out.println("Post");
-        System.out.println(" Titel: " + that.title + "     Autor: " + that.author + "     ISBN : " + that.isbn);
+       //System.out.println(" json Post : Titel: " + that.title + "     Autor: " + that.author + "     ISBN : " + that.isbn);
         // es gibt das buch noch nicht
         if(SharItBook.isValid(that)) {
             if (!SharItBook.exist(that)) {
                 SharItBook.addBook(that);
-                returnCode = 202;
-                //jsonObject.put("detail", "neues buch wurde hinzu gefügt");
+                returnCode = 200;
+                jsonObject.put("detail", "neues buch wurde hinzu gefügt");
                 System.out.println(" add book");
             } else { // das buch gibt es schon
-                returnCode = 226;
-                System.out.println("das buch  " + that +" gibt es schon");
+                returnCode = 400;
+                //System.out.println("das buch  " + that +" gibt es schon");
                 jsonObject.put("detail", "es gibt dieses Buch schon");
-                //System.out.println("book exists");
+                System.out.println("book exists");
             }
         }
         else {
-            returnCode = 400;
+            returnCode = 401;
             jsonObject.put("detail", "Ungültige eingabe");
             System.out.println("ungültige eingabe");
         }
@@ -50,37 +51,27 @@ public class SharIt {
 
     @GET
     @Produces("application/json")
-    public Response doElse(){
+    public Response HttpGet(){
+        int returnCode = 200;
         //  System.out.println("GET");
         JSONObject jsonObject = new JSONObject();
         Iterator<SharItBook> allBooks = SharItBook.getAllBooks();
-
-        if(!allBooks.hasNext())
-            jsonObject.put("detail","Es gibt noch keine bücker");
+        JSONArray array = new JSONArray();
+        if(!allBooks.hasNext()) {
+            jsonObject.put("detail", "Es gibt noch keine bücker");
+            returnCode = 400;
+        }
         else{
             while(allBooks.hasNext()){
                 SharItBook t = allBooks.next();
-                jsonObject.accumulate("books",t.toJSON()); // add to respond
-                System.out.println("add to respond : " + t.title); // test
+                array.put(t.toJSON());
+            //    System.out.println("add to respond : " + t.title); // test
             }
-
+            jsonObject.put("",array);
         }
-
-        System.out.println("respond : " + jsonObject.toString());
-        return Response.status(200).entity( jsonObject.toString()).build();
+       //System.out.println("respond : " + jsonObject.toString());
+        return Response.status(returnCode).entity( array.toString()).build();
     }
 
 
 }
-/*
- if(!allBooks.hasNext())
-            jsonObject.put("detail","Es gibt noch keine bücker");
-        else{
-            while(allBooks.hasNext()){
-                SharItBook t = allBooks.next();
-                jsonObject.accumulate("books",t.toJSON()); // add to respond
-                System.out.println("add to respond : " + t.title); // test
-            }
-
-        }
- */
