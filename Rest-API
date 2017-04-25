@@ -1,12 +1,33 @@
-{ "book": {
-          "name"    : "bookName",
-          "author"  : "name",
-          "ISBN"    :  number,
-      }
-}
+JSON Objekt Aufbau
+{
+                  "name"    : "bookName",
+                  "author"  : "name",
+                  "ISBN"    :  number,
+    }
+
+
 
 POST:
 Legt ein neues Buch an
+Respond: StatusCode:
+        -   200 alles ok buch wurde angelegt
+        -   400 es existiert bereits ein identisches buch
+        -   401 ungültige eingabe
+Respond JSON obj bei 400 und 401
+        {
+            "detail" : "Fehler beschreibung"
+        }
 
 Get:
-lieft information zu allen büchern
+lieft information zu allen angelegten Büchern
+Resond Status Code:
+        -    200 alles ok
+        -    400  es gibt keine angelegten bücher
+Respond JSON obj bei 200
+        {
+            <Beliebige anzahl>
+            {
+                  "name"    : "bookName","author"  : "name", "ISBN"    :  number,
+            }
+            <\Beliebige anzahl>
+        }

@@ -22,11 +22,16 @@ import java.util.Set;
  * **
  * *****************************************************************
  */
+//TODO Book Klasse an die beschreibung anpassen
 public class SharItBook {
     static Set<SharItBook> bookList = new HashSet<>();
-    String author;
-    String isbn;
-    String title;
+
+
+
+
+    private String author;
+    private String isbn;
+    private String title;
 
     /**
      * für den JSON to OBJ parser
@@ -76,7 +81,7 @@ public class SharItBook {
             SharItBook n = it.next();
            // System.out.println("is " +that +" eq to " + n);
             if(n.equals(that)) {
-                System.out.println("is Eq");
+               // System.out.println("is Eq");
                 exist = true;
                 break;
             }
@@ -105,6 +110,7 @@ public class SharItBook {
         return "Book[ titel: " + title + " autor: " +author + "  isbn:" + isbn +" ]";
     }
 
+    @Override
     public boolean equals (Object t){
         if (this==t) {
             return true;
@@ -117,5 +123,29 @@ public class SharItBook {
         SharItBook that = (SharItBook)t ;
         return isbn.equals(that.isbn) && title.equals(that.title)&& that.author.equals(author);
      }
+
+    public String getAuthor() {
+        return author;
+    }
+
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+
+
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Löscht alle Bücher wird für die Test Benötigt
+     */
+    static public void delAllBooks(){
+        bookList = new HashSet<>();
+    }
+
+
 
 }
