@@ -40,7 +40,7 @@ public class SharIt {
             System.out.println("ungültige eingabe");
         }
 
-        return Response.status(200).entity(jsonObject.toString()).build();
+        return Response.status(500).entity(jsonObject.toString()).build();
     }
 
 
@@ -56,13 +56,13 @@ public class SharIt {
         else{
             while(allBooks.hasNext()){
                 SharItBook t = allBooks.next();
-                jsonObject.accumulate("book",t.toJSON()); // add to respond
+                jsonObject.accumulate("books",t.toJSON()); // add to respond
                 System.out.println("add to respond : " + t.title); // test
             }
 
         }
        // System.out.println("respond : " + jsonObject.toString());
-        return Response.status(200).entity( jsonObject.toString()).build();
+        return Response.status(600).entity( jsonObject.toString()).build();
     }
 
 
