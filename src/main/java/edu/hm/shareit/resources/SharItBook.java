@@ -26,9 +26,6 @@ import java.util.Set;
 public class SharItBook {
     static Set<SharItBook> bookList = new HashSet<>();
 
-
-
-
     private String author;
     private String isbn;
     private String title;
