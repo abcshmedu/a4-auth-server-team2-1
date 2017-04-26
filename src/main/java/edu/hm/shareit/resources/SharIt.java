@@ -30,17 +30,20 @@ public class SharIt {
             if (!SharItBook.exist(that)) {
                 SharItBook.addBook(that);
                 returnCode = 200;
+                jsonObject.put("code",returnCode);
                 jsonObject.put("detail", "neues Buch wurde hinzugefügt");
                 System.out.println(" add book");
             } else { // das buch gibt es schon
                 returnCode = 400;
                 //System.out.println("das buch  " + that +" gibt es schon");
+                jsonObject.put("code",returnCode);
                 jsonObject.put("detail", "Es gibt dieses Buch schon.");
                 System.out.println("book exists");
             }
         }
         else {
             returnCode = 400;
+            jsonObject.put("code",returnCode);
             jsonObject.put("detail", "Ungültige Eingabe");
             System.out.println("ungültige Eingabe");
         }
@@ -59,9 +62,11 @@ public class SharIt {
         Iterator<SharItBook> allBooks = SharItBook.getAllBooks();
         JSONArray array = new JSONArray();
         if(!allBooks.hasNext()) {
+
             jsonObject.put("detail", "Es gibt noch keine Bücher!");
             array.put(jsonObject);
             returnCode = 400;
+            jsonObject.put("code",returnCode);
         }
         else{
             while(allBooks.hasNext()){
