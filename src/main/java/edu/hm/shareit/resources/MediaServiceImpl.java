@@ -11,7 +11,7 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public MediaServiceResult addBook(Book book) {
-        //Todo save Books, create MediaServiceResult
+        //Todo save Books check isbn here, create MediaServiceResult
 
         return null;
     }

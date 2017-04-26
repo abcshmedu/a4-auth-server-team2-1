@@ -46,7 +46,7 @@ public class SharItTest {
     public  void post2(){
         Response r = s.HttpPost(b3);
         Assert.assertTrue(!SharItBook.exist(b3));
-        Assert.assertEquals(401, r.getStatus());
+        Assert.assertEquals(400, r.getStatus());
 
 
     }
