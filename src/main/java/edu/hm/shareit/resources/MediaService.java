@@ -5,6 +5,8 @@ package edu.hm.shareit.resources;
  */
 public interface MediaService {
 
+
+
     MediaServiceResult addBook(Book book);
     MediaServiceResult addDisk(Disc disc);
     Medium[] getBooks();

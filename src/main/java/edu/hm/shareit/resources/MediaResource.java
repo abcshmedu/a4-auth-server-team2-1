@@ -1,5 +1,9 @@
 package edu.hm.shareit.resources;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
 import javax.xml.ws.Response;
 
 /**
@@ -7,18 +11,29 @@ import javax.xml.ws.Response;
  */
 public class MediaResource {
 
-    MediaService mediaService;
-
+    MediaService mediaService = new MediaServiceImpl();
 
     public MediaResource(){
 
     }
 
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
     public Response createBook(Book book){
+
+        MediaServiceResult result =  mediaService.addBook(book);
+        //Todo result -> Response
+
         return null;
     }
 
+    @GET
+    @Produces("application/json")
     public Response getBooks(){
+        Medium[] result = mediaService.getBooks();
+        //Todo result -> JSON -> Response
         return null;
     }
 

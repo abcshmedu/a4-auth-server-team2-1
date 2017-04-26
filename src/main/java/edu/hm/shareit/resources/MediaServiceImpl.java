@@ -1,11 +1,18 @@
 package edu.hm.shareit.resources;
 
+import java.util.HashMap;
+
 /**
  * Created by MatHe on 26.04.2017.
  */
 public class MediaServiceImpl implements MediaService {
+
+    HashMap<String, Book> storage = new HashMap<>();
+
     @Override
     public MediaServiceResult addBook(Book book) {
+        //Todo save Books, create MediaServiceResult
+
         return null;
     }
 
@@ -16,6 +23,7 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Medium[] getBooks() {
+        //Todo get Books, create array;
         return new Medium[0];
     }
 
