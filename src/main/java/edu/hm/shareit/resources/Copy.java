@@ -19,4 +19,21 @@ public class Copy {
     public String getOwner() {
         return owner;
     }
+
+
+
+
+    /*
+    Create app (Browser)
+    changed pom.xml from
+    <appName>guarded-earth-88409</appName>
+    to
+    <appName>matthiastestapp</appName>
+
+    cmd: mvn heroku:deploy-war
+    sollte unter https://matthiastestapp.herokuapp.com/
+
+
+
+     */
 }
