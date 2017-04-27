@@ -13,7 +13,7 @@ import java.util.Iterator;
 /**
  * Created by MatHe on 12.04.2017.
  */
-@Path("/media/books")
+//@Path("/media/books")
 public class SharIt {
 
 
@@ -55,6 +55,7 @@ public class SharIt {
 
     @GET
     @Produces("application/json")
+
     public Response HttpGet(){
         int returnCode = 200;
         //  System.out.println("GET");
