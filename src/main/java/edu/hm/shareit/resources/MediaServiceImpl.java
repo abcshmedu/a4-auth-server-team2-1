@@ -40,7 +40,7 @@ public class MediaServiceImpl implements MediaService {
         while(i.hasNext())
             out.add(i.next());
 
-        return (Medium[]) out.toArray();
+        return (Medium[])out.toArray();
     }
 
     @Override

@@ -3,15 +3,13 @@ package edu.hm.shareit.resources;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 /**
  * Created by MatHe on 26.04.2017.
  */
+@Path("/media/books")
 public class MediaResource {
 
     MediaService mediaService = new MediaServiceImpl();
@@ -53,17 +51,21 @@ public class MediaResource {
 
         Medium[] result = mediaService.getBooks();
         JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        int returnCode = 200;
         if (result.length > 0) {
-
             for (int i = 0; i < result.length; i++) {
-                jsonArray.put(result[i].toJSON());
+                jsonArray.put(((Book)result[i]).toJSON());
             }
-            
         }
+        else{
+            returnCode = 400;
+            jsonObject.put("detail", "Es gibt noch keine Bücher!");
+        }
+        jsonObject.put("",jsonArray);
 
-
+        return Response.status(returnCode).entity( jsonObject.toString()).build();
         //Todo result -> JSON -> Response
-        return null;
     }
 
 
