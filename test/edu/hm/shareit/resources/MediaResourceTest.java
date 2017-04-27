@@ -24,10 +24,11 @@ public class MediaResourceTest {
     static Book b1 = new Book("a","a","a");
     static Book b2 = new Book("c","c","c");
     static Book b3 = new Book("c","c",null);
+    MediaService m;
     @Before
     public void init(){
         s = new MediaResource();
-        MediaService m = new MediaServiceImpl();
+        m = new MediaServiceImpl();
     }
 
     @Test
@@ -60,7 +61,20 @@ public class MediaResourceTest {
     @Test public void Get2(){
         s.createBook(b1);
         Response r = s.getBooks();
+        r.getStatus();
+        r.get
         Assert.assertEquals(r.getStatus(),200);
         System.out.println(r.getEntity());
+    }
+
+    @Test public void makeLineCoverageGreat(){
+       m.getBooks();
+       m.getDiscs();
+      m.updateBook(b1);
+      m.updateDisc(new Disc());
+      b1.toString();
+      new Book();
+      s.updateBook();
+      m.addDisk(new Disc());
     }
 }

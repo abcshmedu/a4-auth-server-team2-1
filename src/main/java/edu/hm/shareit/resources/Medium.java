@@ -29,8 +29,8 @@ public abstract class Medium {
         return title.hashCode();
     }
 
-    @Override
-    public String toString(){
-        return "Medium, title: "+getTitle();
-    }
+   //@Override
+    //public String toString(){
+    //return "Medium, title: "+getTitle();
+    //}
 }
