@@ -62,7 +62,7 @@ public class MediaResourceTest {
         s.createBook(b1);
         Response r = s.getBooks();
         r.getStatus();
-        r.get
+       
         Assert.assertEquals(r.getStatus(),200);
         System.out.println(r.getEntity());
     }
