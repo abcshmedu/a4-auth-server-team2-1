@@ -1,8 +1,5 @@
 package edu.hm.shareit.resources;
 
-import org.json.JSONObject;
-
-import javax.ws.rs.core.Response;
 import java.util.*;
 
 /**
@@ -10,7 +7,7 @@ import java.util.*;
  */
 public class MediaServiceImpl implements MediaService {
 
-    static Set<Book> bookList = new HashSet<>();
+    static Set<Book> bookSet = new HashSet<>();
 
 
     @Override
@@ -18,7 +15,7 @@ public class MediaServiceImpl implements MediaService {
         MediaServiceResult out = MediaServiceResult.OK;
         if(Book.isValid(book)) {
             if (!MediaServiceImpl.existBook(book))
-                bookList.add(book);
+                bookSet.add(book);
             else
                 out = MediaServiceResult.CONFLICT;
         }
@@ -35,9 +32,9 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Medium[] getBooks() {
-       Medium[] out = new Medium[bookList.size()];
-        Iterator<Book> i = bookList.iterator();
-        for(int a = 0; i<bookList.size(); i++)
+        Medium[] out = new Medium[bookSet.size()];
+        Iterator<Book> i = bookSet.iterator();
+        for(int a = 0; a < bookSet.size(); a++)
             out[a] = i.next();
 
         return out;
@@ -59,18 +56,8 @@ public class MediaServiceImpl implements MediaService {
     }
 
 
-    static public  boolean existBook(Book that){
-        boolean exist = false;
-        Iterator<SharItBook> it = SharItBook.getAllBooks();
-        while(it.hasNext()){
-            SharItBook n = it.next();
-            // System.out.println("is " +that +" eq to " + n);
-            if(n.equals(that)) {
-                // System.out.println("is Eq");
-                exist = true;
-                break;
-            }
-        }
-        return exist;
+    static public  boolean existBook(Book that) {
+
+        return bookSet.contains(that);
     }
 }

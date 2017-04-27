@@ -61,10 +61,11 @@ public class MediaResource {
         else{
             returnCode = 400;
             jsonObject.put("detail", "Es gibt noch keine Bücher!");
+            return Response.status(returnCode).entity(jsonObject.toString()).build();
         }
         jsonObject.put("",jsonArray);
 
-        return Response.status(returnCode).entity( jsonObject.toString()).build();
+        return Response.status(returnCode).entity( jsonArray.toString()).build();
         //Todo result -> JSON -> Response
     }
 
