@@ -3,50 +3,29 @@ package edu.hm.shareit.resources;
 import org.json.JSONObject;
 
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by MatHe on 26.04.2017.
  */
 public class MediaServiceImpl implements MediaService {
 
-    HashMap<String, Book> storage = new HashMap<>();
+    static Set<Book> bookList = new HashSet<>();
+
 
     @Override
     public MediaServiceResult addBook(Book book) {
-
-        int returnCode = 200;
-        JSONObject jsonObject = new JSONObject();
-        // System.out.println("Post");
-        //System.out.println(" json Post : Titel: " + that.title + "     Autor: " + that.author + "     ISBN : " + that.isbn);
-        // es gibt das buch noch nicht
-        if(SharItBook.isValid(book)) {
-            if (!SharItBook.exist(book)) {
-                SharItBook.addBook(book);
-                returnCode = 200;
-                jsonObject.put("code",returnCode);
-                jsonObject.put("detail", "neues Buch wurde hinzugefügt");
-                System.out.println(" add book");
-            } else { // das buch gibt es schon
-                returnCode = 400;
-                //System.out.println("das buch  " + that +" gibt es schon");
-                jsonObject.put("code",returnCode);
-                jsonObject.put("detail", "Es gibt dieses Buch schon.");
-                System.out.println("book exists");
-            }
+        MediaServiceResult out = MediaServiceResult.OK;
+        if(Book.isValid(book)) {
+            if (!MediaServiceImpl.existBook(book))
+                bookList.add(book);
+            else
+                out = MediaServiceResult.CONFLICT;
         }
-        else {
-            returnCode = 400;
-            jsonObject.put("code",returnCode);
-            jsonObject.put("detail", "Ungültige Eingabe");
-            System.out.println("ungültige Eingabe");
-        }
+        else
+            out = MediaServiceResult.BAD_REQUEST;
+        return out;
 
-
-        return Response.status(returnCode).entity(jsonObject.toString()).build();
-        //Todo save Books check isbn here, create MediaServiceResult
-
-        return null;
     }
 
     @Override
@@ -56,8 +35,12 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Medium[] getBooks() {
-        //Todo get Books, create array;
-        return new Medium[0];
+        ArrayList<Medium> out = new ArrayList<>();
+        Iterator<Book> i = bookList.iterator();
+        while(i.hasNext())
+            out.add(i.next());
+
+        return (Medium[]) out.toArray();
     }
 
     @Override
@@ -73,5 +56,21 @@ public class MediaServiceImpl implements MediaService {
     @Override
     public MediaServiceResult updateDisc(Disc disc) {
         return null;
+    }
+
+
+    static public  boolean existBook(Book that){
+        boolean exist = false;
+        Iterator<SharItBook> it = SharItBook.getAllBooks();
+        while(it.hasNext()){
+            SharItBook n = it.next();
+            // System.out.println("is " +that +" eq to " + n);
+            if(n.equals(that)) {
+                // System.out.println("is Eq");
+                exist = true;
+                break;
+            }
+        }
+        return exist;
     }
 }

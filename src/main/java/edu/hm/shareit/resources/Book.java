@@ -1,5 +1,7 @@
 package edu.hm.shareit.resources;
 
+import org.json.JSONObject;
+
 /**
  * Created by MatHe on 26.04.2017.
  */
@@ -57,6 +59,13 @@ public class Book extends Medium {
         boolean anyNull = that.getAuthor() != null && that.getTitle() != null && that.getIsbn() != null;
         boolean anyEmpty = that.getAuthor() != "" && that.getTitle() != "" && that.getIsbn() != "";
         return anyEmpty && anyNull;
+    }
+
+    public JSONObject toJSON(){
+        return new JSONObject()
+                .put("author",author)
+                .put("isbn",isbn)
+                .put("title",this.getTitle());
     }
 
 }
