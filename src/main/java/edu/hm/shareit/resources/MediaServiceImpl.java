@@ -35,12 +35,12 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Medium[] getBooks() {
-        ArrayList<Medium> out = new ArrayList<>();
+       Medium[] out = new Medium[bookList.size()];
         Iterator<Book> i = bookList.iterator();
-        while(i.hasNext())
-            out.add(i.next());
+        for(int a = 0; i<bookList.size(); i++)
+            out[a] = i.next();
 
-        return (Medium[]) out.toArray();
+        return out;
     }
 
     @Override
