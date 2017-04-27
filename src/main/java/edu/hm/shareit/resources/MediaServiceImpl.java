@@ -7,21 +7,30 @@ import java.util.*;
  */
 public class MediaServiceImpl implements MediaService {
 
-    static Set<Book> bookSet;
-    public MediaServiceImpl(){bookSet =  new HashSet<>();}
+    private static Set<Book> bookSet;
+
+    /**
+     * Default Ctor.
+     */
+    public MediaServiceImpl() {
+        bookSet =  new HashSet<>();
+    }
 
 
     @Override
     public MediaServiceResult addBook(Book book) {
         MediaServiceResult out = MediaServiceResult.OK;
-        if(Book.isValid(book)) {
-            if (!MediaServiceImpl.existBook(book))
+        if (Book.isValid(book)) {
+            if (!MediaServiceImpl.existBook(book)) {
                 bookSet.add(book);
-            else
+            }
+            else {
                 out = MediaServiceResult.CONFLICT;
+            }
         }
-        else
+        else {
             out = MediaServiceResult.BAD_REQUEST;
+        }
         return out;
 
     }
@@ -35,8 +44,11 @@ public class MediaServiceImpl implements MediaService {
     public Medium[] getBooks() {
         Medium[] out = new Medium[bookSet.size()];
         Iterator<Book> i = bookSet.iterator();
-        for(int a = 0; a < bookSet.size(); a++)
+        for (int a = 0; a < bookSet.size(); a++) {
+
+
             out[a] = i.next();
+        }
 
         return out;
     }
@@ -57,7 +69,12 @@ public class MediaServiceImpl implements MediaService {
     }
 
 
-    static public  boolean existBook(Book that) {
+    /**
+     * Checks if a book exists.
+     * @param that book to check.
+     * @return true if the book exists.
+     */
+    public static boolean existBook(Book that) {
 
         return bookSet.contains(that);
     }

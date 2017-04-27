@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
  * Created by MatHe on 26.04.2017.
  */
 public class BookTest {
+    //Todo Equals auf false testen.
     @Test
     public void getAuthorTest() throws Exception {
 

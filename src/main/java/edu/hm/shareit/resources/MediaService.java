@@ -7,42 +7,42 @@ public interface MediaService {
 
 
     /**
-     *
-     * @param book
-     * @return
+     * Adds book.
+     * @param book book to add.
+     * @return result of the operation.
      */
     MediaServiceResult addBook(Book book);
 
     /**
-     *
-     * @param disc
-     * @return
+     * Adds disc.
+     * @param disc disc to add.
+     * @return result of the operation.
      */
     MediaServiceResult addDisk(Disc disc);
 
     /**
-     *
-     * @return
+     * Gets all the books.
+     * @return array of the books as medium.
      */
     Medium[] getBooks();
 
     /**
-     *
-     * @return
+     * Gets all the discs.
+     * @return array of the discs as medium.
      */
     Medium[] getDiscs();
 
     /**
-     *
-     * @param book
-     * @return
+     * not jet implemented.
+     * @param book not jet implemented.
+     * @return not jet implemented.
      */
     MediaServiceResult updateBook(Book book);
 
     /**
-     *
-     * @param disc
-     * @return
+     * not jet implemented.
+     * @param disc not jet implemented.
+     * @return not jet implemented.
      */
     MediaServiceResult updateDisc(Disc disc);
 

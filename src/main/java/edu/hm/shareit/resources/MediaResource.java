@@ -13,33 +13,37 @@ import javax.ws.rs.core.Response;
 public class MediaResource {
 
 
-    MediaService mediaService ;
+    private MediaService mediaService;
 
     /**
      * Default Ctor.
      */
-    public MediaResource(){
+    public MediaResource() {
         mediaService = new MediaServiceImpl();
     }
 
-
+    /**
+     * Creates Book.
+     * @param book book to create.
+     * @return Response if book was successfully created.
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response createBook(Book book){
+    public Response createBook(Book book) {
 
         MediaServiceResult result =  mediaService.addBook(book);
         JSONObject jsonObject = new JSONObject();
-        if (result == MediaServiceResult.OK){
-            jsonObject.put("code",result.getCode());
+        if (result == MediaServiceResult.OK) {
+            jsonObject.put("code", result.getCode());
             jsonObject.put("detail", "Neues Buch wurde hinzugefügt");
         }
-        else if(result== MediaServiceResult.BAD_REQUEST){
-            jsonObject.put("code",result.getCode());
+        else if (result == MediaServiceResult.BAD_REQUEST) {
+            jsonObject.put("code", result.getCode());
             jsonObject.put("detail", "Ungültige Eingabe");
         }
-        else  if (result == MediaServiceResult.CONFLICT){
-            jsonObject.put("code",result.getCode());
+        else  if (result == MediaServiceResult.CONFLICT) {
+            jsonObject.put("code", result.getCode());
             jsonObject.put("detail", "Es gibt dieses Buch schon.");
         }
 
@@ -47,35 +51,39 @@ public class MediaResource {
 
     }
 
+    /**
+     * Gets all the books.
+     * @return Response of all books in JSON.
+     */
     @GET
     @Produces("application/json")
-    public Response getBooks(){
+    public Response getBooks() {
         //Todo check if books there?
 
 
         Medium[] result = mediaService.getBooks();
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
-        int returnCode = 200;
+        int returnCode = MediaServiceResult.OK.getCode();
         if (result.length > 0) {
             for (int i = 0; i < result.length; i++) {
                 jsonArray.put(((Book)result[i]).toJSON());
             }
         }
-        else{
-            returnCode = 400;
+        else {
+            returnCode = MediaServiceResult.BAD_REQUEST.getCode();
             jsonObject.put("detail", "Es gibt noch keine Bücher!");
             return Response.status(returnCode).entity(jsonObject.toString()).build();
         }
-        jsonObject.put("",jsonArray);
+        jsonObject.put("", jsonArray);
 
-        return Response.status(returnCode).entity( jsonArray.toString()).build();
+        return Response.status(returnCode).entity(jsonArray.toString()).build();
         //Todo result -> JSON -> Response
     }
 
     /**
      * Not jet implemented.
-     * @return
+     * @return not jet implemented.
      */
     public Response updateBook() {
         return null;
