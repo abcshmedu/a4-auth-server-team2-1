@@ -50,4 +50,5 @@ public abstract class Medium {
     public String toString() {
         return "Medium, title: " + getTitle();
     }
+
 }

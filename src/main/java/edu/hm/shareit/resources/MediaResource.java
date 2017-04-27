@@ -12,13 +12,14 @@ import javax.ws.rs.core.Response;
 @Path("/media/books")
 public class MediaResource {
 
-    private MediaService mediaService = new MediaServiceImpl();
+
+    MediaService mediaService ;
 
     /**
      * Default Ctor.
      */
     public MediaResource(){
-
+        mediaService = new MediaServiceImpl();
     }
 
 

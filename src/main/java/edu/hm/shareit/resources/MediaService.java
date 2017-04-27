@@ -40,7 +40,7 @@ public interface MediaService {
     MediaServiceResult updateBook(Book book);
 
     /**
-     * 
+     *
      * @param disc
      * @return
      */
