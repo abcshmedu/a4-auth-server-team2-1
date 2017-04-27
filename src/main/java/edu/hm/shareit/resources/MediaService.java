@@ -6,12 +6,44 @@ package edu.hm.shareit.resources;
 public interface MediaService {
 
 
-
+    /**
+     *
+     * @param book
+     * @return
+     */
     MediaServiceResult addBook(Book book);
+
+    /**
+     *
+     * @param disc
+     * @return
+     */
     MediaServiceResult addDisk(Disc disc);
+
+    /**
+     *
+     * @return
+     */
     Medium[] getBooks();
+
+    /**
+     *
+     * @return
+     */
     Medium[] getDiscs();
+
+    /**
+     *
+     * @param book
+     * @return
+     */
     MediaServiceResult updateBook(Book book);
+
+    /**
+     * 
+     * @param disc
+     * @return
+     */
     MediaServiceResult updateDisc(Disc disc);
 
 

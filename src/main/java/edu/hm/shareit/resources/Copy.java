@@ -7,15 +7,28 @@ public class Copy {
     private Medium medium;
     private String owner;
 
-    public Copy(String owner,Medium medium) {
+    /**
+     * Consturctor.
+     * @param owner owner of the copy.
+     * @param medium medium to copy.
+     */
+    public Copy(String owner, Medium medium) {
         this.medium = medium;
         this.owner = owner;
     }
 
+    /**
+     * Getter.
+     * @return medium.
+     */
     public Medium getMedium() {
         return medium;
     }
 
+    /**
+     * Getter.
+     * @return owner.
+     */
     public String getOwner() {
         return owner;
     }

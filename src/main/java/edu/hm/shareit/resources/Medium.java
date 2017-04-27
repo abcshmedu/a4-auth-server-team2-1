@@ -6,18 +6,35 @@ package edu.hm.shareit.resources;
 public abstract class Medium {
     private String title;
 
-    public Medium(String title){
+    /**
+     * Ctor.
+     * @param title title of the medium.
+     */
+    public Medium(String title) {
         this.title = title;
     }
 
-    public String getTitle(){
+    /**
+     * Getter.
+     * @return title.
+     */
+    public String getTitle() {
         return title;
     }
 
+    /**
+     * Equals.
+     * @param o other medium to check.
+     * @return true if the other medium is equal to the other.
+     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Medium medium = (Medium) o;
 
@@ -30,7 +47,7 @@ public abstract class Medium {
     }
 
     @Override
-    public String toString(){
-        return "Medium, title: "+getTitle();
+    public String toString() {
+        return "Medium, title: " + getTitle();
     }
 }

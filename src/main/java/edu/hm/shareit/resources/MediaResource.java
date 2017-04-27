@@ -12,8 +12,11 @@ import javax.ws.rs.core.Response;
 @Path("/media/books")
 public class MediaResource {
 
-    MediaService mediaService = new MediaServiceImpl();
+    private MediaService mediaService = new MediaServiceImpl();
 
+    /**
+     * Default Ctor.
+     */
     public MediaResource(){
 
     }
@@ -69,8 +72,11 @@ public class MediaResource {
         //Todo result -> JSON -> Response
     }
 
-
-    public Response updateBook(){
+    /**
+     * Not jet implemented.
+     * @return
+     */
+    public Response updateBook() {
         return null;
     }
 }

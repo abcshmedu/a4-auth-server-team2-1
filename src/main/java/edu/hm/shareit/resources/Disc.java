@@ -1,7 +1,5 @@
 package edu.hm.shareit.resources;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by MatHe on 26.04.2017.
@@ -11,49 +9,85 @@ public class Disc extends Medium {
     private String director;
     private int fsk;
 
+    /**
+     * Ctor.
+     */
     public Disc() {
         super(" ");
     }
 
-    @JsonCreator
-    public Disc(@JsonProperty("title") String title, @JsonProperty("barcode") String barcode, @JsonProperty("fsk") int fsk, @JsonProperty("diretor") String director) {
+    /**
+     * Ctor.
+     * @param title title of the disc.
+     * @param barcode barcode of the disc.
+     * @param fsk fsk of the disc.
+     * @param director director of the disc.
+     */
+    public Disc(String title, String barcode, int fsk, String director) {
         super(title);
         this.barcode = barcode;
         this.director = director;
         this.fsk = fsk;
     }
 
+    /**
+     * Getter.
+     * @return barcode.
+     */
     public String getBarcode() {
         return barcode;
     }
 
+    /**
+     * Getter.
+     * @return director.
+     */
     public String getDirector() {
         return director;
     }
 
+    /**
+     * Getter.
+     * @return fsk.
+     */
     public int getFsk() {
         return fsk;
     }
 
+    /**
+     * ToString.
+     * @return string representation of the disc.
+     */
     @Override
     public String toString() {
-        return "Disc{" +
-                "barcode='" + barcode + '\'' +
-                ", director='" + director + '\'' +
-                ", fsk=" + fsk +
-                '}';
+        return "Disc{"
+                + "barcode='" + barcode + '\''
+                + ", director='" + director + '\''
+                + ", fsk=" + fsk
+                + '}';
     }
+
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         Disc disc = (Disc) o;
 
-        if (fsk != disc.fsk) return false;
-        if (barcode != null ? !barcode.equals(disc.barcode) : disc.barcode != null) return false;
+        if (fsk != disc.fsk) {
+            return false;
+        }
+        if (barcode != null ? !barcode.equals(disc.barcode) : disc.barcode != null) {
+            return false;
+        }
         return director != null ? director.equals(disc.director) : disc.director == null;
     }
 

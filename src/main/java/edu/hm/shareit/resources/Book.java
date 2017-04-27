@@ -9,41 +9,66 @@ public class Book extends Medium {
 
     private String author;
     private String isbn;
+
+    /**
+     * Default Ctor.
+     */
     public Book() {
         super("");
     }
 
-    public Book(String title, String isbn, String author){
+    /**
+     * Constructor.
+     * @param title title of the book.
+     * @param isbn isbn of the book.
+     * @param author author of the book.
+     */
+    public Book(String title, String isbn, String author) {
         super(title);
         this.author = author;
         this.isbn = isbn;
     }
 
+    /**
+     * Getter.
+     * @return author.
+     */
     public String getAuthor() {
         return author;
     }
 
+    /**
+     * Getter.
+     * @return isbn.
+     */
     public String getIsbn() {
         return isbn;
     }
 
     @Override
     public String toString() {
-        return "Book{" +
-                "author='" + author + '\'' +
-                ", isbn='" + isbn + '\'' +
-                '}';
+        return "Book{"
+                + "author='" + author + '\''
+                + ", isbn='" + isbn + '\''
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         Book book = (Book) o;
-
-        if (author != null ? !author.equals(book.author) : book.author != null) return false;
+        if (author != null ? !author.equals(book.author) : book.author != null) {
+            return false;
+        }
         return isbn != null ? isbn.equals(book.isbn) : book.isbn == null;
     }
 
@@ -55,17 +80,26 @@ public class Book extends Medium {
         return result;
     }
 
-    static public boolean isValid(Book that){
+    /**
+     * Check if book is valid.
+     * @param that book to check.
+     * @return true if the book is valid.
+     */
+    public static boolean isValid(Book that) {
         boolean anyNull = that.getAuthor() != null && that.getTitle() != null && that.getIsbn() != null;
         boolean anyEmpty = that.getAuthor() != "" && that.getTitle() != "" && that.getIsbn() != "";
         return anyEmpty && anyNull;
     }
 
-    public JSONObject toJSON(){
+    /**
+     * Converts to JSON.
+     * @return json Object of the Book.
+     */
+    public JSONObject toJSON() {
         return new JSONObject()
-                .put("author",author)
-                .put("isbn",isbn)
-                .put("title",this.getTitle());
+                .put("author", author)
+                .put("isbn", isbn)
+                .put("title", this.getTitle());
     }
 
 }
