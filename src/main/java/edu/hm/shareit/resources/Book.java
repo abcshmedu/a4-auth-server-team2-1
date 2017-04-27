@@ -52,4 +52,11 @@ public class Book extends Medium {
         result = 31 * result + (isbn != null ? isbn.hashCode() : 0);
         return result;
     }
+
+    static public boolean isValid(Book that){
+        boolean anyNull = that.getAuthor() != null && that.getTitle() != null && that.getIsbn() != null;
+        boolean anyEmpty = that.getAuthor() != "" && that.getTitle() != "" && that.getIsbn() != "";
+        return anyEmpty && anyNull;
+    }
+
 }

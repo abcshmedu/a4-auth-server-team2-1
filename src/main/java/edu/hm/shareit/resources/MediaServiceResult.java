@@ -7,7 +7,7 @@ import com.sun.org.apache.xerces.internal.util.Status;
  */
 public enum MediaServiceResult {
 
-    first,
+    OK,
     second,
     good;
 
