@@ -24,6 +24,17 @@ public class MediaResource {
     public Response createBook(Book book){
 
         MediaServiceResult result =  mediaService.addBook(book);
+        if (result == MediaServiceResult.OK){
+
+        }
+        else if(result== MediaServiceResult.BAD_REQUEST){
+
+        }
+        else  if (result == MediaServiceResult.CONFLICT){
+            
+        }
+
+
         //Todo result -> Response
 
         return null;

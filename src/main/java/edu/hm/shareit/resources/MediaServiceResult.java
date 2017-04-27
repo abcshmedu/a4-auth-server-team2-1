@@ -9,8 +9,8 @@ import javax.ws.rs.core.Response.Status;
 public enum MediaServiceResult {
 
     OK(200, Status.OK),
-    Failed(400, Status.BAD_REQUEST),
-    conflict(409,Status.CONFLICT);
+    BAD_REQUEST(400, Status.BAD_REQUEST),
+    CONFLICT(409,Status.CONFLICT);
 
     private final int id;
 
