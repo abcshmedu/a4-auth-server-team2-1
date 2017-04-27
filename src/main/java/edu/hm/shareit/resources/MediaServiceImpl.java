@@ -7,7 +7,8 @@ import java.util.*;
  */
 public class MediaServiceImpl implements MediaService {
 
-    static Set<Book> bookSet = new HashSet<>();
+    static Set<Book> bookSet;
+    public MediaServiceImpl(){bookSet =  new HashSet<>();}
 
 
     @Override

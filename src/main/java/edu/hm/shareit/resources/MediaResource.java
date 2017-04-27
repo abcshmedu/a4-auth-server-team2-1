@@ -12,10 +12,10 @@ import javax.ws.rs.core.Response;
 @Path("/media/books")
 public class MediaResource {
 
-    MediaService mediaService = new MediaServiceImpl();
+    MediaService mediaService ;
 
     public MediaResource(){
-
+        mediaService = new MediaServiceImpl();
     }
 
 
