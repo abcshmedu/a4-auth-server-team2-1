@@ -1,10 +1,13 @@
 package edu.hm.shareit.resources;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
-import javax.xml.ws.Response;
+import javax.ws.rs.core.Response;
 
 /**
  * Created by MatHe on 26.04.2017.
@@ -24,26 +27,41 @@ public class MediaResource {
     public Response createBook(Book book){
 
         MediaServiceResult result =  mediaService.addBook(book);
+        JSONObject jsonObject = new JSONObject();
         if (result == MediaServiceResult.OK){
-
+            jsonObject.put("code",result.getCode());
+            jsonObject.put("detail", "Neues Buch wurde hinzugefügt");
         }
         else if(result== MediaServiceResult.BAD_REQUEST){
-
+            jsonObject.put("code",result.getCode());
+            jsonObject.put("detail", "Ungültige Eingabe");
         }
         else  if (result == MediaServiceResult.CONFLICT){
-            
+            jsonObject.put("code",result.getCode());
+            jsonObject.put("detail", "Es gibt dieses Buch schon.");
         }
 
+        return Response.status(result.getCode()).entity(jsonObject.toString()).build();
 
-        //Todo result -> Response
-
-        return null;
     }
 
     @GET
     @Produces("application/json")
     public Response getBooks(){
+        //Todo check if books there?
+
+
         Medium[] result = mediaService.getBooks();
+        JSONArray jsonArray = new JSONArray();
+        if (result.length > 0) {
+
+            for (int i = 0; i < result.length; i++) {
+                jsonArray.put(result[i].toJSON());
+            }
+            
+        }
+
+
         //Todo result -> JSON -> Response
         return null;
     }
