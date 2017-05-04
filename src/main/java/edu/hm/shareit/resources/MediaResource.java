@@ -13,13 +13,13 @@ import javax.ws.rs.core.Response;
 public class MediaResource {
 
 
-    private MediaService mediaService;
+    private MediaService mediaService = new MediaServiceImpl();
 
     /**
      * Default Ctor.
      */
     public MediaResource() {
-        mediaService = new MediaServiceImpl();
+        //mediaService = new MediaServiceImpl();
     }
 
     /**
@@ -28,6 +28,7 @@ public class MediaResource {
      * @return Response if book was successfully created.
      */
     @POST
+    //@Path("/books")
     @Consumes("application/json")
     @Produces("application/json")
     public Response createBook(Book book) {
@@ -56,6 +57,7 @@ public class MediaResource {
      * @return Response of all books in JSON.
      */
     @GET
+    //@Path("/books")
     @Produces("application/json")
     public Response getBooks() {
         //Todo check if books there?
@@ -88,4 +90,9 @@ public class MediaResource {
     public Response updateBook() {
         return null;
     }
+
+
+
+
+
 }
