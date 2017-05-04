@@ -13,7 +13,13 @@ public class MediaServiceImpl implements MediaService {
      * Default Ctor.
      */
     public MediaServiceImpl() {
-        bookSet =  new HashSet<>();
+        if (bookSet == null )
+            bookSet =  new HashSet<>();
+    }
+
+    public MediaServiceImpl(boolean reset) {
+        if (reset)
+            bookSet =  new HashSet<>();
     }
 
 

@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 /**
  * Created by MatHe on 26.04.2017.
  */
-@Path("/media/books")
+@Path("/media")
 public class MediaResource {
 
 
@@ -28,7 +28,7 @@ public class MediaResource {
      * @return Response if book was successfully created.
      */
     @POST
-    //@Path("/books")
+    @Path("/books")
     @Consumes("application/json")
     @Produces("application/json")
     public Response createBook(Book book) {
@@ -52,12 +52,14 @@ public class MediaResource {
 
     }
 
+
+
     /**
      * Gets all the books.
      * @return Response of all books in JSON.
      */
     @GET
-    //@Path("/books")
+    @Path("/books")
     @Produces("application/json")
     public Response getBooks() {
         //Todo check if books there?
