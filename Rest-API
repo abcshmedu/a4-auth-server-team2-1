@@ -3,7 +3,7 @@ JSON Objekt Aufbau
                   "name"    : "bookName",
                   "author"  : "name",
                   "ISBN"    :  number,
-    }
+}
 
 
 
