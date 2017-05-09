@@ -37,7 +37,7 @@ public interface MediaService {
      * @param book not jet implemented.
      * @return not jet implemented.
      */
-    MediaServiceResult updateBook(Book book);
+    MediaServiceResult updateBook(String isbn,Book book);
 
     /**
      * not jet implemented.

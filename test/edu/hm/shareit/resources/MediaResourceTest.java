@@ -71,11 +71,21 @@ public class MediaResourceTest {
     @Test public void makeLineCoverageGreat(){
        m.getBooks();
        m.getDiscs();
-      m.updateBook(b1);
       m.updateDisc(new Disc());
       b1.toString();
       new Book();
-      s.updateBook();
+
       m.addDisk(new Disc());
+    }
+
+
+    @Test public void change1(){
+        s.createBook(b1);
+        Book neu = new Book("neuT",b1.getIsbn(),null);
+        Book neu2 = new Book("neuT","",null);
+        s.updateBook(b1.getIsbn(),neu);
+        Assert.assertEquals(neu.getTitle(),b1.getTitle());
+        s.updateBook(b1.getIsbn(),neu2);
+        Assert.assertEquals(neu.getTitle(),m.getBooks()[0].getTitle());
     }
 }

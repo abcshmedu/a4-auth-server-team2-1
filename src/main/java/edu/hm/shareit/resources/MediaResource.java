@@ -89,12 +89,36 @@ public class MediaResource {
         //Todo result -> JSON -> Response
     }
 
+    @GET
+    @Path("/books/{isbn}")
+    @Produces("application/json")
+    public Response GetSingleBook(@PathParam("isbn") String isbn){
+        Medium[] result = mediaService.getBooks();
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        int returnCode = MediaServiceResult.OK.getCode();
+        if (result.length > 0) {
+            for (int i = 0; i < result.length; i++) {
+                if(((Book)result[i]).getIsbn().equals(isbn))
+                    return Response.status(MediaServiceResult.OK.getCode()).entity(((Book)result[i]).toJSON().toString()).build();
+            }
+        }
+        return Response.status(MediaServiceResult.BAD_REQUEST.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
+    }
     /**
      * Not jet implemented.
      * @return not jet implemented.
      */
-    public Response updateBook() {
-        return null;
+    @POST
+    @Path("/books/{isbn}")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response updateBook(@PathParam("isbn") String isbn,Book book) {
+        MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
+        if(book.getIsbn() != null || !book.getIsbn().equals("")){
+                        r = mediaService.updateBook(isbn,book);
+        }
+        return Response.status(r.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
     }
 
 

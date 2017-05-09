@@ -64,9 +64,28 @@ public class MediaServiceImpl implements MediaService {
         return new Medium[0];
     }
 
+    /**
+     * update the book with one specific isbn
+     * and change all other values
+     * @param book isbn shall not ne null
+     * @return
+     */
     @Override
-    public MediaServiceResult updateBook(Book book) {
-        return null;
+    public MediaServiceResult updateBook(String isbn,Book book) {
+        Iterator<Book>i =  bookSet.iterator();
+        while (i.hasNext()){
+            Book b = i.next();
+            if(b.getIsbn().equals(isbn)){
+                if(book.getIsbn() == null || book.getIsbn().equals(""))
+                    return MediaServiceResult.BAD_REQUEST;
+                if(book.getAuthor() != null && !book.getAuthor().equals(""))
+                    b.setAuthor(book.getAuthor());
+                if(book.getTitle() != null && !book.getTitle().equals(""))
+                    b.setTitle(book.getTitle());
+                return MediaServiceResult.OK;
+            }
+        }
+        return MediaServiceResult.BAD_REQUEST;
     }
 
     @Override

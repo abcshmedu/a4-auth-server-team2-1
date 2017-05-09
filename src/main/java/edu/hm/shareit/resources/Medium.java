@@ -21,7 +21,9 @@ public abstract class Medium {
     public String getTitle() {
         return title;
     }
-
+    public void setTitle(String t) {
+         title = t;
+    }
     /**
      * Equals.
      * @param o other medium to check.

@@ -103,4 +103,11 @@ public class Book extends Medium {
                 .put("title", this.getTitle());
     }
 
+    public void setAuthor(String a) {
+        author = a;
+    }
+    public void setISBN(String i) {
+        isbn = i;
+    }
+
 }
