@@ -22,6 +22,10 @@ public class MediaResource {
         //mediaService = new MediaServiceImpl();
     }
 
+    public MediaResource(MediaService service){
+        this.mediaService = service;
+    }
+
     /**
      * Creates Book.
      * @param book book to create.
