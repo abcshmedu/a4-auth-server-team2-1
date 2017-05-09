@@ -32,10 +32,11 @@ public class MediaResourceTest {
     }
 
     @Test
-    public  void post1(){
+    public void post1(){
+        s = new MediaResource();
+        m = new MediaServiceImpl(true);
 
         Response r = s.createBook(b1);
-
         Assert.assertEquals(MediaServiceResult.OK.getCode(), r.getStatus());
         r = s.createBook(b1);
         Assert.assertEquals(MediaServiceResult.CONFLICT.getCode(),r.getStatus());

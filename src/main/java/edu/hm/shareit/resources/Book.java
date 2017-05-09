@@ -88,6 +88,7 @@ public class Book extends Medium {
     public static boolean isValid(Book that) {
         boolean anyNull = that.getAuthor() != null && that.getTitle() != null && that.getIsbn() != null;
         boolean anyEmpty = that.getAuthor() != "" && that.getTitle() != "" && that.getIsbn() != "";
+        // test m = ( [a b c d e f g h i j k l] * [1 3 1 3 1 3 1 3 1 3 1 3] ) mod 10 
         return anyEmpty && anyNull;
     }
 
