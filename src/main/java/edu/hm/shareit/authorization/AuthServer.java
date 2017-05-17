@@ -12,7 +12,7 @@ package edu.hm.shareit.authorization;
 /**
  * Created by MatHe on 17.05.2017.
  */
-@Path("/authorization")
+@Path("authorization")
 public class AuthServer {
 
     public AuthServer(){
@@ -36,10 +36,9 @@ public class AuthServer {
         database.put(newToken,"name=asdf,info=asdfgs2");
 
         return Response.status(400).entity(myResponse.toString()).build();
-
     }
 
-    @POST
+    @GET
     @Path("/signup")
     //@Consumes("application/json")
     @Produces("application/json")
