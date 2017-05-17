@@ -1,9 +1,9 @@
-package edu.hm.shareit.authorization;
+package edu.hm.authorization;
 
 
     import org.json.JSONArray;
     import org.json.JSONObject;
-
+    //import io.jsonwebtoken.*;
     import javax.ws.rs.*;
     import javax.ws.rs.core.Response;
     import java.util.HashMap;
@@ -14,6 +14,7 @@ package edu.hm.shareit.authorization;
  */
 @Path("authorization")
 public class AuthServer {
+    //USE PostMan oder Perl
 
     public AuthServer(){
         System.out.println("HAHAHAHA");
@@ -25,7 +26,7 @@ public class AuthServer {
     @Path("/login")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response login(JSONObject jsonObject){
+    public JSONObject login(JSONObject jsonObject){
         System.out.println(jsonObject.toString());
 
         JSONObject myResponse = new JSONObject();
@@ -35,7 +36,7 @@ public class AuthServer {
         myResponse.put("Token",newToken);
         database.put(newToken,"name=asdf,info=asdfgs2");
 
-        return Response.status(400).entity(myResponse.toString()).build();
+        return myResponse;
     }
 
     @GET
