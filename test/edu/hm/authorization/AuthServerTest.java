@@ -1,4 +1,4 @@
-package edu.hm.shareit.authorization;
+package edu.hm.authorization;
 
 import org.json.JSONObject;
 import org.junit.Test;
@@ -17,9 +17,10 @@ public class AuthServerTest {
         myObject.put("name","matthias");
         myObject.put("pass","matthias");
 
-        Response asdf =  authServer.login(myObject);
+        JSONObject asdf =  authServer.login(myObject);
+        System.out.println("!!!!!!!!!!!!!!!!!");
         System.out.println(asdf.toString());
-        
+
 
 
     }
