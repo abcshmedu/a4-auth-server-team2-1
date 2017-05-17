@@ -9,9 +9,7 @@ package edu.hm.authorization;
     import java.util.HashMap;
     import java.util.Map;
 
-/**
- * Created by MatHe on 17.05.2017.
- */
+
 @Path("/auth/")
 public class AuthServer {
     //USE PostMan oder Perl
