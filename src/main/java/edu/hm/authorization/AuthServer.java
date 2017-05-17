@@ -12,18 +12,15 @@ package edu.hm.authorization;
 /**
  * Created by MatHe on 17.05.2017.
  */
-@Path("authorization")
+@Path("/")
 public class AuthServer {
     //USE PostMan oder Perl
 
-    public AuthServer(){
-        System.out.println("HAHAHAHA");
-    }
-
+    // token zu
     Map<String,String> database = new HashMap<>();
 
     @POST
-    @Path("/login")
+    @Path("login")
     @Consumes("application/json")
     @Produces("application/json")
     public JSONObject login(JSONObject jsonObject){
@@ -37,14 +34,14 @@ public class AuthServer {
         database.put(newToken,"name=asdf,info=asdfgs2");
 
         return myResponse;
-    }
+}
 
     @GET
-    @Path("/signup")
+    @Path("signup")
     //@Consumes("application/json")
     @Produces("application/json")
     public Response signup(){
-        System.out.println("####################");
+
         return Response.status(400).build();
 
     }

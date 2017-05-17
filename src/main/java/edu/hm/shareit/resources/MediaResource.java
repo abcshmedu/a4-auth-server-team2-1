@@ -19,12 +19,12 @@ public class MediaResource {
      * Default Ctor.
      */
     public MediaResource() {
-        System.out.printf("Media");
+
         //mediaService = new MediaServiceImpl();
     }
 
     public MediaResource(MediaService service){
-        System.out.printf("ressource");
+
         this.mediaService = service;
     }
 
