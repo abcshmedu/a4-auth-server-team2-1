@@ -16,7 +16,7 @@ package edu.hm.authorization;
 public class AuthServer {
     //USE PostMan oder Perl
 
-    // token zu
+    // token zu verfügbaren informationen
     Map<String,String> database = new HashMap<>();
 
     @POST
@@ -38,7 +38,7 @@ public class AuthServer {
 
     @GET
     @Path("signup")
-    //@Consumes("application/json")
+    @Consumes("application/json")
     @Produces("application/json")
     public Response signup(){
 
