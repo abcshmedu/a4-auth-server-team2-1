@@ -120,6 +120,8 @@ public class MediaResource {
         if(book.getIsbn() != null || !book.getIsbn().equals("")){
                         r = mediaService.updateBook(isbn,book);
         }
+
+        System.out.println("ASDFASDFASDFASDASDFASDFASDF");
         return Response.status(r.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
     }
 

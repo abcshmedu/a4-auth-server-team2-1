@@ -31,14 +31,14 @@ public class AuthServer {
         myResponse.put("code","200");
         String newToken = "asdfas";
         myResponse.put("Token",newToken);
-        database.put(newToken,"name=asdf,info=asdfgs2");
+        database.put(newToken,"name=asdf,info=asdfgs2,ends=2018");
 
         return myResponse;
 }
 
     @GET
     @Path("signup")
-    @Consumes("application/json")
+    //@Consumes("application/json")
     @Produces("application/json")
     public Response signup(){
 
@@ -47,7 +47,7 @@ public class AuthServer {
     }
 
     @POST
-    @Path("/logout")
+    @Path("logout")
     @Consumes("application/json")
     @Produces("application/json")
     public Response logout(){
@@ -56,7 +56,7 @@ public class AuthServer {
 
 
     @POST
-    @Path("/validate")
+    @Path("validate")
     @Consumes("application/json")
     @Produces("application/json")
     public Response validate(){
