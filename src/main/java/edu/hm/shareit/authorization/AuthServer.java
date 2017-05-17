@@ -15,7 +15,7 @@ package edu.hm.shareit.authorization;
 @Path("/")
 public class AuthServer {
 
-
+    // token zu
     Map<String,String> database = new HashMap<>();
 
     @POST
