@@ -31,7 +31,7 @@ public class AuthServer {
         myResponse.put("code","200");
         String newToken = "asdfas";
         myResponse.put("Token",newToken);
-        database.put(newToken,"name=asdf,info=asdfgs2");
+        database.put(newToken,"name=asdf,info=asdfgs2,ends=2018");
 
         return myResponse;
 }
