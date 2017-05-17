@@ -39,7 +39,7 @@ public class AuthServer {
 
     }
 
-    @POST
+    @GET
     @Path("/signup")
     //@Consumes("application/json")
     @Produces("application/json")

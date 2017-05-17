@@ -57,6 +57,6 @@
 
 	<servlet-mapping>
 	<servlet-name>Authorization</servlet-name>
-	<url-pattern>/authorization/*</url-pattern>
+	<url-pattern>/shareit/authorization/*</url-pattern>
 </servlet-mapping>
 </web-app>
