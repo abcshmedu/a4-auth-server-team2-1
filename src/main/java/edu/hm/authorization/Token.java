@@ -20,6 +20,11 @@ public class Token {
         this.tokn = token;
     }
 
+    public static void main(String[] args) {
+
+        User u = new User("p","w");
+        System.out.println(Token.generateToken(u));
+    }
     /**
      * generiert. für einen bestimmten User ein Token und Speichert dieses dann ab
      * sollte es bereits einen Token zu diesem User geben wird der bereits existierende Token
@@ -45,7 +50,7 @@ public class Token {
     private static String generateToken(){
         String out = "";
         for(int i = 0; i<16; i++){
-            out += (char)(r.nextInt()%255);
+            out += "" + (char)((((char)r.nextInt()%26)%26)+97);
         }
         return out;
     }
