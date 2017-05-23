@@ -11,6 +11,7 @@ import java.util.Set;
 public class User {
 
     private static Set userList = new HashSet<>();
+
     String userName;
     String password;
 

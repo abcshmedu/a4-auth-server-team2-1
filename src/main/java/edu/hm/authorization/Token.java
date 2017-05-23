@@ -64,6 +64,12 @@ public class Token {
         }
         return tokenIxist;
     }
+
+    /**
+     * löscht eden Token zu einen Bestimmten User.
+     * @param user user to dell token
+     * @return del token succes
+     */
     static public boolean deleteToken(User user){
         boolean succes = false;
         Iterator<User> i = mapUserToken.keySet().iterator();
@@ -80,6 +86,10 @@ public class Token {
     }
 
     public String getToken(){
+        return tokn;
+    }
+
+    @Override public String toString(){
         return tokn;
     }
 
