@@ -22,8 +22,8 @@ public class AuthServer {
     @Path("login")
     @Consumes("application/json")
     @Produces("application/json")
-    public JSONObject login(JSONObject jsonObject){
-        System.out.println(jsonObject.toString());
+    public JSONObject login(User user){
+        System.out.println(user.toString());
 
         JSONObject myResponse = new JSONObject();
 
