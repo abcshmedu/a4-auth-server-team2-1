@@ -16,6 +16,8 @@ public class AuthServer {
     public AuthServer(){
         System.out.print("XXX");
     }
+
+
     // token zu verfügbaren informationen
     Map<String,String> database = new HashMap<>();
 

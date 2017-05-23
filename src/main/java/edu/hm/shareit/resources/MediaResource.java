@@ -119,10 +119,12 @@ public class MediaResource {
         MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
         if(book.getIsbn() != null || !book.getIsbn().equals("")){
                         r = mediaService.updateBook(isbn,book);
+            return Response.status(r.getCode()).entity(MediaServiceResult.OK.getStatus()).build();
         }
-
-        System.out.println("ASDFASDFASDFASDASDFASDFASDF");
-        return Response.status(r.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
+        else {
+            System.out.println("Didnt work");
+            return Response.status(r.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
+        }
     }
 
 

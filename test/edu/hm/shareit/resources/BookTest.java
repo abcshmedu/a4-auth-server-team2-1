@@ -50,4 +50,13 @@ public class BookTest {
 
     }
 
+    @Test
+    public void BookAsJSON(){
+        Book book = new Book("title","isbn","author");
+
+        System.out.printf(book.toJSON().toString());
+
+    }
+
+
 }
