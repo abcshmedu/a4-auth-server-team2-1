@@ -36,13 +36,16 @@ public class AuthServer {
         return Response.status(250).entity(myResponse.toString()).build();
 }
 
-    @GET
+    @POST
     @Path("signup")
-    //@Consumes("application/json")
+    @Consumes("application/json")
     @Produces("application/json")
-    public Response sig(){
-
-        return Response.status(400).build();
+    public Response sig(User user){
+        int status = 200;
+        boolean isNew = User.add(user);
+        if(!isNew) // es gibt den user bereits
+            status = 400;
+        return Response.status(status).build();
 
     }
 
@@ -50,8 +53,12 @@ public class AuthServer {
     @Path("logout")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response logout(){
-        return Response.status(400).build();
+    public Response logout(User user){
+        int status = 200;
+        if(!Token.deleteToken(user)) // user does not exist
+            status = 400;
+
+        return Response.status(status).build();
     }
 
 

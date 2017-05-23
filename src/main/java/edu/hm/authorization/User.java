@@ -3,6 +3,7 @@ package edu.hm.authorization;
 import org.json.JSONObject;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -31,10 +32,24 @@ public class User {
         return password;
     }
 
-    public  boolean add(User user){
+    /**
+     * fügt ein neuen User hinzu
+     * @param user user to add
+     * @return true = user added  false user exist
+     */
+    static public  boolean add(User user){
         if(!(userList.contains(user))) {
+            Iterator i = userList.iterator();
+            while(i.hasNext()){
+                if(i.next().equals(user)){
+                    return false;
+
+                }
+
+            }
             userList.add(user);
             return true;
+
         }
         return false;
 
