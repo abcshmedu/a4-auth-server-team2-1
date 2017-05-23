@@ -8,6 +8,7 @@ import java.util.*;
 public class MediaServiceImpl implements MediaService {
 
     private static Set<Book> bookSet;
+    private static Set<Disc> discSet;
 
     /**
      * Default Ctor.
@@ -43,7 +44,19 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public MediaServiceResult addDisk(Disc disc) {
-        return null;
+        MediaServiceResult out = MediaServiceResult.OK;
+        if (Disc.isValid(disc)) {
+            if (!MediaServiceImpl.existDisc(disc)) {
+                discSet.add(disc);
+            }
+            else {
+                out = MediaServiceResult.CONFLICT;
+            }
+        }
+        else {
+            out = MediaServiceResult.BAD_REQUEST;
+        }
+        return out;
     }
 
     @Override
@@ -61,7 +74,13 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Medium[] getDiscs() {
-        return new Medium[0];
+        Medium[] out = new Medium[discSet.size()];
+        Iterator<Disc> i = discSet.iterator();
+        for (int a = 0; a < discSet.size(); a++) {
+            out[a] = i.next();
+        }
+
+        return out;
     }
 
     /**
@@ -90,7 +109,22 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public MediaServiceResult updateDisc(Disc disc) {
-        return null;
+        Iterator<Disc>i =  discSet.iterator();
+        while (i.hasNext()){
+            Disc b = i.next();
+            if(b.getBarcode().equals(disc.getBarcode())){
+                if(disc.getBarcode() == null || disc.getBarcode().equals(""))
+                    return MediaServiceResult.BAD_REQUEST;
+                if(disc.getDirector() != null && !disc.getDirector().equals(""))
+                    b.setDirector(disc.getDirector());
+                if(disc.getFsk() >0)
+                    b.setFsk(disc.getFsk());
+                if(disc.getTitle() != null && !disc.getTitle().equals(""))
+                    b.setTitle(disc.getTitle());
+                return MediaServiceResult.OK;
+            }
+        }
+        return MediaServiceResult.BAD_REQUEST;
     }
 
 
@@ -102,5 +136,15 @@ public class MediaServiceImpl implements MediaService {
     public static boolean existBook(Book that) {
 
         return bookSet.contains(that);
+    }
+
+    /**
+     * Checks if a disc exists.
+     * @param that disc to check.
+     * @return true if the disc exists.
+     */
+    public static boolean existDisc(Disc that) {
+
+        return discSet.contains(that);
     }
 }
