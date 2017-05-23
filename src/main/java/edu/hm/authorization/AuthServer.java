@@ -13,9 +13,7 @@ package edu.hm.authorization;
 @Path("/auth/")
 public class AuthServer {
     //USE PostMan oder Perl
-    public AuthServer(){
-        System.out.print("XXX");
-    }
+    public AuthServer(){}
     // token zu verfügbaren informationen
     Map<String,String> database = new HashMap<>();
 
