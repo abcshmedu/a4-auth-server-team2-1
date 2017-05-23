@@ -18,6 +18,9 @@ public class User {
         userName = name;
         password = pw;
     }
+    public User(){
+
+    };
 
     public String getUserName() {
         return userName;

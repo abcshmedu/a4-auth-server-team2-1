@@ -13,14 +13,6 @@ public class AuthServerTest {
     @Test
     public void firstTest(){
         AuthServer authServer = new AuthServer();
-        JSONObject myObject = new JSONObject();
-        myObject.put("name","matthias");
-        myObject.put("pass","matthias");
-
-        JSONObject asdf =  authServer.login(myObject);
-        System.out.println("!!!!!!!!!!!!!!!!!");
-        System.out.println(asdf.toString());
-
 
 
     }

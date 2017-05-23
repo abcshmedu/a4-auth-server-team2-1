@@ -16,23 +16,24 @@ public class AuthServer {
     public AuthServer(){
     }
     // token zu verfügbaren informationen
-    Map<String,String> database = new HashMap<>();
+    //Map<String,String> database = new HashMap<>();
 
     @POST
     @Path("login")
     @Consumes("application/json")
     @Produces("application/json")
-    public JSONObject login(User user){
+    public Response login(User user){
         System.out.println(user.toString());
 
         JSONObject myResponse = new JSONObject();
 
         myResponse.put("code","200");
+        Token myToken = Token.generateToken(user);
         String newToken = "asdfas";
-        myResponse.put("Token",newToken);
-        database.put(newToken,"name=asdf,info=asdfgs2,ends=2018");
+        myResponse.put("token",myToken.toString());
+        //database.put(newToken,"name=asdf,info=asdfgs2,ends=2018");
 
-        return myResponse;
+        return Response.status(250).entity(myResponse.toString()).build();
 }
 
     @GET
