@@ -1,6 +1,8 @@
 package edu.hm.shareit.resources;
 
 
+import org.json.JSONObject;
+
 /**
  * Created by MatHe on 26.04.2017.
  */
@@ -99,4 +101,19 @@ public class Disc extends Medium {
         result = 31 * result + fsk;
         return result;
     }
+
+
+
+    /**
+     * Converts to JSON.
+     * @return json Object of the Book.
+     */
+    public JSONObject toJSON() {
+        return new JSONObject()
+                .put("barcode", barcode)
+                .put("director", director)
+                .put("fsk", fsk)
+                .put("title", this.getTitle());
+    }
+
 }
