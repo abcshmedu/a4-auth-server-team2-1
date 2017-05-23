@@ -36,5 +36,13 @@ public class User {
 
     }
 
+    public boolean equals(User that){
+        if(that == null)
+            return false;
+        if(that.password.equals(password)& that.userName.equals(userName))
+            return true;
+        else return false;
+    }
+
 
 }
