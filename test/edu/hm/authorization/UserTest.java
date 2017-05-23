@@ -21,24 +21,24 @@ import javax.validation.constraints.AssertTrue;
 public class UserTest {
     @Test
     public void add(){
-        User u1 = new User("a","a");
-        User u2 = new User("a","a");
+        User u1 = new User("UserTesta","UserTesta");
+        User u2 = new User("UserTest","UserTesta");
         Assert.assertTrue(User.add(u1));
         Assert.assertFalse(User.add(u1));
     }
 
     @Test
     public void addtthesame(){
-        User u1 = new User("b","b");
-        User u2 = new User("b","b");
+        User u1 = new User("UserTestb","UserTestb");
+        User u2 = new User("UserTestb","UserTestb");
         Assert.assertTrue(User.add(u1));
         Assert.assertFalse(User.add(u2));
     }
 
     @Test public void eq(){
-        User u1 = new User("c","c");
-        User u2 = new User("c","c");
-        User u3 = new User("cc","cc");
+        User u1 = new User("UserTestc","UserTestc");
+        User u2 = new User("UserTestc","UserTestc");
+        User u3 = new User("UserTestcc","UserTestcc");
         Assert.assertTrue(u1.equals(u1));
         Assert.assertTrue(u1.equals(u2));
         Assert.assertFalse(u1.equals(u3));
@@ -47,8 +47,8 @@ public class UserTest {
 
     @Test public void geter(){
         User u = new User();
-        User u1 = new User("d","f");
-        Assert.assertEquals("d",u1.getUserName());
-        Assert.assertEquals("f",u1.getPassword());
+        User u1 = new User("UserTestd","UserTestf");
+        Assert.assertEquals("UserTestd",u1.getUserName());
+        Assert.assertEquals("UserTestf",u1.getPassword());
     }
 }

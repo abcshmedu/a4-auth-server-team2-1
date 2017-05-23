@@ -20,11 +20,7 @@ public class Token {
         this.tokn = token;
     }
 
-    public static void main(String[] args) {
 
-        User u = new User("p","w");
-        System.out.println(Token.generateToken(u));
-    }
     /**
      * generiert. für einen bestimmten User ein Token und Speichert dieses dann ab
      * sollte es bereits einen Token zu diesem User geben wird der bereits existierende Token

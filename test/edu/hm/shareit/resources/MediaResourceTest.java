@@ -70,8 +70,8 @@ public class MediaResourceTest {
 
     @Test public void makeLineCoverageGreat(){
        m.getBooks();
-       m.getDiscs();
-      m.updateDisc(new Disc());
+
+
       b1.toString();
       new Book();
 
