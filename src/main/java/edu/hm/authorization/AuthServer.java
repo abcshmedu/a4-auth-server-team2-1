@@ -23,16 +23,15 @@ public class AuthServer {
     @Consumes("application/json")
     @Produces("application/json")
     public Response login(User user){
-        System.out.println(user.toString());
-
-        JSONObject myResponse = new JSONObject();
-
-        myResponse.put("code","200");
-        Token myToken = Token.generateToken(user);
-        String newToken = "asdfas";
-        myResponse.put("token",myToken.toString());
-        //database.put(newToken,"name=asdf,info=asdfgs2,ends=2018");
-
+        JSONObject myResponse= new JSONObject();
+        if(!user.exist(user)) {
+            System.out.println(user.toString());
+            System.out.println("login");
+            myResponse.put("code", "200");
+            Token myToken = Token.generateToken(user);
+            myResponse.put("token", myToken.toString());
+        }else
+        System.out.println("user not exist");
         return Response.status(250).entity(myResponse.toString()).build();
 }
 
@@ -41,10 +40,13 @@ public class AuthServer {
     @Consumes("application/json")
     @Produces("application/json")
     public Response sig(User user){
+        System.out.println("add user");
         int status = 200;
         boolean isNew = User.add(user);
-        if(!isNew) // es gibt den user bereits
+        if(!isNew) { // es gibt den user bereits
             status = 400;
+            System.out.println("doppelter user");
+        }
         return Response.status(status).build();
 
     }

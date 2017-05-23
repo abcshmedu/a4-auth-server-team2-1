@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class User {
 
-    private static Set userList = new HashSet<>();
+    private static Set<User> userList = new HashSet<>();
 
     String userName;
     String password;
@@ -38,16 +38,20 @@ public class User {
      * @return true = user added  false user exist
      */
     static public  boolean add(User user){
-        if(!(userList.contains(user))) {
-            Iterator i = userList.iterator();
-            while(i.hasNext()){
-                if(i.next().equals(user)){
-                    return false;
-
-                }
-
-            }
+        if(exist(user)) {
             userList.add(user);
+            return true;
+        }
+        return false;
+
+    }
+    static public  boolean exist(User user){
+        if(!(userList.contains(user))) {
+            Iterator<User> i = userList.iterator();
+            while(i.hasNext()){
+                if(i.next().equals(user))
+                    return false;
+            }
             return true;
 
         }

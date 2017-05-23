@@ -38,7 +38,6 @@ public class MediaResource {
     @Consumes("application/json")
     @Produces("application/json")
     public Response createBook(Book book) {
-
         MediaServiceResult result =  mediaService.addBook(book);
         JSONObject jsonObject = new JSONObject();
         if (result == MediaServiceResult.OK) {

@@ -44,4 +44,11 @@ public class UserTest {
         Assert.assertFalse(u1.equals(u3));
         Assert.assertFalse(u1.equals(null));
     }
+
+    @Test public void geter(){
+        User u = new User();
+        User u1 = new User("d","f");
+        Assert.assertEquals("d",u1.getUserName());
+        Assert.assertEquals("f",u1.getPassword());
+    }
 }
