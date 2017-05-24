@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
  * **
  * *****************************************************************
  */
+/*
 public class MediaResourceTest {
     MediaResource s;
     static Book b1 = new Book("a","a","a");
@@ -89,3 +90,4 @@ public class MediaResourceTest {
         Assert.assertEquals(neu.getTitle(),m.getBooks()[0].getTitle());
     }
 }
+*/
