@@ -68,7 +68,7 @@ public class AuthServer {
     @Path("validate")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response validate(){
+    public Response validate(Token token){
         return Response.status(400).build();
     }
 

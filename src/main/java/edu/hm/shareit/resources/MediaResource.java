@@ -1,5 +1,7 @@
 package edu.hm.shareit.resources;
 
+import edu.hm.authorization.AuthServer;
+import edu.hm.authorization.Token;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,6 +16,7 @@ public class MediaResource {
 
 
     private MediaService mediaService = new MediaServiceImpl();
+    private AuthServer authServer = new AuthServer();
 
     /**
      * Default Ctor.
@@ -64,10 +67,10 @@ public class MediaResource {
     @GET
     @Path("/books")
     @Produces("application/json")
-    public Response getBooks() {
+    @Consumes("application/json")
+    public Response getBooks(Token token) {
         //Todo check if books there?
-
-
+        if (authServer.validate(token).getStatus() == 200){
         Medium[] result = mediaService.getBooks();
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
@@ -84,8 +87,11 @@ public class MediaResource {
         }
         jsonObject.put("", jsonArray);
 
-        return Response.status(returnCode).entity(jsonArray.toString()).build();
+
         //Todo result -> JSON -> Response
+            return Response.status(returnCode).entity(jsonArray.toString()).build();
+        }
+        return Response.status(400).build();
     }
 
     @GET
