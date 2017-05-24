@@ -118,9 +118,7 @@ public class MediaResource {
     @Path("/books/{isbn}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response updateBook(@PathParam("isbn") String isbn,Book book) {
-
-
+    public Response updateBook(@PathParam("isbn") String isbn,Token token, Book book) {
 
         MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
         if(book.getIsbn() != null || !book.getIsbn().equals("")){
