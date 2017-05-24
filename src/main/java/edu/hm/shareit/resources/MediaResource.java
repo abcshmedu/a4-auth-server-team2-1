@@ -108,7 +108,6 @@ public class MediaResource  {
     @Path("/books/{isbn}/{token}")
     @Produces("application/json")
     public Response GetSingleBook(@PathParam("isbn") String isbn,@PathParam("token")String token) {
-
         if (Token.isAccesGranted(token)) {
             Medium[] result = mediaService.getBooks();
             JSONArray jsonArray = new JSONArray();
