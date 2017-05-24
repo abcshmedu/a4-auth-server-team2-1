@@ -3,9 +3,6 @@ package edu.hm;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.Test;
-import org.junit.rules.Timeout;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by MatHe on 12.04.2017.
@@ -26,4 +23,9 @@ public class JettyStarterTest {
         jetty.join();
     }
 
+    /**
+     * Created by MatHe on 24.05.2017.
+     */
+    public static class TestApplication {
+    }
 }
