@@ -51,7 +51,7 @@ public class Token {
         return out;
     }
 
-    static boolean isAccesGranded(String token){
+    public static boolean isAccesGranted(String token){
        boolean tokenIxist = false;
         Iterator<User> i = mapUserToken.keySet().iterator();
         while(i.hasNext()){

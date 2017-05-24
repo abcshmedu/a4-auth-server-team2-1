@@ -28,12 +28,12 @@ public class TokenTest {
 
     @Test public void AccesNotGrand(){
         Token t = new Token("abc");
-        Assert.assertFalse(Token.isAccesGranded(t.getToken()));
+        Assert.assertFalse(Token.isAccesGranted(t.getToken()));
     }
     @Test public void AccesGranded(){
         User u = new User("peter","pw");
         Token t = Token.generateToken(u);
-        Assert.assertTrue(Token.isAccesGranded(t.getToken()));
+        Assert.assertTrue(Token.isAccesGranted(t.getToken()));
     }
 
 
@@ -46,8 +46,8 @@ public class TokenTest {
     @Test public void delUser(){
         User u = new User("XXX","pw");
         Token t = Token.generateToken(u);
-        Assert.assertTrue(Token.isAccesGranded(t.getToken()));
+        Assert.assertTrue(Token.isAccesGranted(t.getToken()));
         Token.deleteToken(u);
-        Assert.assertFalse(Token.isAccesGranded(t.getToken()));
+        Assert.assertFalse(Token.isAccesGranted(t.getToken()));
     }
 }

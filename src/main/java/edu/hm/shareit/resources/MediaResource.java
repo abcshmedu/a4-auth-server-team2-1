@@ -40,24 +40,25 @@ public class MediaResource {
     @Path("/books")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response createBook(Book book) {
-        MediaServiceResult result =  mediaService.addBook(book);
-        JSONObject jsonObject = new JSONObject();
-        if (result == MediaServiceResult.OK) {
-            jsonObject.put("code", result.getCode());
-            jsonObject.put("detail", "Neues Buch wurde hinzugefügt");
-        }
-        else if (result == MediaServiceResult.BAD_REQUEST) {
-            jsonObject.put("code", result.getCode());
-            jsonObject.put("detail", "Ungültige Eingabe");
-        }
-        else  if (result == MediaServiceResult.CONFLICT) {
-            jsonObject.put("code", result.getCode());
-            jsonObject.put("detail", "Es gibt dieses Buch schon.");
-        }
+    public Response createBook(@QueryParam("token")String token,Book book) {
 
-        return Response.status(result.getCode()).entity(jsonObject.toString()).build();
+        if (Token.isAccesGranted(token)) {
+            MediaServiceResult result = mediaService.addBook(book);
+            JSONObject jsonObject = new JSONObject();
+            if (result == MediaServiceResult.OK) {
+                jsonObject.put("code", result.getCode());
+                jsonObject.put("detail", "Neues Buch wurde hinzugefügt");
+            } else if (result == MediaServiceResult.BAD_REQUEST) {
+                jsonObject.put("code", result.getCode());
+                jsonObject.put("detail", "Ungültige Eingabe");
+            } else if (result == MediaServiceResult.CONFLICT) {
+                jsonObject.put("code", result.getCode());
+                jsonObject.put("detail", "Es gibt dieses Buch schon.");
+            }
 
+            return Response.status(result.getCode()).entity(jsonObject.toString()).build();
+        }
+        return noToken();
     }
 
     /**
@@ -67,10 +68,13 @@ public class MediaResource {
     @GET
     @Path("/books")
     @Produces("application/json")
-    @Consumes("application/json")
-    public Response getBooks(Token token) {
+    //?token=asdfasdfasd
+    public Response getBooks(@QueryParam("token")String token) {
         //Todo check if books there?
-        if (authServer.validate(token).getStatus() == 200){
+        //String-> Token
+        //Validieren
+        if (Token.isAccesGranted(token)){
+
         Medium[] result = mediaService.getBooks();
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
@@ -91,24 +95,30 @@ public class MediaResource {
         //Todo result -> JSON -> Response
             return Response.status(returnCode).entity(jsonArray.toString()).build();
         }
-        return Response.status(400).build();
+        else {
+            return noToken();
+        }
     }
 
     @GET
     @Path("/books/{isbn}")
     @Produces("application/json")
-    public Response GetSingleBook(@PathParam("isbn") String isbn){
-        Medium[] result = mediaService.getBooks();
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new JSONObject();
-        int returnCode = MediaServiceResult.OK.getCode();
-        if (result.length > 0) {
-            for (int i = 0; i < result.length; i++) {
-                if(((Book)result[i]).getIsbn().equals(isbn))
-                    return Response.status(MediaServiceResult.OK.getCode()).entity(((Book)result[i]).toJSON().toString()).build();
+    public Response GetSingleBook(@QueryParam("token")String token,@PathParam("isbn") String isbn) {
+        if (Token.isAccesGranted(token)) {
+            Medium[] result = mediaService.getBooks();
+            JSONArray jsonArray = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
+            int returnCode = MediaServiceResult.OK.getCode();
+            if (result.length > 0) {
+                for (int i = 0; i < result.length; i++) {
+                    if (((Book) result[i]).getIsbn().equals(isbn))
+                        return Response.status(MediaServiceResult.OK.getCode()).entity(((Book) result[i]).toJSON().toString()).build();
+                }
             }
+            return Response.status(MediaServiceResult.BAD_REQUEST.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
+        } else {
+            return noToken();
         }
-        return Response.status(MediaServiceResult.BAD_REQUEST.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
     }
     /**
      * Not jet implemented.
@@ -118,16 +128,19 @@ public class MediaResource {
     @Path("/books/{isbn}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response updateBook(@PathParam("isbn") String isbn,Token token, Book book) {
+    public Response updateBook(@QueryParam("token")String token,@PathParam("isbn") String isbn, Book book) {
 
-        MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
-        if(book.getIsbn() != null || !book.getIsbn().equals("")){
-                        r = mediaService.updateBook(isbn,book);
-            return Response.status(r.getCode()).entity(MediaServiceResult.OK.getStatus()).build();
-        }
-        else {
-            System.out.println("Didnt work");
-            return Response.status(r.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
+        if (Token.isAccesGranted(token)) {
+            MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
+            if (book.getIsbn() != null || !book.getIsbn().equals("")) {
+                r = mediaService.updateBook(isbn, book);
+                return Response.status(r.getCode()).entity(MediaServiceResult.OK.getStatus()).build();
+            } else {
+                System.out.println("Didnt work");
+                return Response.status(r.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
+            }
+        } else {
+            return noToken();
         }
     }
 
@@ -235,5 +248,11 @@ public class MediaResource {
 
 
 
+    private Response noToken(){
+        String message = "Fail Authorization!";
+        JSONObject result = new JSONObject();
+        result.put("detail",message);
+        return Response.status(400).entity(result.toString()).build();
+    }
 
 }
