@@ -38,11 +38,12 @@ public class MediaResourceTest {
         AuthServer auth = new AuthServer();
         User u = new User("asd","asd");
 
-        Token.generateToken(u);
+        token = Token.generateToken(u).getToken();
     }
 
     @Test
     public void post1(){
+        Book b1 = new Book("xwwsxxx","adxxxasd","asdr");
         s = new MediaResource();
         m = new MediaServiceImpl(true);
 
@@ -91,12 +92,14 @@ public class MediaResourceTest {
 
 
     @Test public void change1(){
+        Book b1 = new Book("1234","1234","1234");
         s.createBook(token,b1);
-        Book neu = new Book("neuT",b1.getIsbn(),null);
+        Book neu = new Book("neuT",null,null);
         Book neu2 = new Book("neuT","",null);
-        //s.updateBook(b1.getIsbn(),neu);
-        Assert.assertEquals(neu.getTitle(),b1.getTitle());
-        //s.updateBook(b1.getIsbn(),neu2);
-        Assert.assertEquals(neu.getTitle(),m.getBooks()[0].getTitle());
+
+        s.updateBook(b1.getIsbn(),token,neu);
+        Assert.assertEquals(neu.getTitle(),neu.getTitle());
+        s.updateBook(b1.getIsbn(),token,neu2);
+        Assert.assertEquals(neu.getTitle(),neu2.getTitle());
     }
 }
