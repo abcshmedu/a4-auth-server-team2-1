@@ -95,7 +95,7 @@ public class MediaServiceImpl implements MediaService {
         while (i.hasNext()){
             Book b = i.next();
             if(b.getIsbn().equals(isbn)){
-                if(book.getIsbn() == null || book.getIsbn().equals(""))
+                if(book.getIsbn() != null && !book.getIsbn().equals(""))
                     return MediaServiceResult.BAD_REQUEST;
                 if(book.getAuthor() != null && !book.getAuthor().equals(""))
                     b.setAuthor(book.getAuthor());

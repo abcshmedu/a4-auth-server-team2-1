@@ -137,7 +137,7 @@ public class MediaResource  {
 
         if (Token.isAccesGranted(token)) {
             MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
-            if (book.getIsbn() != null && !book.getIsbn().equals("")) {
+            if (book.getIsbn() == null || book.getIsbn().equals("")) {
                 r = mediaService.updateBook(isbn, book);
                 return Response.status(r.getCode()).entity(MediaServiceResult.OK.getStatus()).build();
             } else {
