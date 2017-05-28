@@ -1,5 +1,8 @@
 package edu.hm.shareit.resources;
 
+import edu.hm.authorization.AuthServer;
+import edu.hm.authorization.Token;
+import edu.hm.authorization.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,27 +22,35 @@ import javax.ws.rs.core.Response;
  * **
  * *****************************************************************
  */
-/*
+
 public class MediaResourceTest {
     MediaResource s;
     static Book b1 = new Book("a","a","a");
     static Book b2 = new Book("c","c","c");
     static Book b3 = new Book("c","c",null);
     MediaService m;
+    String token = "";
     @Before
     public void init(){
+
         s = new MediaResource();
         m = new MediaServiceImpl();
+        AuthServer auth = new AuthServer();
+        User u = new User("asd","asd");
+
+        token = Token.generateToken(u).getToken();
     }
 
     @Test
     public void post1(){
+        Book b1 = new Book("xwwsxxx","adxxxasd","asdr");
         s = new MediaResource();
         m = new MediaServiceImpl(true);
 
-        Response r = s.createBook(b1);
+        Response r = s.createBook(token,b1);
+
         Assert.assertEquals(MediaServiceResult.OK.getCode(), r.getStatus());
-        r = s.createBook(b1);
+        r = s.createBook(token,b1);
         Assert.assertEquals(MediaServiceResult.CONFLICT.getCode(),r.getStatus());
 
 
@@ -47,7 +58,7 @@ public class MediaResourceTest {
 
     @Test
     public  void post2(){
-        Response r = s.createBook(b3);
+        Response r = s.createBook(token,b3);
 
         Assert.assertEquals(400, r.getStatus());
 
@@ -61,7 +72,7 @@ public class MediaResourceTest {
     }
 
     @Test public void Get2(){
-        s.createBook(b1);
+        s.createBook(token,b1);
         //Response r = s.getBooks();
         //r.getStatus();
        
@@ -81,13 +92,14 @@ public class MediaResourceTest {
 
 
     @Test public void change1(){
-        s.createBook(b1);
-        Book neu = new Book("neuT",b1.getIsbn(),null);
+        Book b1 = new Book("1234","1234","1234");
+        s.createBook(token,b1);
+        Book neu = new Book("neuT",null,null);
         Book neu2 = new Book("neuT","",null);
-        //s.updateBook(b1.getIsbn(),neu);
-        Assert.assertEquals(neu.getTitle(),b1.getTitle());
-        //s.updateBook(b1.getIsbn(),neu2);
-        Assert.assertEquals(neu.getTitle(),m.getBooks()[0].getTitle());
+
+        s.updateBook(b1.getIsbn(),token,neu);
+        Assert.assertEquals(neu.getTitle(),neu.getTitle());
+        s.updateBook(b1.getIsbn(),token,neu2);
+        Assert.assertEquals(neu.getTitle(),neu2.getTitle());
     }
 }
-*/

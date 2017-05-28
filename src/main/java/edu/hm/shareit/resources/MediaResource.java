@@ -105,9 +105,9 @@ public class MediaResource  {
     }
 
     @GET
-    @Path("/books/{isbn}/{token}")
+    @Path("/books/{isbn}")
     @Produces("application/json")
-    public Response GetSingleBook(@PathParam("isbn") String isbn,@PathParam("token")String token) {
+    public Response GetSingleBook(@PathParam("isbn") String isbn,@QueryParam("token") String token) {
         if (Token.isAccesGranted(token)) {
             Medium[] result = mediaService.getBooks();
             JSONArray jsonArray = new JSONArray();
@@ -137,7 +137,7 @@ public class MediaResource  {
 
         if (Token.isAccesGranted(token)) {
             MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
-            if (book.getIsbn() != null || !book.getIsbn().equals("")) {
+            if (book.getIsbn() == null || book.getIsbn().equals("")) {
                 r = mediaService.updateBook(isbn, book);
                 return Response.status(r.getCode()).entity(MediaServiceResult.OK.getStatus()).build();
             } else {
