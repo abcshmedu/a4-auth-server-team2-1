@@ -44,7 +44,7 @@ public interface MediaService {
      * @param disc not jet implemented.
      * @return not jet implemented.
      */
-    MediaServiceResult updateDisc(Disc disc);
+    MediaServiceResult updateDisc(String barcode, Disc disc);
 
 
 }

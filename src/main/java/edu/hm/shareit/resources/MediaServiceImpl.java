@@ -111,11 +111,11 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Override
-    public MediaServiceResult updateDisc(Disc disc) {
+    public MediaServiceResult updateDisc(String barcode, Disc disc) {
         Iterator<Disc>i =  discSet.iterator();
         while (i.hasNext()){
             Disc b = i.next();
-            if(b.getBarcode().equals(disc.getBarcode())){
+            if(b.getBarcode().equals(barcode)){
                 if(disc.getBarcode() == null || disc.getBarcode().equals(""))
                     return MediaServiceResult.BAD_REQUEST;
                 if(disc.getDirector() != null && !disc.getDirector().equals(""))

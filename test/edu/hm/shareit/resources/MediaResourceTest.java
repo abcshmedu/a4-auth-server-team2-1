@@ -28,6 +28,10 @@ public class MediaResourceTest {
     static Book b1 = new Book("a","a","a");
     static Book b2 = new Book("c","c","c");
     static Book b3 = new Book("c","c",null);
+    static Disc d1 = new Disc("a","a",1,"a");
+    static Disc d2 = new Disc("c","c",2,"c");
+    static Disc d3 = new Disc("c","c",3,null);
+
     MediaService m;
     String token = "";
     @Before
@@ -115,6 +119,74 @@ public class MediaResourceTest {
         System.out.println(m.getBooks(token).getStatus());
         Assert.assertEquals(m.getBooks(token).getStatus(),200);
         Assert.assertEquals(m.GetSingleBook(b1.getIsbn(),token).getStatus(),200);
+
+    }
+
+
+    //##############Discs
+
+    @Test
+    public void Dpost1(){
+        Disc d1 = new Disc("xwwsxxx","adxxxasd",4,"asdr");
+        s = new MediaResource();
+        m = new MediaServiceImpl(true);
+
+        Response r = s.createDisc(token,d1);
+
+        Assert.assertEquals(MediaServiceResult.OK.getCode(), r.getStatus());
+        r = s.createDisc(token,d1);
+        Assert.assertEquals(MediaServiceResult.CONFLICT.getCode(),r.getStatus());
+
+
+    }
+
+    @Test
+    public  void Dpost2(){
+        Response r = s.createDisc(token,d3);
+
+        Assert.assertEquals(400, r.getStatus());
+
+
+    }
+
+
+    @Test public void DGet2(){
+        s.createDisc(token,d1);
+        //Response r = s.getBooks();
+        //r.getStatus();
+
+        //Assert.assertEquals(r.getStatus(),200);
+        //System.out.println(r.getEntity());
+    }
+    
+
+
+    @Test public void Dchange1(){
+        Disc d1 = new Disc("1234","1234",1,"1234");
+        s.createDisc(token,d1);
+        Disc neu = new Disc("neuT","neuB",1,"neuD");
+        Disc neu2 = new Disc("neuT","",1,null);
+
+        s.updateDisc(d1.getBarcode(),token,neu);
+        Response resp = s.GetSingleDisc(d1.getBarcode(),token);
+        System.out.println(resp.getEntity().toString());
+        Assert.assertEquals(d1.getTitle(),neu.getTitle());
+        s.updateDisc(d1.getBarcode(),token,neu2);
+        Assert.assertEquals(neu.getTitle(),neu2.getTitle());
+    }
+
+    @Test public void Dimplem(){
+        User u = new User("peter2","xxxx2");
+        Disc d1 = new Disc("asdasdasd","111111",0,"asde");
+        Disc d2 = new Disc("xxxxx","22222",0,"asdasdcx");
+
+        String token = Token.generateToken(u).getToken();
+        MediaResource m = new MediaResource();
+        m.createDisc(token,d1);
+        m.createDisc(token,d2);
+        System.out.println(m.getDiscs(token).getStatus());
+        Assert.assertEquals(m.getDiscs(token).getStatus(),200);
+        Assert.assertEquals(m.GetSingleDisc(d1.getBarcode(),token).getStatus(),200);
 
     }
 }

@@ -218,7 +218,7 @@ public class MediaResource  {
     @GET
     @Path("/discs/{barcode}")
     @Produces("application/json")
-    public Response GetSingleDisc(@QueryParam("token")String token,@PathParam("barcode") String barcode) {
+    public Response GetSingleDisc(@PathParam("barcode") String barcode,@QueryParam("token")String token) {
         if (Token.isAccesGranted(token)) {
             Medium[] result = mediaService.getDiscs();
             JSONArray jsonArray = new JSONArray();
@@ -244,12 +244,12 @@ public class MediaResource  {
     @Path("/discs/{barcode}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response updateDisc(@QueryParam("token")String token,@PathParam("barcode") String barcode,Disc disc) {
+    public Response updateDisc(@PathParam("barcode") String barcode,@QueryParam("token")String token,Disc disc) {
 
         if (Token.isAccesGranted(token)) {
             MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
-            if (disc.getBarcode() != null || !disc.getBarcode().equals("")) {
-                r = mediaService.updateDisc(disc);
+            if (disc.getBarcode() != null && !disc.getBarcode().equals("")) {
+                r = mediaService.updateDisc(barcode, disc);
                 return Response.status(r.getCode()).entity(MediaServiceResult.OK.getStatus()).build();
             } else {
                 System.out.println("Didnt work");
