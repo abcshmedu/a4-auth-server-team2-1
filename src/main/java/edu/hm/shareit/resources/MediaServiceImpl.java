@@ -16,6 +16,9 @@ public class MediaServiceImpl implements MediaService {
     public MediaServiceImpl() {
         if (bookSet == null )
             bookSet =  new HashSet<>();
+        if (discSet == null )
+            discSet =  new HashSet<>();
+
     }
 
     public MediaServiceImpl(boolean reset) {
