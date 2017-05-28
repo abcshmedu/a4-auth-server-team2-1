@@ -30,8 +30,7 @@ public class AuthServer {
             myResponse.put("code", "200");
             Token myToken = Token.generateToken(user);
             myResponse.put("token", myToken.toString());
-        }else
-        System.out.println("user not exist");
+        }
         return Response.status(250).entity(myResponse.toString()).build();
 }
 
@@ -45,7 +44,6 @@ public class AuthServer {
         boolean isNew = User.add(user);
         if(!isNew) { // es gibt den user bereits
             status = 400;
-            System.out.println("doppelter user");
         }
         return Response.status(status).build();
 
@@ -69,7 +67,10 @@ public class AuthServer {
     @Consumes("application/json")
     @Produces("application/json")
     public Response validate(Token token){
-        return Response.status(400).build();
+        int status = 200;
+        if(!Token.isAccesGranted(token.getToken()))
+            status = 400;
+        return Response.status(status).build();
     }
 
 

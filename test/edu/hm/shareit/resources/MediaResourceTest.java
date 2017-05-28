@@ -102,4 +102,19 @@ public class MediaResourceTest {
         s.updateBook(b1.getIsbn(),token,neu2);
         Assert.assertEquals(neu.getTitle(),neu2.getTitle());
     }
+
+    @Test public void implem(){
+        User u = new User("peter","xxxx");
+        Book b1 = new Book("asdasdasd","111111","asde");
+        Book b2 = new Book("xxxxx","22222","asdasdcx");
+
+        String token = Token.generateToken(u).getToken();
+        MediaResource m = new MediaResource();
+        m.createBook(token,b1);
+        m.createBook(token,b2);
+        System.out.println(m.getBooks(token).getStatus());
+        Assert.assertEquals(m.getBooks(token).getStatus(),200);
+        Assert.assertEquals(m.GetSingleBook(b1.getIsbn(),token).getStatus(),200);
+
+    }
 }

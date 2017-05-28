@@ -79,6 +79,7 @@ public class Token {
             if(u.equals(user)) {
                 if (mapUserToken.containsKey(u)) {
                     mapUserToken.remove(u);
+                    succes = true;
                     break;
                 }
             }
