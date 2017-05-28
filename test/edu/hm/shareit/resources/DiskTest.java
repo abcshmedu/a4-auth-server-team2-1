@@ -3,6 +3,9 @@ package edu.hm.shareit.resources;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * *****************************************************************
  * Hochschule Muenchen Fakultaet 07 (Informatik)		**
@@ -39,6 +42,35 @@ public class DiskTest {
         Assert.assertEquals(d1.getFsk(),18);
         Assert.assertEquals(d1.getDirector(),"ich");
         Assert.assertEquals(d1.getBarcode(),"123");
+    }
+
+
+    @Test
+    public void setterTest() {
+
+        Disc d1 = new Disc("empty", "barcode", 0, "empty");
+        d1.setTitle("title");
+        d1.setFsk(33);
+        d1.setDirector("director");
+        Disc d2 = new Disc("title", "barcode", 33, "director");
+        assertTrue(d1.equals(d2));
+
+    }
+
+    @Test
+    public void DiscAsJSON(){
+        Disc disc = new Disc("title", "barcode", 33, "director");
+
+        System.out.printf(disc.toJSON().toString()+":"+disc.toString());
+
+    }
+
+    @Test
+    public void hashCodeTest() throws Exception {
+        Disc d1 = new Disc("title", "barcode", 33, "director");
+        d1.hashCode();
+        Disc d2 = new Disc("title", "barcode", 33, "director");
+        assertEquals(d2.hashCode(),d1.hashCode());
     }
 
 }

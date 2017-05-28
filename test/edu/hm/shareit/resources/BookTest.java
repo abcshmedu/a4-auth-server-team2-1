@@ -58,5 +58,15 @@ public class BookTest {
 
     }
 
+    @Test
+    public void setterTest(){
+        Book b1 = new Book("empty","empty","empty");
+        b1.setAuthor("author");
+        b1.setISBN("isbn");
+        b1.setTitle("titel");
+        Book b2 = new Book("titel","isbn","author");
+        assertTrue(b1.equals(b2));
+    }
+
 
 }
