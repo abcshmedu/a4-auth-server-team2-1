@@ -18,6 +18,9 @@ import java.util.Set;
 @Path("/media")
 public class MediaResource  {
 
+    //Todo check isbn for real and make to only numbers
+
+
 
     private MediaService mediaService = new MediaServiceImpl();
     private AuthServer authServer = new AuthServer();
@@ -78,8 +81,8 @@ public class MediaResource  {
         //String-> Token
         //Validieren
         if (Token.isAccesGranted(token)){
-
         Medium[] result = mediaService.getBooks();
+        //HttpRequest für teilbare Microservices
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         int returnCode = MediaServiceResult.OK.getCode();

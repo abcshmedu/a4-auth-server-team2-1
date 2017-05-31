@@ -61,4 +61,10 @@
 	<servlet-name>Authorization</servlet-name>
 	<url-pattern>/authorization/*</url-pattern>
 </servlet-mapping>
+	<listener>
+		<listener-class>
+			edu.hm.ShareitServletContextListener
+		</listener-class>
+	</listener>
+
 </web-app>

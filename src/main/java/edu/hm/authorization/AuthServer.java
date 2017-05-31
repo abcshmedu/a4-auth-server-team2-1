@@ -23,15 +23,17 @@ public class AuthServer {
     @Consumes("application/json")
     @Produces("application/json")
     public Response login(User user){
+        int status = 400;
         JSONObject myResponse= new JSONObject();
         if(!user.exist(user)) {
             System.out.println(user.toString());
             System.out.println("login");
             myResponse.put("code", "200");
+            status = 201;
             Token myToken = Token.generateToken(user);
             myResponse.put("token", myToken.toString());
         }
-        return Response.status(250).entity(myResponse.toString()).build();
+        return Response.status(status).entity(myResponse.toString()).build();
 }
 
     @POST
