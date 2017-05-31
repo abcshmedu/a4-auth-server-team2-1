@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 public class AuthServerTest {
     AuthServer auth = new AuthServer();
 
-   @Test public void addUser(){
+   /*@Test public void addUser(){
        User u = new User("a","a");
 
 
@@ -22,7 +22,7 @@ public class AuthServerTest {
 
 
 
-   }
+   }*/
 
     @Test public void addDubbleUser(){
         User u = new User("b","b");
