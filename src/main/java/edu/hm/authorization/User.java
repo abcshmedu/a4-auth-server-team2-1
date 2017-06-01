@@ -45,6 +45,7 @@ public class User {
         return false;
 
     }
+
     static public  boolean exist(User user){
         if(!(userList.contains(user))) {
             Iterator<User> i = userList.iterator();

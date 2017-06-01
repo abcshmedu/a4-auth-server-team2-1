@@ -65,6 +65,9 @@ public class Token {
         }
         return tokenIxist;
     }
+    public boolean isAccesGranted(){
+        return isAccesGranted(this.getToken());
+    }
 
     /**
      * löscht eden Token zu einen Bestimmten User.

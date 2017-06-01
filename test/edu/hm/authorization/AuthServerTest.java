@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 /**
  * Created by MatHe on 17.05.2017.
  */
@@ -27,16 +30,18 @@ public class AuthServerTest {
     @Test public void addDubbleUser(){
         User u = new User("b","b");
 
-
+        //TODO Static MOCK
         Assert.assertEquals( auth.sig(u).getStatus(),200);
-        Assert.assertEquals(  auth.sig(u).getStatus(),400);
+
+       Assert.assertEquals(  auth.sig(u).getStatus(),400);
     }
 
    @Test public void valid(){
-        Token t = new Token("asdasd");
-        Assert.assertFalse(auth.validate(t).getStatus() == 200);
-        User u = new User("asd","ads");
-        t = Token.generateToken(u);
-       Assert.assertTrue(auth.validate(t).getStatus() == 200);
+
+        Token tokenMock = mock(Token.class);
+        when(tokenMock.isAccesGranted()).thenReturn(false);
+        Assert.assertFalse(auth.validate(tokenMock).getStatus() == 200);
+       when(tokenMock.isAccesGranted()).thenReturn(true);
+       Assert.assertTrue(auth.validate(tokenMock).getStatus() == 200);
     }
 }

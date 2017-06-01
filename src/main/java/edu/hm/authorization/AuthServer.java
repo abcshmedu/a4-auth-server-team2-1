@@ -70,7 +70,7 @@ public class AuthServer {
     @Produces("application/json")
     public Response validate(Token token){
         int status = 200;
-        if(!Token.isAccesGranted(token.getToken()))
+        if(!token.isAccesGranted())
             status = 400;
         return Response.status(status).build();
     }

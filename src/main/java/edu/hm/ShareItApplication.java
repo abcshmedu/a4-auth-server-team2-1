@@ -1,8 +1,7 @@
-package edu.hm.authorization;
+package edu.hm;
 
 import javax.inject.Inject;
 
-import edu.hm.ShareitServletContextListener;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.jvnet.hk2.guice.bridge.api.GuiceBridge;

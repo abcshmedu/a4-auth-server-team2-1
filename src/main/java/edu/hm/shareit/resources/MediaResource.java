@@ -1,5 +1,6 @@
 package edu.hm.shareit.resources;
 
+import com.google.inject.Inject;
 import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.Token;
 import org.glassfish.jersey.filter.LoggingFilter;
@@ -21,7 +22,7 @@ public class MediaResource  {
     //Todo check isbn for real and make to only numbers
 
 
-
+    @Inject
     private MediaService mediaService = new MediaServiceImpl();
     private AuthServer authServer = new AuthServer();
 

@@ -3,8 +3,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
-import edu.hm.shareit.services.MediaService;
-import edu.hm.shareit.services.MediaServiceImpl;
+import edu.hm.shareit.resources.MediaService;
+import edu.hm.shareit.resources.MediaServiceImpl;
 
 /**
  * Context Listener to enable usage of google guice together with jersey.
@@ -30,7 +30,7 @@ extends GuiceServletContextListener {
      *
      * @return Injector instance.
      */
-    static Injector getInjectorInstance() {
+    public static Injector getInjectorInstance() {
         return injector;
     }
 }

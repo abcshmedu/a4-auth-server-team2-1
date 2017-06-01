@@ -9,6 +9,9 @@ import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 
+import static edu.hm.ShareitServletContextListener.injector;
+import static org.mockito.Mockito.mock;
+
 /**
  * Created by MatHe on 28.05.2017.
  */
@@ -60,7 +63,7 @@ public class CopyTest {
 
         @Test
         public void post1(){
-            Book b1 = new Book("xwwsxxx","adxxxasd","asdr");
+            Book b1 = mock(Book.class);
             s = new MediaResource();
             m = new MediaServiceImpl(true);
 
