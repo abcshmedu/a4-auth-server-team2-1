@@ -1,24 +1,42 @@
 package edu.hm.authorization;
 
+import edu.hm.persistierung.HibernateUtils;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.internal.SessionImpl;
+import org.hibernate.query.*;
 import org.json.JSONObject;
 
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+
+import static edu.hm.ShareitServletContextListener.injector;
+
 
 /**
  * Created by lapi on 17/05/2017.
  */
+@Entity
 public class User {
 
     private static Set<User> userList = new HashSet<>();
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
     String userName;
     String password;
 
     public User(String name, String pw){
         userName = name;
         password = pw;
+
     }
     public User(){
 
@@ -46,8 +64,31 @@ public class User {
 
     }
 
+    public static void main(String[] args) {
+
+        System.out.println(exist(new User("abc","abc")));
+    }
     static public  boolean exist(User user){
-        if(!(userList.contains(user))) {
+
+        Session s = injector.getInstance(SessionFactory.class).getCurrentSession();
+        Transaction tx = s.beginTransaction();
+
+        CriteriaBuilder builder = s.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.where(builder.equal(root.get("firstName"), "Neville"));
+        org.hibernate.query.Query<User> q = s.createQuery(query);
+        List<User> persons = q.getResultList();
+
+      if(persons.size() == 0) {
+          s.persist(user);
+          tx.commit();
+          s.close();
+          return true;
+      }
+        s.close();
+
+       /* if(!(userList.contains(user))) {
             Iterator<User> i = userList.iterator();
             while(i.hasNext()){
                 if(i.next().equals(user))
@@ -56,6 +97,7 @@ public class User {
             return true;
 
         }
+        */
         return false;
 
     }

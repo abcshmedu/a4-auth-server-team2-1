@@ -11,7 +11,7 @@ import edu.hm.shareit.resources.MediaServiceImpl;
  */
 public class ShareitServletContextListener
 extends GuiceServletContextListener {
-    private static final Injector injector
+    public static final Injector injector
             = Guice.createInjector(new ServletModule() {
         @Override
         protected void configureServlets() {
