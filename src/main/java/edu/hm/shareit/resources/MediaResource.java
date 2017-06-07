@@ -97,9 +97,13 @@ public class MediaResource  {
             }
         }
         else {
+            /* old
             returnCode = MediaServiceResult.BAD_REQUEST.getCode();
             jsonObject.put("detail", "Es gibt noch keine Bücher!");
             return Response.status(returnCode).entity(jsonObject.toString()).build();
+            */
+            returnCode = MediaServiceResult.OK.getCode();
+
         }
         jsonObject.put("", jsonArray);
 

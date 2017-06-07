@@ -56,7 +56,7 @@ public class User {
      * @return true = user added  false user exist
      */
     static public  boolean add(User user){
-        if(exist(user)) {
+        if(!exist(user)) {
             userList.add(user);
             return true;
         }
