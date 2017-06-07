@@ -69,8 +69,9 @@ public class User {
         System.out.println(exist(new User("abc","abc")));
     }
 
-    //Todo static
+    //Todo static?
     static public  boolean exist(User user){
+        /*
         Session s = injector.getInstance(SessionFactory.class).getCurrentSession();
         Transaction tx = s.beginTransaction();
 
