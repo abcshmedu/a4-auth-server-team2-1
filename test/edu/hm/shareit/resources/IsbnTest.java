@@ -9,33 +9,34 @@ import org.junit.Test;
 public class IsbnTest {
     @Test
     public void firstCheck(){
-        Book.checkIsbn("1234567890");
+
+        new Book().checkIsbn("1234567890");
     }
 
 
     @Test
     public void secondCheck(){
         boolean bool;
-        bool = Book.checkIsbn("978-3-12-732320-7");
+        bool = new Book().checkIsbn("978-3-12-732320-7");
         Assert.assertTrue(bool);
     }
 
     @Test
     public void firstFailCheck(){
         boolean bool;
-        bool = Book.checkIsbn("978-3-12-732320-6");
+        bool = new Book().checkIsbn("978-3-12-732320-6");
         Assert.assertFalse(bool);
     }
     @Test
     public void secondFailCheck(){
         boolean bool;
-        bool = Book.checkIsbn("12-732320-6");
+        bool = new Book().checkIsbn("12-732320-6");
         Assert.assertFalse(bool);
     }
     @Test
     public void thirdFailCheck(){
         boolean bool;
-        bool = Book.checkIsbn("9783127323206");
+        bool = new Book().checkIsbn("9783127323206");
         Assert.assertFalse(bool);
     }
 }
