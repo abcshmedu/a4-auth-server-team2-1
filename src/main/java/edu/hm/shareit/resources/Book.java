@@ -94,8 +94,10 @@ public class Book extends Medium {
     }
 
     public static boolean checkIsbn(String isbn){
-        if(isbn.length()== 13) {
             isbn = isbn.replaceAll("-", "");
+            if (isbn.length() != 13){
+                return false;
+            }
             char[] arr = isbn.toCharArray();
             int[] intArray = new int[13];
             for (int i = 0; i < intArray.length; i++) {
@@ -106,13 +108,9 @@ public class Book extends Medium {
                 sum += (1) * intArray[i];
                 sum += (3) * intArray[i+1];
             }
-            sum = sum+intArray[13];
+            sum = sum+intArray[12];
 
             return sum % 10 == 0;
-        }
-        else{
-            return true;
-        }
     }
 
     /**
