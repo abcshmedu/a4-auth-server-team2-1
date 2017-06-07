@@ -123,7 +123,8 @@ public class Disc extends Medium {
      * @param that disc to check.
      * @return true if the disc is valid.
      */
-    public static boolean isValid(Disc that) {
+    public boolean isValid() {
+        Disc that = this;
         boolean anyNull = that.getBarcode() != null && that.getTitle() != null && that.getDirector() != null&& that.getFsk() >=0;
         boolean anyEmpty = that.getBarcode() != "" && that.getTitle() != "" && that.getDirector() != "";
         // test m = ( [a b c d e f g h i j k l] * [1 3 1 3 1 3 1 3 1 3 1 3] ) mod 10

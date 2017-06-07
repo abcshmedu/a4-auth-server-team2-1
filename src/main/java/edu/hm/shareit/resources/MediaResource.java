@@ -4,15 +4,10 @@ import com.google.inject.Inject;
 import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.Token;
-import org.glassfish.jersey.filter.LoggingFilter;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import javax.ws.rs.*;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by MatHe on 26.04.2017.

@@ -16,9 +16,12 @@ import static org.mockito.Mockito.mock;
 public class TestModul extends AbstractModule{
     @Override
     protected void configure() {
+        // erzeuge das Mock Obj
         Set mockSet = mock(Set.class);
+        // Jdes mal wenn in der Klasse eine Variale vom Type MediService verwendet wird wird ein Default obj von Median Service Imp injekziert
         bind(MediaService.class).to(MediaServiceImpl.class);
         bind(IAuthServer.class).to(AuthServer.class);
+        // Bind die Variable mit dem Type Set an ein Bestimmtes Obj
         bind(Set.class).toInstance(mockSet);
     }
 }

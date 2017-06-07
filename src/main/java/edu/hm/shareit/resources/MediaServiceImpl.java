@@ -52,7 +52,7 @@ public class MediaServiceImpl implements MediaService {
     @Override
     public MediaServiceResult addDisk(Disc disc) {
         MediaServiceResult out = MediaServiceResult.OK;
-        if (Disc.isValid(disc)) {
+        if (disc.isValid()) {
             if (!MediaServiceImpl.existDisc(disc)) {
                 discSet.add(disc);
             }
@@ -81,7 +81,8 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Medium[] getDiscs() {
-        Medium[] out = new Medium[discSet.size()];
+        int s = discSet.size();
+        Medium[] out = new Medium[s];
         Iterator<Disc> i = discSet.iterator();
         for (int a = 0; a < discSet.size(); a++) {
             out[a] = i.next();
