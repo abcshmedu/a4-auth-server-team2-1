@@ -1,5 +1,6 @@
 package edu.hm.shareit.resources;
 
+import javax.inject.Inject;
 import java.util.*;
 
 /**
@@ -7,7 +8,9 @@ import java.util.*;
  */
 public class MediaServiceImpl implements MediaService {
 
+    @Inject
     private static Set<Book> bookSet;
+    @Inject
     private static Set<Disc> discSet;
 
     /**
@@ -21,6 +24,7 @@ public class MediaServiceImpl implements MediaService {
 
     }
 
+
     public MediaServiceImpl(boolean reset) {
         if (reset)
             bookSet =  new HashSet<>();
@@ -30,7 +34,7 @@ public class MediaServiceImpl implements MediaService {
     @Override
     public MediaServiceResult addBook(Book book) {
         MediaServiceResult out = MediaServiceResult.OK;
-        if (Book.isValid(book)) {
+        if (book.isValid()) {
             if (!MediaServiceImpl.existBook(book)) {
                 bookSet.add(book);
             }

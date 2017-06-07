@@ -85,7 +85,8 @@ public class Book extends Medium {
      * @param that book to check.
      * @return true if the book is valid.
      */
-    public static boolean isValid(Book that) {
+    public boolean isValid() {
+        Book that = this;
         boolean anyNull = that.getAuthor() != null && that.getTitle() != null && that.getIsbn() != null;
         boolean anyEmpty = that.getAuthor() != "" && that.getTitle() != "" && that.getIsbn() != "";
         boolean isbn = checkIsbn(that.getIsbn());
@@ -93,7 +94,7 @@ public class Book extends Medium {
         return anyEmpty && anyNull;
     }
 
-    public static boolean checkIsbn(String isbn){
+    public boolean checkIsbn(String isbn){
             isbn = isbn.replaceAll("-", "");
             if (isbn.length() != 13){
                 return false;
