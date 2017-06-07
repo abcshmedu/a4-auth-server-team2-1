@@ -1,6 +1,7 @@
 package edu.hm.persistierung;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.servlet.ServletModule;
 import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.MockAuthServer;
@@ -13,9 +14,10 @@ import org.hibernate.cfg.Configuration;
 /**
  * Created by axel on 26.05.17.
  */
-public class GuiceModule extends AbstractModule {
+public class GuiceModule extends ServletModule {
 
-    protected void configure() {
+    @Override
+    protected void configureServlets() {
         //bind(SessionFactory.class).toInstance(new Configuration().configure().buildSessionFactory());
 
         //Todo insert Dependenc Injection
@@ -24,5 +26,8 @@ public class GuiceModule extends AbstractModule {
         bind(IAuthServer.class)
                 .to(MockAuthServer.class);
     }
+
+
+
 
 }

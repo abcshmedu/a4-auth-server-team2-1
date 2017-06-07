@@ -24,7 +24,7 @@ public class MediaResource  {
 
 
     @Inject
-    private MediaService mediaService = new MediaServiceImpl();
+    private MediaService mediaService= new MediaServiceImpl();
 
     @Inject
     private IAuthServer authServer = new AuthServer();
