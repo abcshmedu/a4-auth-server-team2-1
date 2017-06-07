@@ -19,21 +19,21 @@ import javax.validation.constraints.AssertTrue;
  * *****************************************************************
  */
 public class UserTest {
-    @Test
+    /*@Test
     public void add(){
         User u1 = new User("UserTesta","UserTesta");
         User u2 = new User("UserTest","UserTesta");
         Assert.assertTrue(User.add(u1));
         Assert.assertFalse(User.add(u1));
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void addtthesame(){
         User u1 = new User("UserTestb","UserTestb");
         User u2 = new User("UserTestb","UserTestb");
         Assert.assertTrue(User.add(u1));
         Assert.assertFalse(User.add(u2));
-    }
+    }*/
 
     @Test public void eq(){
         User u1 = new User("UserTestc","UserTestc");

@@ -61,7 +61,7 @@ public class CopyTest {
             token = Token.generateToken(u).getToken();
         }
 
-        @Test
+        /*@Test
         public void post1(){
             Book b1 = mock(Book.class);
             s = new MediaResource();
@@ -74,7 +74,7 @@ public class CopyTest {
             Assert.assertEquals(MediaServiceResult.CONFLICT.getCode(),r.getStatus());
 
 
-        }
+        }*/
 
         @Test
         public  void post2(){
@@ -210,7 +210,7 @@ public class CopyTest {
             User u = new User("asdPeter","xxx");
             Book b = new Book("","","");
             MediaResource m = new MediaResource();
-            MediaResource c = new MediaResource(new MediaServiceImpl());
+            MediaResource c = new MediaResource(new MediaServiceImpl(),new AuthServer());
             Assert.assertEquals(m.updateBook("123","noToken",b).getStatus(),400);
         }
 

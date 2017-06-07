@@ -2,6 +2,7 @@ package edu.hm.shareit.resources;
 
 import com.google.inject.Inject;
 import edu.hm.authorization.AuthServer;
+import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.Token;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.json.JSONArray;
@@ -24,7 +25,9 @@ public class MediaResource  {
 
     @Inject
     private MediaService mediaService = new MediaServiceImpl();
-    private AuthServer authServer = new AuthServer();
+
+    @Inject
+    private IAuthServer authServer = new AuthServer();
 
     /**
      * Default Ctor.
@@ -34,9 +37,9 @@ public class MediaResource  {
         //mediaService = new MediaServiceImpl();
     }
 
-    public MediaResource(MediaService service){
-
+    public MediaResource(MediaService service, IAuthServer authServer){
         this.mediaService = service;
+        this.authServer = authServer;
     }
 
     /**

@@ -27,14 +27,14 @@ public class AuthServerTest {
 
    }*/
 
-    @Test public void addDubbleUser(){
+   /* @Test public void addDubbleUser(){
         User u = new User("b","b");
 
         //TODO Static MOCK
         Assert.assertEquals( auth.sig(u).getStatus(),200);
 
-       Assert.assertEquals(  auth.sig(u).getStatus(),400);
-    }
+        Assert.assertEquals(  auth.sig(u).getStatus(),400);
+    }*/
 
    @Test public void valid(){
 

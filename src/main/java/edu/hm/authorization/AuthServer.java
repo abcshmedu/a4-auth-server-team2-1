@@ -11,13 +11,14 @@ package edu.hm.authorization;
 
 
 @Path("/auth/")
-public class AuthServer {
+public class AuthServer implements IAuthServer {
     //USE PostMan oder Perl
     public AuthServer(){
     }
     // token zu verfügbaren informationen
     //Map<String,String> database = new HashMap<>();
 
+    @Override
     @POST
     @Path("login")
     @Consumes("application/json")
@@ -36,6 +37,7 @@ public class AuthServer {
         return Response.status(status).entity(myResponse.toString()).build();
 }
 
+    @Override
     @POST
     @Path("signup")
     @Consumes("application/json")
@@ -51,6 +53,7 @@ public class AuthServer {
 
     }
 
+    @Override
     @POST
     @Path("logout")
     @Consumes("application/json")
@@ -64,6 +67,7 @@ public class AuthServer {
     }
 
 
+    @Override
     @POST
     @Path("validate")
     @Consumes("application/json")
