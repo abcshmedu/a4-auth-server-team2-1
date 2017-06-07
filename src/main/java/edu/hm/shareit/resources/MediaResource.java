@@ -29,6 +29,7 @@ public class MediaResource  {
     @Inject
     private IAuthServer authServer = new AuthServer();
 
+    //Dieser Ctor wird bei jedem Request benutzt
     /**
      * Default Ctor.
      */
