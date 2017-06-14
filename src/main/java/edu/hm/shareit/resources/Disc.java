@@ -3,10 +3,17 @@ package edu.hm.shareit.resources;
 
 import org.json.JSONObject;
 
+import javax.persistence.*;
+
 /**
  * Created by MatHe on 26.04.2017.
  */
+
+@Entity
+@Table(name="Disc")
+@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 public class Disc extends Medium {
+    @Id
     private String barcode;
     private String director;
     private int fsk;

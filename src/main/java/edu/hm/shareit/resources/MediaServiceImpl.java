@@ -1,6 +1,10 @@
 package edu.hm.shareit.resources;
 
 import com.google.inject.Inject;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 import java.util.*;
 
@@ -34,6 +38,14 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public MediaServiceResult addBook(Book book) {
+        //Todo Alles falsch!!!
+        SessionFactory sessionFactory =
+                new Configuration().configure().buildSessionFactory();
+        Session entityManager = sessionFactory.getCurrentSession();
+        Transaction tx = entityManager.beginTransaction();
+        entityManager.persist(book);
+        tx.commit();
+
         MediaServiceResult out = MediaServiceResult.OK;
         if (book.isValid()) {
             if (!MediaServiceImpl.existBook(book)) {

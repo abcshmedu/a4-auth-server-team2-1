@@ -1,9 +1,16 @@
 package edu.hm.shareit.resources;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created by MatHe on 25.04.2017.
  */
+@Entity
+@Table(name= "Medium")
 public abstract class Medium {
+    @Id
     private String title;
 
     /**

@@ -2,12 +2,19 @@ package edu.hm.shareit.resources;
 
 import org.json.JSONObject;
 
+import javax.persistence.*;
+
 /**
  * Created by MatHe on 26.04.2017.
  */
+
+@Entity
+@Table(name="Book")
+@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 public class Book extends Medium {
 
     private String author;
+    @Id
     private String isbn;
 
     /**
