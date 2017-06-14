@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Disc")
-@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 public class Disc extends Medium {
     @Id
     private String barcode;

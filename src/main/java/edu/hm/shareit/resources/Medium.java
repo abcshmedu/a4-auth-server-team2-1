@@ -1,16 +1,15 @@
 package edu.hm.shareit.resources;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by MatHe on 25.04.2017.
  */
-@Entity
+@MappedSuperclass
 @Table(name= "Medium")
+@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public abstract class Medium {
-    @Id
+
     private String title;
 
     /**

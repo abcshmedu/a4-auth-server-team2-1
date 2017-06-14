@@ -43,13 +43,14 @@ public class MediaServiceImpl implements MediaService {
                 new Configuration().configure().buildSessionFactory();
         Session entityManager = sessionFactory.getCurrentSession();
         Transaction tx = entityManager.beginTransaction();
-        entityManager.persist(book);
-        tx.commit();
+
 
         MediaServiceResult out = MediaServiceResult.OK;
         if (book.isValid()) {
             if (!existBook(book)) {
                 bookSet.add(book);
+                entityManager.persist(book);
+
             }
             else {
                 out = MediaServiceResult.CONFLICT;
@@ -58,6 +59,7 @@ public class MediaServiceImpl implements MediaService {
         else {
             out = MediaServiceResult.BAD_REQUEST;
         }
+        tx.commit();
         return out;
 
     }
