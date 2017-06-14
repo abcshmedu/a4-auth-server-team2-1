@@ -1,6 +1,8 @@
 package edu.hm.shareit.resources;
 
 import javax.inject.Inject;
+
+import com.google.inject.Guice;
 import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.Token;
 import org.apache.log4j.Logger;
@@ -18,7 +20,8 @@ public class MediaResource  {
     //Todo check isbn for real and make to only numbers
 
 
-    @Inject private MediaService mediaService;// = new MediaServiceImpl();
+    @Inject
+    private MediaService mediaService= Guice.createInjector(new ImplModul()).getInstance(MediaService.class);
 
     @Inject private IAuthServer authServer;// = ShareitServletContextListener.getInjectorInstance().getInstance(IAuthServer.class);
 

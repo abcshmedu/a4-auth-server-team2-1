@@ -6,6 +6,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+
+import com.google.inject.Inject;
+
 import java.util.*;
 
 /**
@@ -14,18 +17,15 @@ import java.util.*;
 public class MediaServiceImpl implements MediaService {
 
     @Inject
-    private static Set<Book> bookSet;
+    private  Set<Book> bookSet;
     @Inject
-    private static Set<Disc> discSet;
+    private  Set<Disc> discSet;
 
     /**
      * Default Ctor.
      */
     public MediaServiceImpl() {
-        if (bookSet == null )
-            bookSet =  new HashSet<>();
-        if (discSet == null )
-            discSet =  new HashSet<>();
+
 
     }
 
@@ -48,7 +48,7 @@ public class MediaServiceImpl implements MediaService {
 
         MediaServiceResult out = MediaServiceResult.OK;
         if (book.isValid()) {
-            if (!MediaServiceImpl.existBook(book)) {
+            if (!existBook(book)) {
                 bookSet.add(book);
             }
             else {
@@ -66,7 +66,7 @@ public class MediaServiceImpl implements MediaService {
     public MediaServiceResult addDisk(Disc disc) {
         MediaServiceResult out = MediaServiceResult.OK;
         if (disc.isValid()) {
-            if (!MediaServiceImpl.existDisc(disc)) {
+            if (!existDisc(disc)) {
                 discSet.add(disc);
             }
             else {
@@ -154,7 +154,7 @@ public class MediaServiceImpl implements MediaService {
      * @param that book to check.
      * @return true if the book exists.
      */
-    public static boolean existBook(Book that) {
+    public  boolean existBook(Book that) {
 
         return bookSet.contains(that);
     }
@@ -164,7 +164,7 @@ public class MediaServiceImpl implements MediaService {
      * @param that disc to check.
      * @return true if the disc exists.
      */
-    public static boolean existDisc(Disc that) {
+    public  boolean existDisc(Disc that) {
 
         return discSet.contains(that);
     }
