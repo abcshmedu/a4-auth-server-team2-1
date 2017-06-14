@@ -148,3 +148,7 @@
     </resources>
   </build>
 </project>
+
+<!-- copy to target
+<build><resources><resource><directory>src/main/java</directory> <includes>
+  <include>**/*.*</include></includes></resource></resources></build> -->

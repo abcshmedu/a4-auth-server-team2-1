@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 
-import static edu.hm.ShareitServletContextListener.injector;
-import static org.mockito.Mockito.mock;
 
 /**
  * Created by MatHe on 28.05.2017.

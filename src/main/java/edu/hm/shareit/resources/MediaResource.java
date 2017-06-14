@@ -1,8 +1,9 @@
 package edu.hm.shareit.resources;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.Token;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import javax.ws.rs.*;
@@ -21,11 +22,14 @@ public class MediaResource  {
 
     @Inject private IAuthServer authServer;// = ShareitServletContextListener.getInjectorInstance().getInstance(IAuthServer.class);
 
+    final static Logger logger = Logger.getLogger(MediaResource.class);
+
     //Dieser Ctor wird bei jedem Request benutzt
     /**
      * Default Ctor.
      */
     public MediaResource() {
+
 
         //mediaService = new MediaServiceImpl();
     }
@@ -74,6 +78,9 @@ public class MediaResource  {
     @Produces("application/json")
     //?token=asdfasdfasd
     public Response getBooks(@QueryParam("token")String token) {
+        if(logger.isInfoEnabled()){
+            logger.info("This is info : " + "GetBooks Started");
+        }
         //Todo check if books there?
         //String-> Token
         //Validieren
