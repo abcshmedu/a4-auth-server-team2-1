@@ -10,7 +10,7 @@ import edu.hm.persistierung.GuiceModule;
 public class ShareitServletContextListener
 extends GuiceServletContextListener {
 
-    public static final Injector injector
+    private static final Injector injector
             = Guice.createInjector(new GuiceModule() );
 
     @Override

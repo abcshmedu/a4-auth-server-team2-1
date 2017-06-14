@@ -1,20 +1,19 @@
-package edu.hm.persistierung;
+package edu.hm.Mock;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.servlet.ServletModule;
-import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.MockAuthServer;
-import edu.hm.shareit.resources.MediaResource;
 import edu.hm.shareit.resources.MediaService;
 import edu.hm.shareit.resources.MediaServiceImpl;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+
+import java.util.Set;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * Created by axel on 26.05.17.
  */
-public class GuiceModule extends AbstractModule {
+public class GuiceModuleForTesting extends AbstractModule {
 
     @Override
     protected void configure() {

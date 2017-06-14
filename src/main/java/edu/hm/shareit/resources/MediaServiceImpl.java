@@ -1,6 +1,7 @@
 package edu.hm.shareit.resources;
 
-import javax.inject.Inject;
+import com.google.inject.Inject;
+
 import java.util.*;
 
 /**

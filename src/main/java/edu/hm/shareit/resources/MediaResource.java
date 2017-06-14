@@ -1,7 +1,6 @@
 package edu.hm.shareit.resources;
 
 import com.google.inject.Inject;
-import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.Token;
 import org.json.JSONArray;
@@ -18,11 +17,9 @@ public class MediaResource  {
     //Todo check isbn for real and make to only numbers
 
 
-    @Inject
-    private MediaService mediaService= new MediaServiceImpl();
+    @Inject private MediaService mediaService;// = new MediaServiceImpl();
 
-    @Inject
-    private IAuthServer authServer = new AuthServer();
+    @Inject private IAuthServer authServer;// = ShareitServletContextListener.getInjectorInstance().getInstance(IAuthServer.class);
 
     //Dieser Ctor wird bei jedem Request benutzt
     /**

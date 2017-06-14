@@ -1,6 +1,6 @@
 package edu.hm;
 
-import javax.inject.Inject;
+import com.google.inject.Inject;
 
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -19,5 +19,7 @@ public class ShareItApplication extends ResourceConfig {
         GuiceIntoHK2Bridge guiceBridge = serviceLocator.getService(GuiceIntoHK2Bridge.class);
         guiceBridge.bridgeGuiceInjector(ShareitServletContextListener.getInjectorInstance());
     }
+
+
 
 }
