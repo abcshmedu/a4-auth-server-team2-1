@@ -1,5 +1,7 @@
 package edu.hm.shareit.resources;
 
+import com.google.inject.Inject;
+
 
 import com.google.inject.Inject;
 

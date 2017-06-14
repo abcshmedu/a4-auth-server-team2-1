@@ -17,8 +17,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import static edu.hm.ShareitServletContextListener.injector;
-
 
 /**
  * Created by lapi on 17/05/2017.
