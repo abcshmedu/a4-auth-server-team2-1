@@ -1,6 +1,8 @@
 package edu.hm.shareit.resources;
 
 import javax.inject.Inject;
+
+import com.google.inject.Guice;
 import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.Token;
 import org.apache.log4j.Logger;
