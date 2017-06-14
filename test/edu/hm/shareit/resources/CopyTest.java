@@ -1,5 +1,6 @@
 package edu.hm.shareit.resources;
 
+import com.google.inject.Guice;
 import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.Token;
 import edu.hm.authorization.User;
@@ -40,6 +41,7 @@ public class CopyTest {
      */
 
     public static class MediaResourceTest {
+
         MediaResource s;
         static Book b1 = new Book("a","a","a");
         static Book b2 = new Book("c","c","c");
@@ -54,7 +56,7 @@ public class CopyTest {
         public void init(){
 
             s = new MediaResource();
-            m = new MediaServiceImpl();
+            m = Guice.createInjector(new ImplModul()).getInstance(MediaService.class);
             AuthServer auth = new AuthServer();
             User u = new User("asd","asd");
 

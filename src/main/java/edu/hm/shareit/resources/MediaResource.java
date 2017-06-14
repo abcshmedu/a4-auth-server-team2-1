@@ -1,5 +1,6 @@
 package edu.hm.shareit.resources;
 
+import com.google.inject.Guice;
 import com.google.inject.Inject;
 import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.IAuthServer;
@@ -19,7 +20,7 @@ public class MediaResource  {
 
 
     @Inject
-    private MediaService mediaService= new MediaServiceImpl();
+    private MediaService mediaService= Guice.createInjector(new ImplModul()).getInstance(MediaService.class);
 
     @Inject
     private IAuthServer authServer = new AuthServer();
@@ -37,6 +38,7 @@ public class MediaResource  {
         this.mediaService = service;
         this.authServer = authServer;
     }
+
 
     /**
      * Creates Book.
