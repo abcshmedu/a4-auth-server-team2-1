@@ -88,7 +88,6 @@ public class Book extends Medium {
 
     /**
      * Check if book is valid.
-     * @param that book to check.
      * @return true if the book is valid.
      */
     public boolean isValid() {

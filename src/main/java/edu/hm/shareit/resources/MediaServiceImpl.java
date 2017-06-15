@@ -1,6 +1,7 @@
 package edu.hm.shareit.resources;
 
 import com.google.inject.Inject;
+import edu.hm.persistierung.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -8,7 +9,11 @@ import org.hibernate.cfg.Configuration;
 
 
 import com.google.inject.Inject;
+import org.hibernate.query.Query;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.*;
 
 /**
@@ -38,19 +43,12 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public MediaServiceResult addBook(Book book) {
-        //Todo Alles falsch!!!
-        SessionFactory sessionFactory =
-                new Configuration().configure().buildSessionFactory();
-        Session entityManager = sessionFactory.getCurrentSession();
-        Transaction tx = entityManager.beginTransaction();
 
 
         MediaServiceResult out = MediaServiceResult.OK;
         if (book.isValid()) {
-            if (!existBook(book)) {
-                bookSet.add(book);
-                entityManager.persist(book);
-
+            if (!existBook(book.getIsbn())) {
+                add(book);
             }
             else {
                 out = MediaServiceResult.CONFLICT;
@@ -59,7 +57,6 @@ public class MediaServiceImpl implements MediaService {
         else {
             out = MediaServiceResult.BAD_REQUEST;
         }
-        tx.commit();
         return out;
 
     }
@@ -68,8 +65,8 @@ public class MediaServiceImpl implements MediaService {
     public MediaServiceResult addDisk(Disc disc) {
         MediaServiceResult out = MediaServiceResult.OK;
         if (disc.isValid()) {
-            if (!existDisc(disc)) {
-                discSet.add(disc);
+            if (!existDisc(disc.getBarcode())) {
+                add(disc);
             }
             else {
                 out = MediaServiceResult.CONFLICT;
@@ -81,6 +78,7 @@ public class MediaServiceImpl implements MediaService {
         return out;
     }
 
+    //TODO
     @Override
     public Medium[] getBooks() {
         Medium[] out = new Medium[bookSet.size()];
@@ -114,27 +112,27 @@ public class MediaServiceImpl implements MediaService {
      */
     @Override
     public MediaServiceResult updateBook(String isbn,Book book) {
-        Iterator<Book>i =  bookSet.iterator();
-        while (i.hasNext()){
-            Book b = i.next();
-            if(b.getIsbn().equals(isbn)){
-                if(book.getIsbn() != null && !book.getIsbn().equals(""))
+        Iterator<Book> i = bookSet.iterator();
+        if (existBook(isbn)) {
+            Book b = getBook(isbn);
+                if (book.getIsbn() != null && !book.getIsbn().equals(""))
                     return MediaServiceResult.BAD_REQUEST;
-                if(book.getAuthor() != null && !book.getAuthor().equals(""))
+                if (book.getAuthor() != null && !book.getAuthor().equals(""))
                     b.setAuthor(book.getAuthor());
-                if(book.getTitle() != null && !book.getTitle().equals(""))
+                if (book.getTitle() != null && !book.getTitle().equals(""))
                     b.setTitle(book.getTitle());
+                update(b);
                 return MediaServiceResult.OK;
-            }
-        }
-        return MediaServiceResult.BAD_REQUEST;
-    }
 
+            }
+            return MediaServiceResult.BAD_REQUEST;
+        }
+    }
     @Override
     public MediaServiceResult updateDisc(String barcode, Disc disc) {
         Iterator<Disc>i =  discSet.iterator();
-        while (i.hasNext()){
-            Disc b = i.next();
+      if(existDisc(barcode)){
+            Disc b = getDisc(barcode);
             if(b.getBarcode().equals(barcode)){
                 if(disc.getBarcode() == null || disc.getBarcode().equals(""))
                     return MediaServiceResult.BAD_REQUEST;
@@ -144,6 +142,7 @@ public class MediaServiceImpl implements MediaService {
                     b.setFsk(disc.getFsk());
                 if(disc.getTitle() != null && !disc.getTitle().equals(""))
                     b.setTitle(disc.getTitle());
+                update(b);
                 return MediaServiceResult.OK;
             }
         }
@@ -151,23 +150,134 @@ public class MediaServiceImpl implements MediaService {
     }
 
 
-    /**
-     * Checks if a book exists.
-     * @param that book to check.
-     * @return true if the book exists.
-     */
-    public  boolean existBook(Book that) {
 
-        return bookSet.contains(that);
+
+
+      boolean existBook(String isbn) {
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx2 = session.beginTransaction();
+        CriteriaBuilder builder =  session.getCriteriaBuilder();
+
+        CriteriaQuery<Book> query = builder.createQuery(Book.class);
+        Root<Book> root = query.from(Book.class);
+        query.where(builder.equal(root.get("isbn"),isbn));
+        Query<Book> bookQuery=  session.createQuery(query);
+        List<Book> answer = bookQuery.getResultList();
+        tx2.commit();
+        return answer.size() == 0;
+    }
+    Book getBook(String isbn) {
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx2 = session.beginTransaction();
+        CriteriaBuilder builder =  session.getCriteriaBuilder();
+
+        CriteriaQuery<Book> query = builder.createQuery(Book.class);
+        Root<Book> root = query.from(Book.class);
+        query.where(builder.equal(root.get("isbn"),isbn));
+        Query<Book> bookQuery=  session.createQuery(query);
+        List<Book> answer = bookQuery.getResultList();
+        tx2.commit();
+        return answer.get(0);
+    }
+
+     void add(Book book){
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        session.persist(book);
+
+        tx.commit();
     }
 
     /**
      * Checks if a disc exists.
-     * @param that disc to check.
+     * @param id disc to check.
      * @return true if the disc exists.
      */
-    public  boolean existDisc(Disc that) {
+      boolean existDisc(String id) {
 
-        return discSet.contains(that);
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx2 = session.beginTransaction();
+        CriteriaBuilder builder =  session.getCriteriaBuilder();
+
+        CriteriaQuery<Disc> query = builder.createQuery(Disc.class);
+        Root<Disc> root = query.from(Disc.class);
+        query.where(builder.equal(root.get("barcode"),id));
+        Query<Disc> bookQuery=  session.createQuery(query);
+        List<Disc> answer = bookQuery.getResultList();
+        tx2.commit();
+        return answer.size() == 0;
     }
+    Disc getDisc(String id) {
+
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx2 = session.beginTransaction();
+        CriteriaBuilder builder =  session.getCriteriaBuilder();
+
+        CriteriaQuery<Disc> query = builder.createQuery(Disc.class);
+        Root<Disc> root = query.from(Disc.class);
+        query.where(builder.equal(root.get("barcode"),id));
+        Query<Disc> bookQuery=  session.createQuery(query);
+        List<Disc> answer = bookQuery.getResultList();
+        tx2.commit();
+        return answer.get(0);
+    }
+
+    void add(Disc that){
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        session.persist(that);
+        tx.commit();
+    }
+
+    void update(Book that){
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        session.update(that);
+        tx.commit();
+    }
+    void update(Disc that){
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        session.update(that);
+        tx.commit();
+    }
+
+    void del(Disc that){
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        session.delete(that);
+        tx.commit();
+    }
+    void del(Book that){
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        session.delete(that);
+        tx.commit();
+    }
+
+
 }
