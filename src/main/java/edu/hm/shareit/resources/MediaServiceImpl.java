@@ -127,7 +127,7 @@ public class MediaServiceImpl implements MediaService {
             }
             return MediaServiceResult.BAD_REQUEST;
         }
-    }
+
     @Override
     public MediaServiceResult updateDisc(String barcode, Disc disc) {
         Iterator<Disc>i =  discSet.iterator();
