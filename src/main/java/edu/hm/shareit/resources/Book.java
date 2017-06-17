@@ -9,7 +9,6 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="Book")
 public class Book extends Medium {
 
     private String author;

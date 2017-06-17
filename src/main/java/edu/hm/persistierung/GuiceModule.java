@@ -11,6 +11,9 @@ import edu.hm.shareit.resources.MediaServiceImpl;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by axel on 26.05.17.
  */
@@ -24,7 +27,7 @@ public class GuiceModule extends AbstractModule {
         bind(MediaService.class)
                 .to(MediaServiceImpl.class);
         bind(IAuthServer.class)
-                .to(MockAuthServer.class);
+                .to(AuthServer.class);
     }
 
 

@@ -21,10 +21,10 @@ import java.util.*;
  */
 public class MediaServiceImpl implements MediaService {
 
-    @Inject
-    private  Set<Book> bookSet;
-    @Inject
-    private  Set<Disc> discSet;
+    //@Inject
+    private  Set<Book> bookSet = new HashSet<>();
+    //@Inject
+    private  Set<Disc> discSet = new HashSet<>();
 
     /**
      * Default Ctor.
