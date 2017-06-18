@@ -249,22 +249,6 @@ public class MediaServiceImpl implements MediaService {
         tx.commit();
     }
 
-    void del(Disc that){
-        SessionFactory sessionFactory =
-                HibernateUtils.getSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
-        Transaction tx = session.beginTransaction();
-        session.delete(that);
-        tx.commit();
-    }
-    void del(Book that){
-        SessionFactory sessionFactory =
-                HibernateUtils.getSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
-        Transaction tx = session.beginTransaction();
-        session.delete(that);
-        tx.commit();
-    }
 
     Book[] getAllBooks(){
         Transaction trans = HibernateUtils.getSessionFactory().getCurrentSession().beginTransaction();

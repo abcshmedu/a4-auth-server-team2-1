@@ -82,6 +82,23 @@ public class MediaResourceTest {
         d = new Disc("bX","",1,"");
         Assert.assertEquals(m.updateDisc(d1.getBarcode(),token,d).getStatus(),MediaServiceResult.OK.getCode());
 
+
+
+        MediaServiceImpl imp = new MediaServiceImpl();
+
+        Medium[] m = imp.getAllBooks();
+        boolean bool = m[0].equals(b1) |m[1].equals(b2) |m[2].equals(b3);
+        Assert.assertTrue(bool);
+        m = imp.getAllDisc();
+
+        bool = m[0].equals(d1) |m[1].equals(d2) |m[2].equals(d3);
+        Assert.assertTrue(bool);
+
+        imp.update(b2);
+        imp.update(d2);
+
+        Assert.assertEquals(imp.getBook(b1.getIsbn()),b1);
+        Assert.assertEquals(imp.getBook(d1.getBarcode()),d1);
     }
 
 
