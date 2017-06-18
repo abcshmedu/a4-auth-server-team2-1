@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="Disc")
+@Table(name = "Disc")
 public class Disc extends Medium {
     @Id
     private String barcode;
@@ -126,22 +126,30 @@ public class Disc extends Medium {
 
     /**
      * Check if disc is valid.
-     * @param that disc to check.
      * @return true if the disc is valid.
      */
     public boolean isValid() {
         Disc that = this;
-        boolean anyNull = that.getBarcode() != null && that.getTitle() != null && that.getDirector() != null&& that.getFsk() >=0;
+        boolean anyNull = that.getBarcode() != null && that.getTitle() != null && that.getDirector() != null && that.getFsk() >= 0;
         boolean anyEmpty = that.getBarcode() != "" && that.getTitle() != "" && that.getDirector() != "";
         // test m = ( [a b c d e f g h i j k l] * [1 3 1 3 1 3 1 3 1 3 1 3] ) mod 10
         return anyEmpty && anyNull;
     }
 
 
-    public void setDirector(String director){
+    /**
+     * setD.
+     * @param director d
+     */
+    public void setDirector(String director) {
         this.director = director;
     }
-    public void setFsk(int fsk){
+
+    /**
+     * setDSK.
+     * @param fsk d
+     */
+    public void setFsk(int fsk) {
         this.fsk = fsk;
     }
 

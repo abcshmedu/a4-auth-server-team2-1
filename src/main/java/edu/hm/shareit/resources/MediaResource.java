@@ -1,12 +1,11 @@
 package edu.hm.shareit.resources;
 
-import javax.inject.Inject;
-
-import com.google.inject.Guice;
 import edu.hm.authorization.IAuthServer;
 import edu.hm.authorization.Token;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
@@ -15,14 +14,15 @@ import javax.ws.rs.core.Response;
  */
 @Path("/media")
 public class MediaResource  {
+    public static final int M400 = 400;
 
     //Todo check isbn for real and make to only numbers
 
 
     @Inject
-    private MediaService mediaService;//= Guice.createInjector(new ImplModul()).getInstance(MediaService.class);
+    private MediaService mediaService; //= Guice.createInjector(new ImplModul()).getInstance(MediaService.class);
 
-    @Inject private IAuthServer authServer;// = ShareitServletContextListener.getInjectorInstance().getInstance(IAuthServer.class);
+    @Inject private IAuthServer authServer; // = ShareitServletContextListener.getInjectorInstance().getInstance(IAuthServer.class);
 
 
     //Dieser Ctor wird bei jedem Request benutzt
@@ -35,21 +35,27 @@ public class MediaResource  {
         //mediaService = new MediaServiceImpl();
     }
 
-    public MediaResource(MediaService service, IAuthServer authServer){
+    /**
+     * konst.
+     * @param service s
+     * @param authServer a
+     */
+    public MediaResource(MediaService service, IAuthServer authServer) {
         this.mediaService = service;
         this.authServer = authServer;
     }
 
     /**
      * Creates Book.
-     * @param book book to create.
-     * @return Response if book was successfully created.
+     * @param token t
+     * @param book b
+     * @return r
      */
     @POST
     @Path("/books")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response createBook(@QueryParam("token")String token,Book book) {
+    public Response createBook(@QueryParam("token")String token, Book book) {
 
         if (Token.isAccesGranted(token)) {
             MediaServiceResult result = mediaService.addBook(book);
@@ -72,6 +78,7 @@ public class MediaResource  {
 
     /**
      * Gets all the books.
+     * @param token t
      * @return Response of all books in JSON.
      */
     @GET
@@ -82,7 +89,7 @@ public class MediaResource  {
         //Todo check if books there?
         //String-> Token
         //Validieren
-        if (Token.isAccesGranted(token)){
+        if (Token.isAccesGranted(token)) {
         Medium[] result = mediaService.getBooks();
         //HttpRequest für teilbare Microservices
         JSONArray jsonArray = new JSONArray();
@@ -110,10 +117,16 @@ public class MediaResource  {
         }
     }
 
+    /**
+     * get sngle .
+     * @param isbn i
+     * @param token t
+     * @return r
+     */
     @GET
     @Path("/books/{isbn}")
     @Produces("application/json")
-    public Response GetSingleBook(@PathParam("isbn") String isbn,@QueryParam("token") String token) {
+    public Response getSingleBook(@PathParam("isbn") String isbn, @QueryParam("token") String token) {
         if (Token.isAccesGranted(token)) {
 
             Medium[] result = mediaService.getBooks();
@@ -122,8 +135,10 @@ public class MediaResource  {
             int returnCode = MediaServiceResult.OK.getCode();
             if (result.length > 0) {
                 for (int i = 0; i < result.length; i++) {
-                    if (((Book) result[i]).getIsbn().equals(isbn))
+                    if (((Book) result[i]).getIsbn().equals(isbn)) {
                         return Response.status(MediaServiceResult.OK.getCode()).entity(((Book) result[i]).toJSON().toString()).build();
+                    }
+
                 }
             }
             return Response.status(MediaServiceResult.BAD_REQUEST.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
@@ -131,16 +146,19 @@ public class MediaResource  {
             return noToken();
         }
     }
-    /**
-     * Not jet implemented.
-     * @return not jet implemented.
-     */
 
+    /**
+     * update.
+     * @param isbn isbn
+     * @param token token
+     * @param book book
+     * @return resop
+     */
     @POST
     @Path("/books/{isbn}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response updateBook(@PathParam("isbn") String isbn,@QueryParam("token")String token, Book book) {
+    public Response updateBook(@PathParam("isbn") String isbn, @QueryParam("token")String token, Book book) {
 
         if (Token.isAccesGranted(token)) {
             MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
@@ -157,16 +175,18 @@ public class MediaResource  {
     }
 
 //'''''''''''''''''''''''''''''''''''''''''''''''Discs''''''''''''''''''''''''''''''''''''''''''''''''''''
+
     /**
-     * Creates Book.
-     * @param disc book to create.
-     * @return Response if book was successfully created.
+     * creat.
+     * @param token token
+     * @param  disc disc
+     * @return resp
      */
     @POST
     @Path("/discs")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response createDisc(@QueryParam("token")String token,Disc disc) {
+    public Response createDisc(@QueryParam("token")String token, Disc disc) {
         if (Token.isAccesGranted(token)) {
 
             MediaServiceResult result = mediaService.addDisk(disc);
@@ -190,14 +210,15 @@ public class MediaResource  {
     }
 
     /**
-     * Gets all the books.
-     * @return Response of all books in JSON.
+     * getDIsc.
+     * @param token token
+     * @return resp.
      */
     @GET
     @Path("/discs")
     @Produces("application/json")
     public Response getDiscs(@QueryParam("token")String token) {
-        if (Token.isAccesGranted(token)){
+        if (Token.isAccesGranted(token)) {
             Medium[] result = mediaService.getDiscs();
             //HttpRequest für teilbare Microservices
             JSONArray jsonArray = new JSONArray();
@@ -225,10 +246,16 @@ public class MediaResource  {
         }
     }
 
+    /**
+     * get single .
+     * @param barcode barcode
+     * @param token token
+     * @return resp.
+     */
     @GET
     @Path("/discs/{barcode}")
     @Produces("application/json")
-    public Response GetSingleDisc(@PathParam("barcode") String barcode,@QueryParam("token")String token) {
+    public Response getSingleDisc(@PathParam("barcode") String barcode, @QueryParam("token")String token) {
         if (Token.isAccesGranted(token)) {
             Medium[] result = mediaService.getDiscs();
             JSONArray jsonArray = new JSONArray();
@@ -236,8 +263,9 @@ public class MediaResource  {
             int returnCode = MediaServiceResult.OK.getCode();
             if (result.length > 0) {
                 for (int i = 0; i < result.length; i++) {
-                    if (((Disc) result[i]).getBarcode().equals(barcode))
+                    if (((Disc) result[i]).getBarcode().equals(barcode)) {
                         return Response.status(MediaServiceResult.OK.getCode()).entity(((Disc) result[i]).toJSON().toString()).build();
+                    }
                 }
             }
             return Response.status(MediaServiceResult.BAD_REQUEST.getCode()).entity(MediaServiceResult.BAD_REQUEST.getStatus()).build();
@@ -247,14 +275,17 @@ public class MediaResource  {
     }
 
     /**
-     * Not jet implemented.
-     * @return not jet implemented.
+     * update .
+     * @param barcode barcode
+     * @param token token
+     * @param disc disc
+     * @return resp
      */
     @POST
     @Path("/discs/{barcode}")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response updateDisc(@PathParam("barcode") String barcode,@QueryParam("token")String token,Disc disc) {
+    public Response updateDisc(@PathParam("barcode") String barcode, @QueryParam("token")String token, Disc disc) {
 
         if (Token.isAccesGranted(token)) {
             MediaServiceResult r = MediaServiceResult.BAD_REQUEST;
@@ -271,12 +302,15 @@ public class MediaResource  {
     }
 
 
-
-    private Response noToken(){
+    /**
+     * noTOken.
+     * @return resp
+     */
+    private Response noToken() {
         String message = "Fail Authorization!";
         JSONObject result = new JSONObject();
-        result.put("detail",message);
-        return Response.status(400).entity(result.toString()).build();
+        result.put("detail", message);
+        return Response.status(M400).entity(result.toString()).build();
     }
 
 }

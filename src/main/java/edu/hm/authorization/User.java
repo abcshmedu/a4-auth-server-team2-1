@@ -1,21 +1,10 @@
 package edu.hm.authorization;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import edu.hm.persistierung.HibernateUtils;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.internal.SessionImpl;
-import org.hibernate.query.*;
-import org.json.JSONObject;
-
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 
@@ -29,72 +18,64 @@ public class User {
     private static Set<User> userList = new HashSet<>();
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
-    String userName;
-    String password;
+    private int id;
+    private String userName;
+    private String password;
 
-    public User(String name, String pw){
+    /**
+     * konstr.
+     * @param name n
+     * @param pw p
+     */
+    public User(String name, String pw) {
         userName = name;
         password = pw;
 
     }
-    public User(){
+
+    /**
+     * konstr.
+     */
+    public User() {
 
     };
 
+    /**
+     * get.
+     * @return s
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * get.
+     * @return s
+     */
     public String getPassword() {
         return password;
     }
 
     /**
-     * fügt ein neuen User hinzu
+     * fügt ein neuen User hinzu.
      * @param user user to add
      * @return true = user added  false user exist
      */
-    static public  boolean add(User user){
-        if (exist(user)){
+    public static   boolean add(User user) {
+        if (exist(user)) {
             return false;
-        }else {
+        } else {
             return userList.add(user);
         }
     }
 
 
-    //Todo static?
-    static public  boolean exist(User user){
-        /*
-        Session s = injector.getInstance(SessionFactory.class).getCurrentSession();
-        Transaction tx = s.beginTransaction();
-
-        CriteriaBuilder builder = s.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
-        Root<User> root = query.from(User.class);
-        query.where(builder.equal(root.get("firstName"), "Neville"));
-        org.hibernate.query.Query<User> q = s.createQuery(query);
-        List<User> persons = q.getResultList();
-
-      if(persons.size() == 0) {
-          s.persist(user);
-          tx.commit();
-          s.close();
-          return true;
-      }
-        s.close();
-
-       /* if(!(userList.contains(user))) {
-            Iterator<User> i = userList.iterator();
-            while(i.hasNext()){
-                if(i.next().equals(user))
-                    return false;
-            }
-            return true;
-
-        }
-        */
+    /**
+     * exsit.
+     * @param user u
+     * @return b
+     */
+    static   boolean exist(User user) {
         int i = 0;
         return userList.contains(user);
 
@@ -103,13 +84,19 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true; }
+        if (o == null || getClass() != o.getClass()) {
+            return false; }
 
         User user = (User) o;
 
-        if (id != user.id) return false;
-        if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
+        if (id != user.id) {
+            return false;
+        }
+        if (userName != null ? !userName.equals(user.userName) : user.userName != null) {
+            return false;
+        }
         return password != null ? password.equals(user.password) : user.password == null;
     }
 

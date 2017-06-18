@@ -11,15 +11,15 @@ import java.util.Set;
 /**
  * Created by lapi on 14/06/2017.
  */
-public class ImplModul extends AbstractModule{
+public class ImplModul extends AbstractModule {
     @Override
     protected void configure() {
-        Set<Disc>DiscSet = new HashSet<>();
-        Set<Book>BockSet = new HashSet<>();
+        Set<Disc>disk = new HashSet<>();
+        Set<Book>book = new HashSet<>();
         bind(MediaService.class).to(MediaServiceImpl.class);
         bind(IAuthServer.class).to(AuthServer.class);
         // Bind die Variable mit dem Type Set an ein Bestimmtes Obj
-        bind(new TypeLiteral<Set<Book>>() {}).toInstance(BockSet);
-        bind(new TypeLiteral<Set<Disc>>() {}).toInstance(DiscSet);
+        bind(new TypeLiteral<Set<Book>>() { }).toInstance(book);
+        bind(new TypeLiteral<Set<Disc>>() { }).toInstance(disk);
     }
 }

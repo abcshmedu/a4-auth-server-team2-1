@@ -6,8 +6,8 @@ import javax.persistence.*;
  * Created by MatHe on 25.04.2017.
  */
 @MappedSuperclass
-@Table(name= "Medium")
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+@Table(name = "Medium")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Medium {
 
     private String title;
@@ -27,6 +27,11 @@ public abstract class Medium {
     public String getTitle() {
         return title;
     }
+
+    /**
+     * set T
+     * @param t t
+     */
     public void setTitle(String t) {
          title = t;
     }

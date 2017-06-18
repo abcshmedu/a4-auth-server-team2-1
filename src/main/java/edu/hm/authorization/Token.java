@@ -67,26 +67,36 @@ public class Token {
     private static String generateToken() {
         String out = "";
         for (int i = 0; i < M16; i++) {
-            out += "" + (char)((((char)r.nextInt() % M26)%M26)+M97);
+            out += "" + (char)((((char)r.nextInt() % M26) % M26) + M97);
         }
         return out;
     }
 
+    /**
+     * grand.
+     * @param token t
+     * @return b
+     */
     public static boolean isAccesGranted(String token) {
        boolean tokenIxist = false;
         Iterator<User> i = mapUserToken.keySet().iterator();
-        while(i.hasNext()){
+        while (i.hasNext()) {
             User u = i.next();
-            if(mapUserToken.containsKey(u)){
-                 if(mapUserToken.get(u).tokn.equals(token)) {
+            if (mapUserToken.containsKey(u)) {
+                 if (mapUserToken.get(u).tokn.equals(token)) {
                      tokenIxist = true;
                  break;
 
-            }}
+            } }
         }
         return tokenIxist;
     }
-    public boolean isAccesGranted(){
+
+    /**
+     * bla.
+     * @return b
+     */
+    public boolean isAccesGranted() {
         return isAccesGranted(this.getToken());
     }
 
@@ -95,7 +105,7 @@ public class Token {
      * @param user user to dell token
      * @return del token succes
      */
-    static public boolean deleteToken(User user) {
+    static boolean deleteToken(User user) {
         boolean succes = false;
         Iterator<User> i = mapUserToken.keySet().iterator();
         while (i.hasNext()) {
@@ -119,7 +129,7 @@ public class Token {
         return tokn;
     }
 
-    @Override public String toString(){
+    @Override public String toString() {
         return tokn;
     }
 
