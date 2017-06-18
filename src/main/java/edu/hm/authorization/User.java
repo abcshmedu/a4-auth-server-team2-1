@@ -54,7 +54,7 @@ public class User {
      * @return true = user added  false user exist
      */
     static public  boolean add(User user){
-        if (userList.contains(user)){
+        if (exist(user)){
             return false;
         }else {
             return userList.add(user);
@@ -93,17 +93,29 @@ public class User {
 
         }
         */
+        int i = 0;
         return userList.contains(user);
 
     }
 
-    public boolean equals(User that){
-        if(that == null)
-            return false;
-        if(that.password.equals(password)& that.userName.equals(userName))
-            return true;
-        else return false;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != user.id) return false;
+        if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
+        return password != null ? password.equals(user.password) : user.password == null;
     }
 
-
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
+    }
 }

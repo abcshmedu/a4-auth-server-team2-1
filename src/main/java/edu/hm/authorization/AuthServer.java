@@ -26,7 +26,7 @@ public class AuthServer implements IAuthServer {
     public Response login(User user){
         int status = 400;
         JSONObject myResponse= new JSONObject();
-        if(user.exist(user)) {
+        if(User.exist(user)) {
             if(!Token.hasUser(user)){
                 System.out.println(user.toString());
                 System.out.println("login");
