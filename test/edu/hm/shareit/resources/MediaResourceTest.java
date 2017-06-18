@@ -3,6 +3,7 @@ package edu.hm.shareit.resources;
 import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.Token;
 import edu.hm.authorization.User;
+import edu.hm.persistierung.MediumPersist;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -29,6 +30,8 @@ public class MediaResourceTest {
     MediaResource m = new MediaResource();
 
     @Before public void init(){
+
+
         User user = new User("1","1");
         User.add(user);
         token = Token.generateToken(user).toString();
@@ -86,7 +89,7 @@ public class MediaResourceTest {
 
 
 
-        MediaServiceImpl imp = new MediaServiceImpl();
+        MediumPersist imp = new MediumPersist();
 
         Medium[] m = imp.getAllBooks();
         boolean bool = m[0].equals(b1) |m[1].equals(b2) |m[2].equals(b3);
