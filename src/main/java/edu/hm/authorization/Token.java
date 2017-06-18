@@ -1,6 +1,5 @@
 package edu.hm.authorization;
 
-import javax.swing.text.html.HTMLDocument;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,18 +9,27 @@ import java.util.Random;
  * Created by lapi on 23/05/2017.
  */
 public class Token {
-    static Random r = new Random();
-    static private Map<User,Token> mapUserToken = new HashMap<>();
+    private static Random r = new Random();
+    private static  Map<User, Token> mapUserToken = new HashMap<>();
     /**
-     * die Tokens aben eine Definierte Länge von 16 chars
+     * die Tokens aben eine Definierte Länge von 16 chars.
      */
-    String tokn;
-    Token(String token){
+    private String tokn;
+
+    /**
+     * Token.
+     * @param token t
+     */
+    Token(String token) {
         this.tokn = token;
     }
 
-
-    public static boolean hasUser(User user){
+    /**
+     * has User.
+     * @param user u
+     * @return b
+     */
+    public static boolean hasUser(User user) {
         return mapUserToken.containsKey(user);
     }
 
@@ -31,32 +39,40 @@ public class Token {
      * sollte es bereits einen Token zu diesem User geben wird der bereits existierende Token
      * zurück gegeben
      * @param user  user
+     * @return t
      */
-    static public Token generateToken(User user){
+    public static  Token generateToken(User user) {
         Token token;
-        if(!mapUserToken.containsKey(user)) {
+        if (!mapUserToken.containsKey(user)) {
             token = new Token(generateToken());
             mapUserToken.put(user, token);
         }
-        else
+        else {
             token = mapUserToken.get(user);
+        }
         return token;
 
     }
 
     /**
-     * generiert eine Zufälligen Token.
-     * @return
+     * m16.
      */
-    private static String generateToken(){
+    private static final int M16 = 16;
+    private static final int M26 = 26;
+    private static final int M97 = 97;
+    /**
+     * generiert eine Zufälligen Token.
+     * @return ds
+     */
+    private static String generateToken() {
         String out = "";
-        for(int i = 0; i<16; i++){
-            out += "" + (char)((((char)r.nextInt()%26)%26)+97);
+        for (int i = 0; i < M16; i++) {
+            out += "" + (char)((((char)r.nextInt() % M26)%M26)+M97);
         }
         return out;
     }
 
-    public static boolean isAccesGranted(String token){
+    public static boolean isAccesGranted(String token) {
        boolean tokenIxist = false;
         Iterator<User> i = mapUserToken.keySet().iterator();
         while(i.hasNext()){
@@ -79,12 +95,12 @@ public class Token {
      * @param user user to dell token
      * @return del token succes
      */
-    static public boolean deleteToken(User user){
+    static public boolean deleteToken(User user) {
         boolean succes = false;
         Iterator<User> i = mapUserToken.keySet().iterator();
-        while(i.hasNext()){
+        while (i.hasNext()) {
             User u = i.next();
-            if(u.equals(user)) {
+            if (u.equals(user)) {
                 if (mapUserToken.containsKey(u)) {
                     mapUserToken.remove(u);
                     succes = true;
@@ -95,7 +111,11 @@ public class Token {
         return succes;
     }
 
-    public String getToken(){
+    /**
+     * get.
+     * @return token
+     */
+    public String getToken() {
         return tokn;
     }
 
