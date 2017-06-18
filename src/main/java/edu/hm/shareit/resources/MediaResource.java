@@ -103,9 +103,6 @@ public class MediaResource  {
 
         }
         jsonObject.put("", jsonArray);
-
-
-        //Todo result -> JSON -> Response
             return Response.status(returnCode).entity(jsonArray.toString()).build();
         }
         else {

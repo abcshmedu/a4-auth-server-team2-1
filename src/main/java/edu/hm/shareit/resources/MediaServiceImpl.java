@@ -87,14 +87,7 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Medium[] getDiscs() {
-        int s = discSet.size();
-        Medium[] out = new Medium[s];
-        Iterator<Disc> i = discSet.iterator();
-        for (int a = 0; a < discSet.size(); a++) {
-            out[a] = i.next();
-        }
-
-        return out;
+       return getAllDisc();
     }
 
     /**
@@ -283,6 +276,22 @@ Query<Book> q = HibernateUtils.getSessionFactory().getCurrentSession().createQue
  List<Book> results = q.getResultList();
  trans.commit();
         Book[] resultArray = new Book[results.size()];
+        for (int i = 0; i < results.size(); i++){
+            resultArray[i]= results.get(i);
+        }
+        return resultArray;
+    }
+
+    Disc[] getAllDisc(){
+        Transaction trans = HibernateUtils.getSessionFactory().getCurrentSession().beginTransaction();
+        CriteriaBuilder builder = HibernateUtils.getSessionFactory().getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Disc> query = builder.createQuery(Disc.class);
+        Root<Disc> root = query.from(Disc.class);
+
+        Query<Disc> q = HibernateUtils.getSessionFactory().getCurrentSession().createQuery(query);
+        List<Disc> results = q.getResultList();
+        trans.commit();
+        Disc[] resultArray = new Disc[results.size()];
         for (int i = 0; i < results.size(); i++){
             resultArray[i]= results.get(i);
         }
