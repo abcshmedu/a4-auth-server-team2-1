@@ -287,7 +287,11 @@ public class MediaServiceImpl implements MediaService {
         Query<Book> bookQuery=  session.createQuery(query);
         List<Book> answer = bookQuery.getResultList();
         tx2.commit();
-        return (Book[]) answer.toArray();
+        Book[] resultArray = new Book[answer.size()];
+        for (int i = 0; i < answer.size(); i++){
+            resultArray[i]= answer.get(i);
+        }
+        return resultArray;
     }
 
 }

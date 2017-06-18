@@ -54,7 +54,11 @@ public class User {
      * @return true = user added  false user exist
      */
     static public  boolean add(User user){
-        return userList.add(user);
+        if (userList.contains(user)){
+            return false;
+        }else {
+            return userList.add(user);
+        }
     }
 
 
