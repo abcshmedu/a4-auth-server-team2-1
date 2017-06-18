@@ -77,6 +77,7 @@ public class CopyTest {
 
         }*/
 
+        @Ignore
         @Test
         public  void post2(){
             Response r = s.createBook(token,b3);
@@ -92,6 +93,7 @@ public class CopyTest {
             //Assert.assertEquals(r.getStatus(),400);
         }
 
+        @Ignore
         @Test public void Get2(){
             s.createBook(token,b1);
             //Response r = s.getBooks();
@@ -160,6 +162,7 @@ public class CopyTest {
 
         }
 
+        @Ignore
         @Test
         public  void Dpost2(){
             Response r = s.createDisc(token,d3);
@@ -170,6 +173,7 @@ public class CopyTest {
         }
 
 
+        @Ignore
         @Test public void DGet2(){
             s.createDisc(token,d1);
             //Response r = s.getBooks();

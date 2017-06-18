@@ -1,4 +1,4 @@
-package edu.hm;
+package edu.hm.shareit.resources;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;

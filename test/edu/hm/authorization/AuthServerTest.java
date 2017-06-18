@@ -44,4 +44,27 @@ public class AuthServerTest {
        when(tokenMock.isAccesGranted()).thenReturn(true);
        Assert.assertTrue(auth.validate(tokenMock).getStatus() == 200);
     }
+    @Test
+    public void fullUserlifecycle(){
+        User myUser = new User("username","passxxx");
+        AuthServer authServer= new AuthServer();
+        Response first =  authServer.sig(myUser);
+        Response first2 =  authServer.sig(myUser);
+        Response second =  authServer.login(myUser);
+        Response second2 =  authServer.login(myUser);
+        Response third =  authServer.logout(myUser);
+        Response third2 =  authServer.logout(myUser);
+
+        Assert.assertEquals(200,first.getStatus());
+        Assert.assertEquals(200,second.getStatus());
+        Assert.assertEquals(200,third.getStatus());
+
+
+        Assert.assertEquals(400,first2.getStatus());
+        Assert.assertEquals(400,second2.getStatus());
+        Assert.assertEquals(400,third2.getStatus());
+
+
+    }
+
 }

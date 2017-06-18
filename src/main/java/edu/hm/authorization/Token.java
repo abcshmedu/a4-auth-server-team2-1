@@ -21,6 +21,11 @@ public class Token {
     }
 
 
+    public static boolean hasUser(User user){
+        return mapUserToken.containsKey(user);
+    }
+
+
     /**
      * generiert. für einen bestimmten User ein Token und Speichert dieses dann ab
      * sollte es bereits einen Token zu diesem User geben wird der bereits existierende Token
