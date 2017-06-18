@@ -95,7 +95,7 @@ public class Book extends Medium {
         boolean anyEmpty = that.getAuthor() != "" && that.getTitle() != "" && that.getIsbn() != "";
         boolean isbn = checkIsbn(that.getIsbn());
         // test m = ( [a b c d e f g h i j k l] * [1 3 1 3 1 3 1 3 1 3 1 3] ) mod 10
-        return anyEmpty && anyNull;
+        return anyEmpty && anyNull && isbn;
     }
 
     public boolean checkIsbn(String isbn){
