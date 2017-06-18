@@ -34,14 +34,16 @@ public interface MediaService {
 
     /**
      * not jet implemented.
-     * @param book not jet implemented.
+     * @param book b
+    *  @param isbn i
      * @return not jet implemented.
      */
-    MediaServiceResult updateBook(String isbn,Book book);
+    MediaServiceResult updateBook(String isbn, Book book);
 
     /**
      * not jet implemented.
-     * @param disc not jet implemented.
+     * @param disc nd.
+  * @param barcode nd.
      * @return not jet implemented.
      */
     MediaServiceResult updateDisc(String barcode, Disc disc);

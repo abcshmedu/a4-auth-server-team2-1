@@ -3,13 +3,10 @@ package edu.hm.shareit.resources;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import edu.hm.Mock.TestModul;
-import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.Token;
 import edu.hm.authorization.User;
 import edu.hm.persistierung.MediumPersist;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -68,18 +65,18 @@ public class MediaResourceTest {
 
         // get Book
         Assert.assertEquals(m.getBooks("").getStatus(),400);
-        Assert.assertEquals(m.GetSingleBook("","").getStatus(),400);
+        Assert.assertEquals(m.getSingleBook("","").getStatus(),400);
         Assert.assertEquals(m.getBooks(token).getStatus(),MediaServiceResult.OK.getCode());
-        Assert.assertEquals(m.GetSingleBook("",token).getStatus(),MediaServiceResult.BAD_REQUEST.getCode());
-        Assert.assertEquals(m.GetSingleBook(b1.getIsbn(),token).getStatus(),MediaServiceResult.OK.getCode());
+        Assert.assertEquals(m.getSingleBook("",token).getStatus(),MediaServiceResult.BAD_REQUEST.getCode());
+        Assert.assertEquals(m.getSingleBook(b1.getIsbn(),token).getStatus(),MediaServiceResult.OK.getCode());
 
 
         // get Disc
         Assert.assertEquals(m.getDiscs("").getStatus(),400);
         Assert.assertEquals(m.getDiscs(token).getStatus(),MediaServiceResult.OK.getCode());
-        Assert.assertEquals(m.GetSingleDisc("","").getStatus(),400);
-        Assert.assertEquals(m.GetSingleDisc("",token).getStatus(),MediaServiceResult.BAD_REQUEST.getCode());
-        Assert.assertEquals(m.GetSingleDisc(d1.getBarcode(),token).getStatus(),MediaServiceResult.OK.getCode());
+        Assert.assertEquals(m.getSingleDisc("","").getStatus(),400);
+        Assert.assertEquals(m.getSingleDisc("",token).getStatus(),MediaServiceResult.BAD_REQUEST.getCode());
+        Assert.assertEquals(m.getSingleDisc(d1.getBarcode(),token).getStatus(),MediaServiceResult.OK.getCode());
 
 
         // update

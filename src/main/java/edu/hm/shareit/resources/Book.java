@@ -11,6 +11,10 @@ import javax.persistence.*;
 @Entity
 public class Book extends Medium {
 
+    public static final int M13 = 13;
+    public static final int M3 = 3;
+    public static final int M12 = 12;
+    public static final int M10 = 10;
     private String author;
     @Id
     private String isbn;
@@ -98,24 +102,29 @@ public class Book extends Medium {
         return anyEmpty && anyNull && isbn;
     }
 
-    public boolean checkIsbn(String isbn){
+    /**
+     * check isbn.
+     * @param isbn i
+     * @return b
+     */
+    public boolean checkIsbn(String isbn) {
             isbn = isbn.replaceAll("-", "");
-            if (isbn.length() != 13){
+            if (isbn.length() != M13) {
                 return false;
             }
             char[] arr = isbn.toCharArray();
-            int[] intArray = new int[13];
+            int[] intArray = new int[M13];
             for (int i = 0; i < intArray.length; i++) {
                 intArray[i] = arr[i] - '0';
             }
             int sum = 0;
-            for (int i = 0; i < intArray.length-1; i+= 2) {
+            for (int i = 0; i < intArray.length - 1; i += 2) {
                 sum += (1) * intArray[i];
-                sum += (3) * intArray[i+1];
+                sum += M3 * intArray[i + 1];
             }
-            sum = sum+intArray[12];
+            sum = sum + intArray[M12];
 
-            return sum % 10 == 0;
+            return sum % M10 == 0;
     }
 
     /**
@@ -129,9 +138,18 @@ public class Book extends Medium {
                 .put("title", this.getTitle());
     }
 
+    /**
+     * SetA.
+     * @param a s
+     */
     public void setAuthor(String a) {
         author = a;
     }
+
+    /**
+     * setISBN.
+     * @param i i
+     */
     public void setISBN(String i) {
         isbn = i;
     }
