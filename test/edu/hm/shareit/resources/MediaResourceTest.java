@@ -1,5 +1,8 @@
 package edu.hm.shareit.resources;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import edu.hm.Mock.TestModul;
 import edu.hm.authorization.AuthServer;
 import edu.hm.authorization.Token;
 import edu.hm.authorization.User;
@@ -26,9 +29,17 @@ public class MediaResourceTest {
     String token;
     Book b1,b2,b3;
     Disc d1,d2,d3;
-    MediaResource m = new MediaResource();
+    MediaResource m;
 
-    @Before public void init(){
+
+    @Test
+    public void dummy(){
+
+        Injector injector = Guice.createInjector(new TestModul());
+        m = new MediaResource();
+        injector.injectMembers(m);
+
+
         User user = new User("1","1");
         User.add(user);
         token = Token.generateToken(user).toString();
@@ -101,12 +112,7 @@ public class MediaResourceTest {
 
         Assert.assertEquals(imp.getBook(b1.getIsbn()),b1);
         Assert.assertEquals(imp.getBook(d1.getBarcode()),d1);
-    }
 
-    @Test
-    public void dummy(){
-        System.out.println("over?");
-        Assert.assertTrue(true);
     }
 
 }
