@@ -1,19 +1,35 @@
 package edu.hm.authorization;
 
 
-    import org.json.JSONArray;
-    import org.json.JSONObject;
-    //import io.jsonwebtoken.*;
-    import javax.ws.rs.*;
-    import javax.ws.rs.core.Response;
-    import java.util.HashMap;
-    import java.util.Map;
+import org.json.JSONObject;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
+//import io.jsonwebtoken.*;
+
+/**
+ * path.
+ */
 @Path("/auth/")
 public class AuthServer implements IAuthServer {
-    //USE PostMan oder Perl
-    public AuthServer(){
+    /**
+     * m1.
+     */
+   private final int magic2 = 200;
+    /**
+     * m2.
+     */
+    private final int magic4 = 400;
+
+    /**
+     *  USE PostMan oder Perl.
+     */
+
+    public AuthServer() {
     }
     // token zu verfügbaren informationen
     //Map<String,String> database = new HashMap<>();
@@ -23,15 +39,15 @@ public class AuthServer implements IAuthServer {
     @Path("login")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response login(User user){
-        int status = 400;
-        JSONObject myResponse= new JSONObject();
-        if(User.exist(user)) {
-            if(!Token.hasUser(user)){
+    public Response login(User user) {
+        int status = magic4;
+        JSONObject myResponse = new JSONObject();
+        if (User.exist(user)) {
+            if (!Token.hasUser(user)) {
                 System.out.println(user.toString());
                 System.out.println("login");
                 myResponse.put("code", "200");
-                status = 200;
+                status = magic2;
                 Token myToken = Token.generateToken(user);
                 myResponse.put("token", myToken.toString());
             }
@@ -44,12 +60,12 @@ public class AuthServer implements IAuthServer {
     @Path("signup")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response sig(User user){
+    public Response sig(User user) {
         System.out.println("add user");
-        int status = 200;
+        int status = magic2;
         boolean isNew = User.add(user);
-        if(!isNew) { // es gibt den user bereits
-            status = 400;
+        if (!isNew) { // es gibt den user bereits
+            status = magic4;
         }
         return Response.status(status).build();
 
@@ -60,10 +76,11 @@ public class AuthServer implements IAuthServer {
     @Path("logout")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response logout(User user){
-        int status = 200;
-        if(!Token.deleteToken(user)) // user does not exist
-            status = 400;
+    public Response logout(User user) {
+        int status = magic2;
+        if (!Token.deleteToken(user)) { // user does not exist
+            status = magic4;
+        }
 
         return Response.status(status).build();
     }
@@ -74,10 +91,11 @@ public class AuthServer implements IAuthServer {
     @Path("validate")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response validate(Token token){
-        int status = 200;
-        if(!token.isAccesGranted())
-            status = 400;
+    public Response validate(Token token) {
+        int status = magic2;
+        if (!token.isAccesGranted()) {
+            status = magic4;
+        }
         return Response.status(status).build();
     }
 

@@ -13,58 +13,63 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * *****************************************************************
- * Hochschule Muenchen Fakultaet 07 (Informatik)		**
- * Praktikum fuer Softwareentwicklung 1 IF1B  WS15/16	**
- * *****************************************************************
- * Autor: Sebastian Balz					**
- * Datum 18.06.2017											**
- * Software Win 7 JDK8 Win 10 JDK8 Ubuntu 15.4 OpenJDK7	**
- * edu.hm.persistierung                **
- * *****************************************************************
- * **
- * *****************************************************************
+ * Created by lapi on 17/05/2017.
  */
 public class MediumPersist {
 
 
-
-
+    /**
+     * check if book is in db.
+     *
+     * @param isbn isbn
+     * @return true if in db
+     */
     public boolean existBook(String isbn) {
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
 
         Session session = sessionFactory.getCurrentSession();
         Transaction tx2 = session.beginTransaction();
-        CriteriaBuilder builder =  session.getCriteriaBuilder();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
 
         CriteriaQuery<Book> query = builder.createQuery(Book.class);
         Root<Book> root = query.from(Book.class);
-        query.where(builder.equal(root.get("isbn"),isbn));
-        Query<Book> bookQuery=  session.createQuery(query);
+        query.where(builder.equal(root.get("isbn"), isbn));
+        Query<Book> bookQuery = session.createQuery(query);
         List<Book> answer = bookQuery.getResultList();
         tx2.commit();
         return answer.size() != 0;
     }
 
+    /**
+     * get a singel bock from db.
+     *
+     * @param isbn isbn
+     * @return book
+     */
     public Book getBook(String isbn) {
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
 
         Session session = sessionFactory.getCurrentSession();
         Transaction tx2 = session.beginTransaction();
-        CriteriaBuilder builder =  session.getCriteriaBuilder();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
 
         CriteriaQuery<Book> query = builder.createQuery(Book.class);
         Root<Book> root = query.from(Book.class);
-        query.where(builder.equal(root.get("isbn"),isbn));
-        Query<Book> bookQuery=  session.createQuery(query);
+        query.where(builder.equal(root.get("isbn"), isbn));
+        Query<Book> bookQuery = session.createQuery(query);
         List<Book> answer = bookQuery.getResultList();
         tx2.commit();
         return answer.get(0);
     }
 
-    public void add(Book book){
+    /**
+     * add a book to the db.
+     *
+     * @param book book
+     */
+    public void add(Book book) {
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -76,26 +81,34 @@ public class MediumPersist {
 
     /**
      * Checks if a disc exists.
+     *
      * @param id disc to check.
      * @return true if the disc exists.
      */
-    public   boolean existDisc(String id) {
+    public boolean existDisc(String id) {
 
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
 
         Session session = sessionFactory.getCurrentSession();
         Transaction tx2 = session.beginTransaction();
-        CriteriaBuilder builder =  session.getCriteriaBuilder();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
 
         CriteriaQuery<Disc> query = builder.createQuery(Disc.class);
         Root<Disc> root = query.from(Disc.class);
-        query.where(builder.equal(root.get("barcode"),id));
-        Query<Disc> bookQuery=  session.createQuery(query);
+        query.where(builder.equal(root.get("barcode"), id));
+        Query<Disc> bookQuery = session.createQuery(query);
         List<Disc> answer = bookQuery.getResultList();
         tx2.commit();
         return answer.size() != 0;
     }
+
+    /**
+     * get single disc.
+     *
+     * @param id id
+     * @return disc
+     */
     public Disc getDisc(String id) {
 
         SessionFactory sessionFactory =
@@ -103,18 +116,23 @@ public class MediumPersist {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction tx2 = session.beginTransaction();
-        CriteriaBuilder builder =  session.getCriteriaBuilder();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
 
         CriteriaQuery<Disc> query = builder.createQuery(Disc.class);
         Root<Disc> root = query.from(Disc.class);
-        query.where(builder.equal(root.get("barcode"),id));
-        Query<Disc> bookQuery=  session.createQuery(query);
+        query.where(builder.equal(root.get("barcode"), id));
+        Query<Disc> bookQuery = session.createQuery(query);
         List<Disc> answer = bookQuery.getResultList();
         tx2.commit();
         return answer.get(0);
     }
 
-    public void add(Disc that){
+    /**
+     * add disc to db.
+     *
+     * @param that disc
+     */
+    public void add(Disc that) {
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -123,7 +141,12 @@ public class MediumPersist {
         tx.commit();
     }
 
-    public void update(Book that){
+    /**
+     * update book in db.
+     *
+     * @param that book
+     */
+    public void update(Book that) {
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -131,7 +154,13 @@ public class MediumPersist {
         session.update(that);
         tx.commit();
     }
-    public void update(Disc that){
+
+    /**
+     * update Disc in db.
+     *
+     * @param that disc
+     */
+    public void update(Disc that) {
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -141,7 +170,12 @@ public class MediumPersist {
     }
 
 
-    public Book[] getAllBooks(){
+    /**
+     * get all books from db.
+     *
+     * @return books
+     */
+    public Book[] getAllBooks() {
         Transaction trans = HibernateUtils.getSessionFactory().getCurrentSession().beginTransaction();
         CriteriaBuilder builder = HibernateUtils.getSessionFactory().getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Book> query = builder.createQuery(Book.class);
@@ -151,13 +185,18 @@ public class MediumPersist {
         List<Book> results = q.getResultList();
         trans.commit();
         Book[] resultArray = new Book[results.size()];
-        for (int i = 0; i < results.size(); i++){
-            resultArray[i]= results.get(i);
+        for (int i = 0; i < results.size(); i++) {
+            resultArray[i] = results.get(i);
         }
         return resultArray;
     }
 
-    public Disc[] getAllDisc(){
+    /**
+     * get all Disc from Db.
+     *
+     * @return discs
+     */
+    public Disc[] getAllDisc() {
         Transaction trans = HibernateUtils.getSessionFactory().getCurrentSession().beginTransaction();
         CriteriaBuilder builder = HibernateUtils.getSessionFactory().getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Disc> query = builder.createQuery(Disc.class);
@@ -167,8 +206,8 @@ public class MediumPersist {
         List<Disc> results = q.getResultList();
         trans.commit();
         Disc[] resultArray = new Disc[results.size()];
-        for (int i = 0; i < results.size(); i++){
-            resultArray[i]= results.get(i);
+        for (int i = 0; i < results.size(); i++) {
+            resultArray[i] = results.get(i);
         }
         return resultArray;
     }
