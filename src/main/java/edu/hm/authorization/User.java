@@ -54,18 +54,9 @@ public class User {
      * @return true = user added  false user exist
      */
     static public  boolean add(User user){
-        if(!exist(user)) {
-            userList.add(user);
-            return true;
-        }
-        return false;
-
+        return userList.add(user);
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(exist(new User("abc","abc")));
-    }
 
     //Todo static?
     static public  boolean exist(User user){
@@ -98,7 +89,7 @@ public class User {
 
         }
         */
-        return false;
+        return userList.contains(user);
 
     }
 
