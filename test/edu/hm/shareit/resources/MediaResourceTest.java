@@ -96,6 +96,10 @@ public class MediaResourceTest {
 
 
 
+        //Todo updateDisc resetMediaressource getDisc@Mediapersist
+        Assert.assertEquals(200,m.updateDisc("1",token,d1).getStatus());
+
+
         MediumPersist imp = new MediumPersist();
 
         Medium[] m = imp.getAllBooks();
@@ -110,15 +114,15 @@ public class MediaResourceTest {
         //Assert.assertTrue(bool);
 
         //Todo richtig heftiger Fehler
-        /*
-        imp.update(b2);
+        /*        imp.update(b2);
         imp.update(d2);
 
         Assert.assertEquals(imp.getBook(b1.getIsbn()),b1);
         Assert.assertEquals(imp.getBook(d1.getBarcode()),d1);
         */
 
-        //Todo updateDisc resetMediaressource
+
+
     }
 
 }

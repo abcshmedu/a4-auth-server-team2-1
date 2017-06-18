@@ -8,21 +8,21 @@ import javax.ws.rs.core.Response;
 public class MockAuthServer implements IAuthServer {
     @Override
     public Response login(User user) {
-        return null;
+        return Response.status(200).build();
     }
 
     @Override
     public Response sig(User user) {
-        return null;
+        return Response.status(200).build();
     }
 
     @Override
     public Response logout(User user) {
-        return null;
+        return Response.status(200).build();
     }
 
     @Override
     public Response validate(Token token) {
-        return null;
+        return Response.status(200).build();
     }
 }

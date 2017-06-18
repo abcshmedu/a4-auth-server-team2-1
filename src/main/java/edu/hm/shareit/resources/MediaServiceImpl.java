@@ -28,7 +28,7 @@ public class MediaServiceImpl implements MediaService {
 
 
     /**
-     * KOnst.
+     * KOnst. Depricated.
      * @param reset true
      */
     public MediaServiceImpl(boolean reset) {
