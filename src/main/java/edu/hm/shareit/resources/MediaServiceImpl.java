@@ -81,15 +81,8 @@ public class MediaServiceImpl implements MediaService {
     //TODO
     @Override
     public Medium[] getBooks() {
-        Medium[] out = new Medium[bookSet.size()];
-        Iterator<Book> i = bookSet.iterator();
-        for (int a = 0; a < bookSet.size(); a++) {
 
-
-            out[a] = i.next();
-        }
-
-        return out;
+        return getAllBooks();
     }
 
     @Override
@@ -280,5 +273,21 @@ public class MediaServiceImpl implements MediaService {
         tx.commit();
     }
 
+    Book[] getAllBooks(){
+        SessionFactory sessionFactory =
+                HibernateUtils.getSessionFactory();
+
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx2 = session.beginTransaction();
+        CriteriaBuilder builder =  session.getCriteriaBuilder();
+
+        CriteriaQuery<Disc> query = builder.createQuery(Book.class);
+        Root<Book> root = query.from(Book.class);
+        query.where(root.isNotNull());
+        Query<Book> bookQuery=  session.createQuery(query);
+        List<Book> answer = bookQuery.getResultList();
+        tx2.commit();
+      return (Book[]) answer.toArray();
+    }
 
 }
