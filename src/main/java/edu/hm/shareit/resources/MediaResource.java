@@ -197,27 +197,30 @@ public class MediaResource  {
     @Path("/discs")
     @Produces("application/json")
     public Response getDiscs(@QueryParam("token")String token) {
-        if (Token.isAccesGranted(token)) {
-
-
+        if (Token.isAccesGranted(token)){
             Medium[] result = mediaService.getDiscs();
+            //HttpRequest für teilbare Microservices
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
             int returnCode = MediaServiceResult.OK.getCode();
             if (result.length > 0) {
                 for (int i = 0; i < result.length; i++) {
-                    jsonArray.put(((Disc) result[i]).toJSON());
+                    jsonArray.put(((Disc)result[i]).toJSON());
                 }
-            } else {
-                returnCode = MediaServiceResult.BAD_REQUEST.getCode();
-                jsonObject.put("detail", "Es gibt noch keine Discs!");
-                return Response.status(returnCode).entity(jsonObject.toString()).build();
+            }
+            else {
+            /* old
+            returnCode = MediaServiceResult.BAD_REQUEST.getCode();
+            jsonObject.put("detail", "Es gibt noch keine Bücher!");
+            return Response.status(returnCode).entity(jsonObject.toString()).build();
+            */
+                returnCode = MediaServiceResult.OK.getCode();
+
             }
             jsonObject.put("", jsonArray);
-
             return Response.status(returnCode).entity(jsonArray.toString()).build();
-            //Todo result -> JSON -> Response
-        } else {
+        }
+        else {
             return noToken();
         }
     }
