@@ -282,10 +282,10 @@ public class MediaServiceImpl implements MediaService {
         CriteriaBuilder builder =  session.getCriteriaBuilder();
 
         CriteriaQuery<Book> query = builder.createQuery(Book.class);
-        Root<Book> root = query.from(Book.class);
-        query.where(root.isNotNull());
-        Query<Book> bookQuery=  session.createQuery(query);
-        List<Book> answer = bookQuery.getResultList();
+
+        Query<Book> q = HibernateUtils.getSessionFactory().getCurrentSession().createQuery(query);
+        List<Book> answer = q.getResultList();
+
         tx2.commit();
         Book[] resultArray = new Book[answer.size()];
         for (int i = 0; i < answer.size(); i++){
