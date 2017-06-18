@@ -6,6 +6,7 @@ import edu.hm.authorization.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * *****************************************************************
@@ -26,7 +27,8 @@ public class MediaResourceTest {
     Book b1,b2,b3;
     Disc d1,d2,d3;
     MediaResource m = new MediaResource();
-    @BeforeClass public void init(){
+
+    @Before public void init(){
         User user = new User("1","1");
         User.add(user);
         token = Token.generateToken(user).toString();
@@ -101,5 +103,10 @@ public class MediaResourceTest {
         Assert.assertEquals(imp.getBook(d1.getBarcode()),d1);
     }
 
+    @Test
+    public void dummy(){
+        System.out.println("over?");
+        Assert.assertTrue(true);
+    }
 
 }
