@@ -281,13 +281,13 @@ public class MediaServiceImpl implements MediaService {
         Transaction tx2 = session.beginTransaction();
         CriteriaBuilder builder =  session.getCriteriaBuilder();
 
-        CriteriaQuery<Disc> query = builder.createQuery(Book.class);
+        CriteriaQuery<Book> query = builder.createQuery(Book.class);
         Root<Book> root = query.from(Book.class);
         query.where(root.isNotNull());
         Query<Book> bookQuery=  session.createQuery(query);
         List<Book> answer = bookQuery.getResultList();
         tx2.commit();
-      return (Book[]) answer.toArray();
+        return (Book[]) answer.toArray();
     }
 
 }
