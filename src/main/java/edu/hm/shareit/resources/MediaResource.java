@@ -20,7 +20,7 @@ public class MediaResource  {
 
 
     @Inject
-    private MediaService mediaService= Guice.createInjector(new ImplModul()).getInstance(MediaService.class);
+    private MediaService mediaService;//= Guice.createInjector(new ImplModul()).getInstance(MediaService.class);
 
     @Inject private IAuthServer authServer;// = ShareitServletContextListener.getInjectorInstance().getInstance(IAuthServer.class);
 
@@ -118,6 +118,7 @@ public class MediaResource  {
     @Produces("application/json")
     public Response GetSingleBook(@PathParam("isbn") String isbn,@QueryParam("token") String token) {
         if (Token.isAccesGranted(token)) {
+
             Medium[] result = mediaService.getBooks();
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();

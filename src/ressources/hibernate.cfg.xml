@@ -5,16 +5,18 @@
 
 <hibernate-configuration>
 
-    <session-factory>
-        <property name="connection.url">jdbc:hsqldb:file:/Users/MatHe/Documents/Hibernate/swa-db;shutdown=true;hsqldb.write_delay=false;</property>
-        <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
-        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
-        <property name="connection.username">sa</property>
-        <property name="connection.password"/>
 
+
+    <session-factory>
+        <property name="hibernate.archive.autodetection">class,hbm</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password">1</property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:mem:howtodoinjava</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="current_session_context_class">thread</property>
-        <!--<property name="show_sql">true</property>-->
-        <property name="hbm2ddl.auto">create</property>
         <property name="transaction.auto_close_session">true</property>
         <mapping class="edu.hm.shareit.resources.Book" />
         <mapping class="edu.hm.shareit.resources.Disc" />

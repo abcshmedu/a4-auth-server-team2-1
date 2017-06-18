@@ -153,7 +153,7 @@ public class MediaServiceImpl implements MediaService {
 
 
 
-      boolean existBook(String isbn) {
+      private boolean existBook(String isbn) {
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
 
@@ -167,8 +167,9 @@ public class MediaServiceImpl implements MediaService {
         Query<Book> bookQuery=  session.createQuery(query);
         List<Book> answer = bookQuery.getResultList();
         tx2.commit();
-        return answer.size() == 0;
+        return answer.size() != 0;
     }
+
     Book getBook(String isbn) {
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
@@ -201,7 +202,7 @@ public class MediaServiceImpl implements MediaService {
      * @param id disc to check.
      * @return true if the disc exists.
      */
-      boolean existDisc(String id) {
+     private  boolean existDisc(String id) {
 
         SessionFactory sessionFactory =
                 HibernateUtils.getSessionFactory();
@@ -216,7 +217,7 @@ public class MediaServiceImpl implements MediaService {
         Query<Disc> bookQuery=  session.createQuery(query);
         List<Disc> answer = bookQuery.getResultList();
         tx2.commit();
-        return answer.size() == 0;
+        return answer.size() != 0;
     }
     Disc getDisc(String id) {
 
