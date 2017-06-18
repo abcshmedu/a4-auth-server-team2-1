@@ -24,18 +24,7 @@ import java.util.Set;
  */
 @Entity
 public class User {
-    public static void main(String[] args) {
-        User u1 = new User("a","a");
-        User u2 = new User("a","a");
-        System.out.println(Boolean.toString(!exist(u1)));
-        System.out.println(Boolean.toString(add(u1)));
-        System.out.println(Boolean.toString(!exist(u2)));
-        System.out.println(Boolean.toString(!add(u1)));
-        System.out.println(Boolean.toString(add(u2)));
-        System.out.println(Boolean.toString(exist(u1)));
-        System.out.println(Boolean.toString(exist(u2)));
 
-    }
 
     private static Set<User> userList = new HashSet<>();
     @Id
